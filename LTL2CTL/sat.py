@@ -1,3 +1,4 @@
+from formula_parser import *
 
 class SatSet():
     def __init__(self, mask, result):
@@ -33,20 +34,19 @@ class SatSetComplement():
 def get_sat(formula, el_dict):
     if formula in el_dict:
         return SatSet(1 << el_dict[formula], 1 << el_dict[formula])
-    if cur_formula.startswith('~'):
-        # ~[g]
-        assert cur_formula[1] == '['
-        assert cur_formula[-1] == ']'			
-        res = SatSetComplement(get_sat(cur_formula[1:-1], el_dict))    
-    if cur_formula.startswith('['):
-        close_bracket = find_close_bracket(cur_formula, 0)
-        assert cur_formula[close_bracket] == ']'
-        assert cur_formula[close_bracket+2] == '['
-        assert cur_formula[-1] == ']'
-        operand = cur_formula[close_bracket+1]
-        formula_g = cur_formula[1:close_bracket]
-        formula_h = cur_formula[close_bracket+3:-1]
-        formulas_to_check.append(formula_g)
-        formulas_to_check.append(formula_h)
-        if operand is 'U':
-            el.append('X[[%s]U[%s]]' % (formula_g, formula_h))
+    op, form_g, form_h = parse_next_step(formula)    
+    if op == '~':
+        return SatSetComplement(get_sat(form_g, el_dict))
+    if op == 'V':
+        return SatSetUnion(get_sat(form_g, el_dict), get_sat(form_h, el_dict))
+    if op == 'U':
+        return SatSetUnion(get_sat(form_h, el_dict), 
+            SatSetConjection(get_sat(form_g, el_dict), 
+                get_sat(get_next_until_form(form_g, form_h), el_dict)))
+
+def get_set(sat_set, max_index):
+    res = []
+    for i in xrange(1 << max_index):
+        if sat_set.contains(i):
+            res.append(bin(i))
+    return res

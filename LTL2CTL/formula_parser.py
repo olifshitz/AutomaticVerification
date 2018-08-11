@@ -28,3 +28,6 @@ def parse_next_step(formula):
         formula_h = formula[close_bracket+3:-1]
         return operand, formula_g, formula_h
     return None, formula, None
+
+def get_next_until_form(form_g, form_h):
+    return 'X[[%s]U[%s]]' % (form_g, form_h)

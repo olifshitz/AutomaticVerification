@@ -1,5 +1,5 @@
 from collections import deque
-from formula_parser import parse_next_step
+from formula_parser import *
 
 #p
 #~(g)
@@ -31,6 +31,6 @@ def get_elementary_formulas(formula):
 		if op == 'U':
 			formulas_to_check.append(form_g)
 			formulas_to_check.append(form_h)
-			el.append('X[[%s]U[%s]]' % (form_g, form_h))
+			el.append(get_next_until_form(form_g, form_h))
 			continue
 	return el

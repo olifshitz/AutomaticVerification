@@ -1,5 +1,5 @@
 from elementary import get_elementary_formulas
-
+from sat import get_sat, get_set
 # parse LTL formula
 # get the model from file
 # 
@@ -22,6 +22,8 @@ el = get_elementary_formulas(formula)
 el_dict = convert_list_to_index_dictionary(el)
 print el_dict
 print model
+
+print get_set(get_sat(formula, el_dict), len(el))
 
 if __name__ == '__main__':
 	print "Hello, World!"
