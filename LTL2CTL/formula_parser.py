@@ -1,3 +1,4 @@
+from pyeda.inter import *
 
 def find_close_bracket(formula, index):
 	assert formula[index] == '['
@@ -12,7 +13,7 @@ def find_close_bracket(formula, index):
 		if counter == 0:
 			return i+index+1
 
-def parse_next_step(formula):
+def parse_next_step(formula):    
     if formula[0] in ('~', 'X'):
         # ~[g]
         assert formula[1] == '['
@@ -31,3 +32,9 @@ def parse_next_step(formula):
 
 def get_next_until_form(form_g, form_h):
     return 'X[[%s]U[%s]]' % (form_g, form_h)
+
+def convert_list_to_index_dictionary(l, suffix=''):
+    d = {}
+    for i in range(len(l)):
+        d[l[i]] = (i,bddvar(l[i]+suffix))
+    return d
