@@ -1,8 +1,6 @@
 from elementary import get_elementary_formulas
 from sat import get_sat, get_set
-# parse LTL formula
-# get the model from file
-# 
+from pyeda.inter import *
 
 formula = '[a]U[b]'
 model = {
@@ -14,16 +12,16 @@ model = {
 
 def convert_list_to_index_dictionary(l):
 	d = {}
-	for i in xrange(len(l)):
-		d[l[i]] = i
+	for i in range(len(l)):
+		d[l[i]] = (i,bddvar(l[i]))
 	return d
 
-el = get_elementary_formulas(formula)
-el_dict = convert_list_to_index_dictionary(el)
-print el_dict
-print model
+print(model)
 
-print get_set(get_sat(formula, el_dict), len(el))
+el = get_elementary_formulas(formula)
+el_bdds = convert_list_to_index_dictionary(el)
+
+print(list(get_sat(formula, el_bdds).satisfy_all()))
 
 if __name__ == '__main__':
-	print "Hello, World!"
+	print("Hello, World!")

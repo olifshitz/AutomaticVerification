@@ -2,7 +2,7 @@
 def find_close_bracket(formula, index):
 	assert formula[index] == '['
 	counter = 1
-	for i in xrange(len(formula)-index):
+	for i in range(len(formula)-index):
 		if(formula[index+i+1] not in ['[',']']):
 			continue
 		if(formula[index+i+1] == '['):
