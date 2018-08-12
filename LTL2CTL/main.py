@@ -2,6 +2,7 @@ from elementary import get_elementary_formulas
 from sat import get_sat, get_set
 from relation import *
 from pyeda.inter import *
+from pyeda.boolalg.bdd import _NODES
 
 formula = '[a]U[b]'
 model = {
@@ -19,6 +20,7 @@ el_bdds = convert_list_to_index_dictionary(el)
 print(el_bdds)
 print(list(get_sat(formula, el_bdds).satisfy_all()))
 print(list(get_relation_table(el_bdds).satisfy_all()))
+print('Nodes: %d' % len(_NODES))
 
 if __name__ == '__main__':
 	print("Hello, World!")
