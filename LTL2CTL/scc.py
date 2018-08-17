@@ -7,7 +7,8 @@ def predecessor(base, bound, relation, norm_to_other_compose):
     return ignore_prims(result, norm_to_other_compose.values())
 
 def successor(base, bound, relation, norm_to_other_compose):
-    return (relation & base).compose(dict_invert(norm_to_other_compose)) & bound
+    result = (relation & base).compose(dict_invert(norm_to_other_compose)) & bound
+    return ignore_prims(result, norm_to_other_compose.values())
 
 def backword_set(base, bound, relation, norm_to_other_compose):
     res = 0
