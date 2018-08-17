@@ -59,11 +59,11 @@ for rel in product_relations.satisfy_all():
 
 print("product fairness [0]", list(product_relations.restrict({a:1,b:1}).satisfy_all()))
 
-print('Nodes: %d' % len(_NODES))
-
 print('--------------')
 
 print('predecssor:', list(predecessor(~a & msb[0] & msb[1], 1, product_relations, global_compose).satisfy_all()))
+
+print('Nodes: %d' % len(_NODES))
 
 if __name__ == '__main__':
 	print("Hello, World!")

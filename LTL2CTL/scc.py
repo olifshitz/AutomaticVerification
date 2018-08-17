@@ -1,8 +1,10 @@
 from pyeda.inter import *
 from formula_parser import *
+from bdd_utils import *
 
 def predecessor(base, bound, relation, norm_to_other_compose):
-    return relation & base.compose(norm_to_other_compose) & bound
+    result = relation & base.compose(norm_to_other_compose) & bound
+    return ignore_prims(result, norm_to_other_compose.values())
 
 def successor(base, bound, relation, norm_to_other_compose):
     return (relation & base).compose(dict_invert(norm_to_other_compose)) & bound
