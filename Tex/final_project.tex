@@ -1,0 +1,93 @@
+%% AGT class -- Feldman -- TAU -- Spring 2018 %%
+
+\documentclass[11pt]{article}
+\usepackage{amssymb}
+\usepackage{mathtools}
+
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+
+% TikZ Drawing packages
+
+\usepackage{bbm}
+\usepackage{tikz}
+\usetikzlibrary{arrows}
+\usetikzlibrary{automata,positioning}
+
+
+\textwidth=6in
+\oddsidemargin=0.25in
+\evensidemargin=0.25in
+\topmargin=-0.1in
+\footskip=0.8in
+\parindent=0.0cm
+\parskip=0.3cm
+\textheight=8.00in
+\setcounter{tocdepth} {3}
+\setcounter{secnumdepth} {2}
+\sloppy
+
+\begin{document}
+
+\setlength{\oddsidemargin}{.25in}
+\setlength{\evensidemargin}{.25in}
+\setlength{\textwidth}{6in}
+\setlength{\topmargin}{-0.4in}
+\setlength{\textheight}{8.5in}
+
+\newcommand{\handout}[4]{
+   \noindent
+   \begin{center}
+   \framebox{
+      \vbox{
+    \hbox to 5.78in { {\bf Automatic Verification of Systems} \hfill #1 }
+       \vspace{4mm}
+       \hbox to 5.78in { {\Large \hfill #4  \hfill} }
+       \vspace{2mm}
+       \hbox to 5.78in { {\it #2 \hfill #3} }
+      }
+   }
+   \end{center}
+   \vspace*{4mm}
+}
+
+\newcommand{\finalProjTitle}[4]{\handout{#1}{Lecturer:
+#2}{Names: #3}{#4}}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{observation}[theorem]{Observation}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{fact}[theorem]{Fact}
+\newtheorem{assumption}[theorem]{Assumption}
+\newtheorem{example}{Example}
+
+\newcommand{\qed}{\rule{7pt}{7pt}}
+
+\newenvironment{proof}{\noindent{\bf Proof:}\hspace*{1em}}{\qed\bigskip}
+\newenvironment{proof-sketch}{\noindent{\bf Sketch of Proof:}\hspace*{1em}}{\qed\bigskip}
+\newenvironment{proof-idea}{\noindent{\bf Proof Idea:}\hspace*{1em}}{\qed\bigskip}
+\newenvironment{proof-of-lemma}[1]{\noindent{\bf Proof of Lemma #1:}\hspace*{1em}}{\qed\bigskip}
+\newenvironment{proof-attempt}{\noindent{\bf Proof Attempt:}\hspace*{1em}}{\qed\bigskip}
+\newenvironment{proofof}[1]{\noindent{\bf Proof}
+of #1:\hspace*{1em}}{\qed\bigskip}
+\newenvironment{remark}{\noindent{\bf Remark}\hspace*{1em}}{\bigskip}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%Michal%% ==> Change the lecture number, lecture date, and Scribe name
+\finalProjTitle{September 3, 2018}{Dr. Sharon Shoham}{Omri Lifshitz, Idan Berkovits}
+{Symbolic Model checking}
+
+\section{Abstract}
+
+\section{Introduction}
+
+\pagebreak
+\bibliographystyle{plain}
+\bibliography{final_project}
+
+\end{document}
