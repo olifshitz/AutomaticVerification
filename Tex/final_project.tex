@@ -84,9 +84,20 @@ of #1:\hspace*{1em}}{\qed\bigskip}
 
 \section{Introduction}
 
+\section{CTL and LTL Model Checking}
+
 \section{Symbolic Model Checking - BDDs}
 
 \section{Algorithm}
+    \subsection{Finding Maximal SCC}
+        As taught in class, in order to assert that there is a fair path in the 
+        product structure, we need to find a strongly connected component (SCC)
+        that is reachable from the initial state and that intersects with
+        each one of the fairness constraints.
+        
+        In this section we will present the algorithm use to find the SCCs in
+        a given model using BDDs. Our algorithm is based the algorithm explained
+        in \cite{scc}.
 
 \section{Implementation}
 
