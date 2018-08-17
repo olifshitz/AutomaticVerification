@@ -1,3 +1,26 @@
 {
-    "python.pythonPath": "C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python35-32"
+    "python.pythonPath": "C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python35-32",
+    "python.linting.flake8Enabled": true,
+    "python.linting.enabled": true,
+    "editor.minimap.enabled": false,
+    "files.trimTrailingWhitespace": true,
+    "editor.renderWhitespace": "none",
+    "editor.renderIndentGuides": true,
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true,
+        "**/*.pyc": true,
+        "**/__pycache__": true
+    },
+    "python.formatting.provider": "yapf",
+    "editor.wordWrap": "on",
+    "diffEditor.renderSideBySide": false,
+    "editor.stablePeek": true,
+    "editor.formatOnType": true,
+    "telemetry.enableCrashReporter": false,
+    "workbench.startupEditor": "none",
+    "explorer.confirmDelete": false,
 }

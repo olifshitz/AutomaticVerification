@@ -13,12 +13,12 @@ def find_close_bracket(formula, index):
 		if counter == 0:
 			return i+index+1
 
-def parse_next_step(formula):    
+def parse_next_step(formula):
     if formula[0] in ('~', 'X'):
         # ~[g]
         assert formula[1] == '['
-        assert formula[-1] == ']'		
-        return formula[0], formula[2:-1], None      
+        assert formula[-1] == ']'
+        return formula[0], formula[2:-1], None
     if formula.startswith('['):
         close_bracket = find_close_bracket(formula, 0)
         assert formula[close_bracket] == ']'
@@ -38,3 +38,6 @@ def convert_list_to_index_dictionary(l, suffix=''):
     for i in range(len(l)):
         d[l[i]] = bddvar(l[i]+suffix)
     return d
+
+def dict_invert(dictionary):
+    return {dictionary[key]:key for key in dictionary}
