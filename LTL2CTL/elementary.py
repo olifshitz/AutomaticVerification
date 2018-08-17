@@ -1,12 +1,6 @@
 from collections import deque
 from formula_parser import *
 
-#p
-#~(g)
-#X(g)
-#(g)V(h)
-#(g)U(h)
-
 def get_elementary_formulas(formula):
 	el = []
 	formulas_to_check = deque([formula])

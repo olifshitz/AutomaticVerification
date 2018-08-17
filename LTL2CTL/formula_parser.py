@@ -36,5 +36,5 @@ def get_next_until_form(form_g, form_h):
 def convert_list_to_index_dictionary(l, suffix=''):
     d = {}
     for i in range(len(l)):
-        d[l[i]] = (i,bddvar(l[i]+suffix))
+        d[l[i]] = bddvar(l[i]+suffix)
     return d
