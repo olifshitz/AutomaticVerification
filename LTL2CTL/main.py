@@ -13,27 +13,23 @@ def print_debug_bdd(string, bdd):
     print('%s' % (string,), list(bdd.satisfy_all()))
     #input()
 
-
-def and_form(g, h):
-	return '~[[~[%s]]V[~[%s]]]' % (g, h)
-
 #formula = and_form('[%s]U[%s]' % (and_form('a', 'b'), and_form('~[a]', 'b')), and_form('a', 'b'))
-formula = "[a]U[b]"
-print(formula)
+formula = FormConst.f_until('a','b')
+print('formula', formula)
 
 el = get_elementary_formulas(formula)
 el_bdds = convert_list_to_index_dictionary(el)
-el_bdds_other = convert_list_to_index_dictionary(el,'^')
+el_bdds_other = convert_list_to_index_dictionary(el, consts.TAG_IDENTIFIER)
 
 el_bdds_compose = {el_bdds[el]:el_bdds_other[el] for el in el_bdds}
 
-a,b = el_bdds['a'], el_bdds['b']
+a,b = map(bddvar, 'ab')
 
 #model
 model_index_length = 2
 
-msb = bddvars('$', model_index_length) # model states bits: 1=00, 2=01, 3=10, 4=11
-msb_other = bddvars('%', model_index_length) # model states bits: 1=00, 2=01, 3=10, 4=11
+msb = bddvars(consts.MODEL_IDX, model_index_length) # model states bits: 1=00, 2=01, 3=10, 4=11
+msb_other = bddvars(consts.MODEL_OTHER_IDX, model_index_length) # model states bits: 1=00, 2=01, 3=10, 4=11
 
 msb_compose = {msb[i]:msb_other[i] for i in range(model_index_length)}
 
@@ -82,6 +78,8 @@ print('RESULT:', pathFinder.does_fair_path_exists())
 print_debug_bdd('init_nodes:', ignore_prims(pathFinder.find_fair_nodes(), el_bdds.values()))
 
 print('Nodes: %d' % len(_NODES))
+
+
 
 if __name__ == '__main__':
 	print("Hello, World!")
