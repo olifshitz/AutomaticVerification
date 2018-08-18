@@ -11,6 +11,8 @@ def get_sat(formula, el_bdds):
         return ~get_sat(form_g, el_bdds)
     if op == consts.OR_IDENTIFIER:
         return get_sat(form_g, el_bdds) | get_sat(form_h, el_bdds)
+    if op == consts.AND_IDENTIFIER:
+        return get_sat(form_g, el_bdds) & get_sat(form_h, el_bdds)
     if op == consts.UNTIL_IDENTIFIER:
         return get_sat(form_h, el_bdds) | (get_sat(form_g, el_bdds) &
                 get_sat(get_next_until_form(form_g, form_h), el_bdds))
@@ -30,7 +32,7 @@ def get_all_fairness_constraints(formula, el_bdds):
         if op in (consts.NOT_IDENTIFIER, consts.NEXT_IDENTIFIER):
             formulas_to_check.append(form_g)
             continue
-        if op == consts.OR_IDENTIFIER:
+        if op in (consts.OR_IDENTIFIER, consts.AND_IDENTIFIER):
             formulas_to_check.append(form_g)
             formulas_to_check.append(form_h)
             continue

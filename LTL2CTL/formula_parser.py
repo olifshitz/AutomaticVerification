@@ -24,8 +24,8 @@ class FormConst():
 
     @staticmethod
     def f_and(g, h):
-        #return FormConst._binary_op(consts.AND_IDENTIFIER, g, h)
-        return Simplify.f_and(g,h)
+        return FormConst._binary_op(consts.AND_IDENTIFIER, g, h)
+        #return Simplify.f_and(g,h)
 
     @staticmethod
     def f_next(g):

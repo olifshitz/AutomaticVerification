@@ -20,7 +20,7 @@ def get_elementary_formulas(formula):
 			formulas_to_check.append(form_g)
 			el.append(cur_formula)
 			continue
-		if op == consts.OR_IDENTIFIER:
+		if op in (consts.OR_IDENTIFIER, consts.AND_IDENTIFIER):
 			formulas_to_check.append(form_g)
 			formulas_to_check.append(form_h)
 			continue
