@@ -5,8 +5,21 @@ from scc import *
 from bdd_utils import *
 from pyeda.inter import *
 from pyeda.boolalg.bdd import _NODES
+from ctl_solver import *
 
-formula = '[a]U[b]'
+def print_debug_bdd(string, bdd):
+    if (bdd.is_zero()):
+        return
+    print('%s' % (string,), list(bdd.satisfy_all()))
+    #input()
+
+
+def and_form(g, h):
+	return '~[[~[%s]]V[~[%s]]]' % (g, h)
+
+#formula = and_form('[%s]U[%s]' % (and_form('a', 'b'), and_form('~[a]', 'b')), and_form('a', 'b'))
+formula = "[a]U[b]"
+print(formula)
 
 el = get_elementary_formulas(formula)
 el_bdds = convert_list_to_index_dictionary(el)
@@ -41,41 +54,32 @@ model_relations |= (msb[0] & msb[1]) & (msb_other[0] & msb_other[1]) # 4->4
 
 global_compose = {**msb_compose, **el_bdds_compose}
 
-print("model atomic", list(model_atomic.satisfy_all()))
-print("model relations", list(model_relations.satisfy_all()))
+print_debug_bdd("model atomic", model_atomic)
+print_debug_bdd("model relations", model_relations)
 
 print("elemntary bdds", el_bdds)
 initial_states = get_sat(formula, el_bdds)
-print("sat(f)", list(initial_states.satisfy_all()))
+print_debug_bdd("sat(f)", initial_states)
 tableau_relations = get_relation_table(el_bdds)
-print("tableau relations", list(tableau_relations.satisfy_all()))
+print_debug_bdd("tableau relations", tableau_relations)
 
 fairness_constraints = get_all_fairness_constraints(formula, el_bdds)
 print("product fairness length", len(fairness_constraints))
-print("product fairness [0]", list(fairness_constraints[0].satisfy_all()))
 
 product_relations = model_relations & tableau_relations & model_atomic & model_atomic_other
-for rel in product_relations.restrict({a:1,b:0}).satisfy_all():
-	print("product relation", rel)
+#print_debug_bdd("product relation", product_relations)
 
 print('--------------')
-
-node24 = ~a & msb[0] & msb[1]
-
-#print('predecssor:', list(predecessor(node24, 1, product_relations, global_compose).satisfy_all()))
-#print('global predecssor:', list(backword_set(node24, 1, product_relations, global_compose).satisfy_all()))
-#print('fmd predecssor:', list(fmd_predecessor(~a & msb[0] & msb[1], ~node24, product_relations, global_compose).satisfy_all()))
-
-my_bound = (a & b & msb[0] & ~msb[1]) | (a & ~b & ~msb[0] & ~msb[1])
-
-print('test predecessor:', list(predecessor(my_bound, my_bound, product_relations, global_compose).satisfy_all()))
-
-print('pick one:', list(pick_one(node24, global_compose.keys()).satisfy_all()))
 
 print('sccs:')
 sccFinder = SccFinder(product_relations, global_compose)
 for scc in sccFinder.scc_decomp():
-	print('  scc:', list(scc.satisfy_all()))
+	print_debug_bdd('  scc:', scc)
+
+print('fair path finder:')
+pathFinder = FairnPathFinder(initial_states, fairness_constraints, product_relations, global_compose)
+print('RESULT:', pathFinder.does_fair_path_exists())
+print_debug_bdd('init_nodes:', ignore_prims(pathFinder.find_fair_nodes(), el_bdds.values()))
 
 print('Nodes: %d' % len(_NODES))
 

@@ -2,18 +2,7 @@ from pyeda.inter import *
 from formula_parser import *
 from bdd_utils import *
 
-def print_debug_bdd(bdd, string):
-    #if (bdd.is_zero()):
-    #    return
-    print('  DEBUG %s' % (string,), list(bdd.satisfy_all()))
-    input()
-
-
 def predecessor(base, bound, relation, norm_to_other_compose):
-    #print_debug_bdd(base, 'base')
-    #print_debug_bdd(base.compose(norm_to_other_compose), 'base composed')
-    #print_debug_bdd(relation & base.compose(norm_to_other_compose), 'hello')
-    #print_debug_bdd(ignore_prims(relation & base.compose(norm_to_other_compose), norm_to_other_compose.values()), 'hello ignored')
     result = ignore_prims(relation & base.compose(norm_to_other_compose), norm_to_other_compose.values())
     return result & bound
 
@@ -42,14 +31,10 @@ def fmd_predecessor(base, bound, relation, norm_to_other_compose):
     front = base
     while (not front.is_zero()):
         x = predecessor(front, bound, relation, norm_to_other_compose)
-        #print_debug_bdd(x, 'fmd x')
         y = predecessor(bound, bound, relation, norm_to_other_compose)
-        #print_debug_bdd(y, 'fmd y')
         front = x & ~y
-        #print_debug_bdd(front, 'fmd front')
         pred |= front
         bound &= ~front
-        #print_debug_bdd(bound, 'fmd bound')
     return pred
 
 class SccFinder():
@@ -71,10 +56,7 @@ class SccFinder():
         pass
 
     def _scc_decomp_recur(self, v, back_set):
-        #print_debug_bdd(v, 'v')
-        #print_debug_bdd(back_set, 'bv')
         f = forward_set(v, back_set, self._relation, self._otn_compose)
-        #print_debug_bdd(f, 'fv')
         if (not f.is_zero()):
             yield f
             pass
@@ -82,16 +64,11 @@ class SccFinder():
             self._current_node_set &= ~v
             pass
         x = f | v
-        #print_debug_bdd(x, 'x')
         R = back_set & ~x
-        #print_debug_bdd(R, 'R')
         y = fmd_predecessor(x, R, self._relation, self._nto_compose)
-        #print_debug_bdd(y, 'y')
         self._current_node_set &= ~y
         R &= ~y
-        #print_debug_bdd(R, 'R')
         IP = predecessor(y | x, R, self._relation, self._nto_compose)
-        #print_debug_bdd(IP, 'IP')
         while (not R.is_zero()):
             v = pick_one(IP, self._nto_compose.keys())
             bv = backword_set(v, R, self._relation, self._nto_compose)

@@ -21,3 +21,9 @@ def pick_one(bdd, prims):
             continue
         res &= ~prim
     return res
+
+def count_solutions(bdd, prims_len):
+    res = 0
+    for satisfy in bdd.satisfy_all():
+        res += 1 << (prims_len - len(satisfy))
+    return res
