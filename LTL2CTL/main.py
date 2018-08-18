@@ -2,6 +2,7 @@ from elementary import get_elementary_formulas
 from sat import get_sat, get_set, get_all_fairness_constraints
 from relation import *
 from scc import *
+from bdd_utils import *
 from pyeda.inter import *
 from pyeda.boolalg.bdd import _NODES
 
@@ -54,18 +55,27 @@ print("product fairness length", len(fairness_constraints))
 print("product fairness [0]", list(fairness_constraints[0].satisfy_all()))
 
 product_relations = model_relations & tableau_relations & model_atomic & model_atomic_other
-for rel in product_relations.satisfy_all():
+for rel in product_relations.restrict({a:1,b:0}).satisfy_all():
 	print("product relation", rel)
-
-print("product fairness [0]", list(product_relations.restrict({a:1,b:1}).satisfy_all()))
 
 print('--------------')
 
 node24 = ~a & msb[0] & msb[1]
 
-print('predecssor:', list(predecessor(node24, 1, product_relations, global_compose).satisfy_all()))
-print('global predecssor:', list(backword_set(node24, 1, product_relations, global_compose).satisfy_all()))
-print('fmd predecssor:', list(fmd_predecessor(~a & msb[0] & msb[1], ~node24, product_relations, global_compose).satisfy_all()))
+#print('predecssor:', list(predecessor(node24, 1, product_relations, global_compose).satisfy_all()))
+#print('global predecssor:', list(backword_set(node24, 1, product_relations, global_compose).satisfy_all()))
+#print('fmd predecssor:', list(fmd_predecessor(~a & msb[0] & msb[1], ~node24, product_relations, global_compose).satisfy_all()))
+
+my_bound = (a & b & msb[0] & ~msb[1]) | (a & ~b & ~msb[0] & ~msb[1])
+
+print('test predecessor:', list(predecessor(my_bound, my_bound, product_relations, global_compose).satisfy_all()))
+
+print('pick one:', list(pick_one(node24, global_compose.keys()).satisfy_all()))
+
+print('sccs:')
+sccFinder = SccFinder(product_relations, global_compose)
+for scc in sccFinder.scc_decomp():
+	print('  scc:', list(scc.satisfy_all()))
 
 print('Nodes: %d' % len(_NODES))
 
