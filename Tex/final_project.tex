@@ -1,6 +1,9 @@
 \documentclass[11pt]{article}
 \usepackage{amssymb}
 \usepackage{mathtools}
+\usepackage{algorithm}
+\usepackage{multicol}
+\usepackage[noend]{algpseudocode}
 
 \DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
 
@@ -98,6 +101,68 @@ of #1:\hspace*{1em}}{\qed\bigskip}
         In this section we will present the algorithm use to find the SCCs in
         a given model using BDDs. Our algorithm is based the algorithm explained
         in \cite{scc}.
+
+        \begin{algorithm}
+            \caption{SCC Decomposition}\label{scc}
+            \Procedure{SCC\_Decomp}{N,V}
+                \State $V' \gets V$
+
+                \While {$V' \neq 0$}
+                    \State $v \gets random\_take(V')$
+                    \State $B(v) \gets backward_set(v, V', N)$
+                    \State $SCC\_DECOMP\_RECUR(v, B(v), N)$
+                    \State $V' \gets V' \wedge \overline{v \vee B(v)}$
+                \EndWhile
+            \EndProcedure
+        \end{algorithm}
+
+        \begin{algorithm}
+            \caption{Finite maximum distance predecessors}\label{fmd}
+            \Procedure{FMD\_Pred}{W, U, N}
+                \State $pred \gets 0$
+                \State $front \gets W$
+                \State $bound \gets U$
+                
+                \While{$front \neq 0$}
+                    \State $x \gets \exists_Y front(Y)\wedge N(X, Y) \wedge bound(X)$
+                    \State $y \gets \exists_Y bount(Y)\wedge N(X, Y) \wedge bound(X)$
+                    \State $front \gets x \wedge \overline{y}$
+                    \State $pred \gets pred \vee front$
+                    \State $bount \gets bounts \wedge \overline{front}$
+                \EndWhile
+
+                \State \textbf{return} $pred$
+            \EndProcedure
+        \end{algorithm}
+
+        \begin{algorithm}
+            \caption{Recursive method to find SCCs}\label{recursiveSCC}
+            \Procedure{SCC\_Decomp\_Recur}{v, B(v), N}
+                \State $F(v) \gets forward\_set(v, B(v), N)$
+                \If{$F(v) \neq 0$}
+                    \State \textbf{report} $F(v)$ an SCC
+                \Else
+                    \State \textbf{report} $v$ non- SCC
+                \EndIf
+
+                \State $x \gets F(v) \vee v$
+                \State $R \gets B(v) \wedge \overline{x}$
+                \State $y \gets \text{FMD\_PRED}(x, R, N)$
+                \State \textbf{report} $y$ non-SCC
+                \State $R \gets R \wedge \overline{y}$
+                \State $IP \gets \exists_Y (y\vee x)(Y)\wedge N(X,Y) \wedge R(X)$
+                
+                \While{$R \neq 0$}
+                    \State $v \gets random\_take(IP)$
+                    \State $B(v) \gets backward_set(v, R, N)$
+                    \State $SCC\_DECOMP\_RECURE(v, B(v), N)$
+                    \State $R \gets R \wedge \overline{v \vee B(v)}$
+                    \State $IP \gets IP \wedge \overline {v \vee B(v)}$
+
+            \EndProcedure
+        \end{algorithm}
+
+
 
 \section{Implementation}
 
