@@ -13,7 +13,7 @@ class Tableau():
         self.el_bdds_compose = {self.el_bdds[el]: self.el_bdds_other[el] for el in self.el_bdds}
 
         self.initial_states = get_sat(formula, self.el_bdds)
-        self.relations = get_relation_table(self.el_bdds)
+        self.relations = self._get_relation_table()
 
         bdd_utils.print_debug_bdd('tableau sat(f)', self.initial_states)
         bdd_utils.print_debug_bdd('tableau rel', self.relations)
@@ -21,6 +21,16 @@ class Tableau():
         self.fairness_constraints = get_all_fairness_constraints(formula, self.el_bdds)
         for fair in self.fairness_constraints:
             bdd_utils.print_debug_bdd('fairness', fair)
+
+    def _get_relation_table(self):
+        r = ONE
+        for el in self.el_bdds.keys():
+            if el[0] != consts.NEXT_IDENTIFIER:
+                continue
+            f = get_sat(el, self.el_bdds)
+            g = get_sat(el[2:-1], self.other_el_bdds)
+            r = r & ((f & g) | (~f & ~g))
+        return r
 
     def product(self, model):
         assert isinstance(model, SymbolicModel)
