@@ -1,6 +1,6 @@
 from scc import *
 
-class FairnPathFinder():
+class FairPathFinder():
     def __init__(self, init_states, fairness_constraints, relation, norm_to_other_compose):
         self._nto_compose = norm_to_other_compose
         self._relation = relation

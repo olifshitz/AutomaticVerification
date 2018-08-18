@@ -4,6 +4,17 @@ _arbitrary_bdd = bddvar('a')
 ZERO = _arbitrary_bdd & ~_arbitrary_bdd
 ONE = _arbitrary_bdd | ~_arbitrary_bdd
 
+def print_debug_bdd(string, bdd):
+    return
+    subject = list(bdd.satisfy_all())
+    sats = str(subject)
+    if(len(sats) < 150):
+        print('DEBUG %s' % (string,), sats)
+        return
+    print('DEBUG %s:' % (string,))
+    for sat in subject:
+        print('  ', sat)
+
 def ignore_prim(bdd, prim):
     return (bdd.restrict({prim:1})) | (bdd.restrict({prim:0}))
 
