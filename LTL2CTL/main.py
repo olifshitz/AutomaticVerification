@@ -8,12 +8,6 @@ from pyeda.boolalg.bdd import _NODES
 from ltl_model_checker import *
 from symbolic_model import SymbolicModel
 
-#formula = and_form('[%s]U[%s]' % (and_form('a', 'b'), and_form('~[a]', 'b')), and_form('a', 'b'))
-#formula = FormConst.f_not(FormConst.f_until('a','b'))
-#formula = FormConst.f_until('a', 'b')
-formula = FormConst.f_or('a','b')
-print('formula', formula)
-
 a,b = map(bddvar, 'ab')
 
 model = SymbolicModel(4)
@@ -32,8 +26,21 @@ model.add_relation(4, 4)
 
 checker = LtlModelChecker(model)
 
-print('Exists', checker.check_exist(formula))
-print('Forall', checker.check_forall(formula))
+#formula = and_form('[%s]U[%s]' % (and_form('a', 'b'), and_form('~[a]', 'b')), and_form('a', 'b'))
+#formula = FormConst.f_not(FormConst.f_until('a','b'))
+formula = FormConst.f_or('a', 'b')
+#formula = FormConst.f_and('a','b')
+
+#aandb = FormConst.f_and('a','b')
+#aandnotb = FormConst.f_and('b',FormConst.f_not('a'))
+#formula = FormConst.f_and(aandb, FormConst.f_until(aandb,aandnotb))
+#formula = FormConst.f_not(formula)
+
+print(formula)
+
+#print('Exists', checker.check_exist(formula))
+print('Exists', list(checker.get_path_start(formula).satisfy_all()))
+#print('Forall', checker.check_forall(formula))
 
 print('Nodes: %d' % len(_NODES))
 

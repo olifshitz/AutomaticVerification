@@ -2,6 +2,7 @@ from elementary import *
 from sat import *
 from relation import *
 from symbolic_model import SymbolicModel, Graph
+import bdd_utils
 
 class Tableau():
     def __init__(self, formula):
@@ -14,7 +15,12 @@ class Tableau():
         self.initial_states = get_sat(formula, self.el_bdds)
         self.relations = get_relation_table(self.el_bdds)
 
+        bdd_utils.print_debug_bdd('tableau sat(f)', self.initial_states)
+        bdd_utils.print_debug_bdd('tableau rel', self.relations)
+
         self.fairness_constraints = get_all_fairness_constraints(formula, self.el_bdds)
+        for fair in self.fairness_constraints:
+            bdd_utils.print_debug_bdd('fairness', fair)
 
     def product(self, model):
         assert isinstance(model, SymbolicModel)

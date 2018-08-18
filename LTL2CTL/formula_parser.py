@@ -7,20 +7,62 @@ class FormConst():
         return '%c%s%c' % (consts.BRA, g, consts.KET)
 
     @staticmethod
-    def f_not(g):
-        return '%c%s' % (consts.NOT_IDENTIFIER, FormConst._wrap_with_bracket(g))
+    def _unary_op(op, g):
+        return '%c%s' % (op, FormConst._wrap_with_bracket(g))
 
     @staticmethod
-    def f_next(g):
-        return '%c%s' % (consts.NEXT_IDENTIFIER, FormConst._wrap_with_bracket(g))
+    def _binary_op(op, g, h):
+        return '%s%c%s' % (FormConst._wrap_with_bracket(g), op, FormConst._wrap_with_bracket(h))
+
+    @staticmethod
+    def f_not(g):
+        return FormConst._unary_op(consts.NOT_IDENTIFIER, g)
 
     @staticmethod
     def f_or(g, h):
-        return '%s%c%s' % (FormConst._wrap_with_bracket(g), consts.OR_IDENTIFIER, FormConst._wrap_with_bracket(h))
+        return FormConst._binary_op(consts.OR_IDENTIFIER, g, h)
+
+    @staticmethod
+    def f_and(g, h):
+        #return FormConst._binary_op(consts.AND_IDENTIFIER, g, h)
+        return Simplify.f_and(g,h)
+
+    @staticmethod
+    def f_next(g):
+        return FormConst._unary_op(consts.NEXT_IDENTIFIER, g)
+
+    @staticmethod
+    def f_eventually(g):
+        return FormConst._unary_op(consts.EVENTUALLY_IDENTIFIER, g)
+
+    @staticmethod
+    def f_globally(g):
+        return FormConst._unary_op(consts.GLOBALY_IDENTIFIER, g)
 
     @staticmethod
     def f_until(g, h):
-        return '%s%c%s' % (FormConst._wrap_with_bracket(g), consts.UNTIL_IDENTIFIER, FormConst._wrap_with_bracket(h))
+        return FormConst._binary_op(consts.UNTIL_IDENTIFIER, g, h)
+
+    @staticmethod
+    def f_teotology():
+        return FormConst.f_or('a', FormConst.f_not('a'))
+
+    @staticmethod
+    def f_contradiction():
+        return FormConst.f_not(FormConst.f_teotology())
+
+class Simplify():
+    @staticmethod
+    def f_and(g, h):
+        return FormConst.f_not(FormConst.f_or(FormConst.f_not(g), FormConst.f_not(h)))
+
+    @staticmethod
+    def f_eventually(g):
+        return FormConst.f_until(FormConst.f_teotology(), g)
+
+    @staticmethod
+    def f_globally(g):
+        return FormConst.f_not(FormConst.f_eventually(FormConst.f_not(g)))
 
 def find_close_bracket(formula, index):
 	assert formula[index] == consts.BRA
@@ -37,11 +79,12 @@ def find_close_bracket(formula, index):
 
 def parse_next_step(formula):
     if formula[0] in (consts.NOT_IDENTIFIER, consts.NEXT_IDENTIFIER):
-        # ~[g]
+        # ?[g]
         assert formula[1] == consts.BRA
         assert formula[-1] == consts.KET
         return formula[0], formula[2:-1], None
     if formula.startswith(consts.BRA):
+        # [g]?[h]
         close_bracket = find_close_bracket(formula, 0)
         assert formula[close_bracket] == consts.KET
         assert formula[close_bracket+2] == consts.BRA

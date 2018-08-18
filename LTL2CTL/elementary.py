@@ -29,4 +29,5 @@ def get_elementary_formulas(formula):
 			formulas_to_check.append(form_h)
 			el.append(get_next_until_form(form_g, form_h))
 			continue
+		raise Exception('Not my problem %s' % (formula,))
 	return el
