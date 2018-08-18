@@ -26,6 +26,7 @@ class Graph():
 #nodes are indexes from 1 to n included
 class SymbolicModel():
     def __init__(self, number_of_states):
+        self._number_of_states = number_of_states
         self._model_index_length = (number_of_states-1).bit_length()
 
         self.msb = bddvars(consts.MODEL_IDX, self._model_index_length)
@@ -51,3 +52,10 @@ class SymbolicModel():
 
     def add_relation(self, node_index1, node_index2):
         self.relations |= self._get_node_bdd(node_index1) & self._get_node_bdd(node_index2).compose(self.msb_compose)
+
+    def from_bdd_to_node_index(self, node_set):
+        for i in range(self._number_of_states):
+            #print_debug_bdd('hello %d' % i, (self._get_node_bdd(i + 1) & node_set))
+            if ((self._get_node_bdd(i + 1) & node_set).is_zero()):
+                continue
+            yield i+1

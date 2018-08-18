@@ -5,7 +5,7 @@ ZERO = _arbitrary_bdd & ~_arbitrary_bdd
 ONE = _arbitrary_bdd | ~_arbitrary_bdd
 
 def print_debug_bdd(string, bdd):
-    return
+    #return
     subject = list(bdd.satisfy_all())
     sats = str(subject)
     if(len(sats) < 150):

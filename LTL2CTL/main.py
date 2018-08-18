@@ -25,28 +25,22 @@ model.add_relation(4, 4)
 
 checker = LtlModelChecker(model)
 
-#formula = and_form('[%s]U[%s]' % (and_form('a', 'b'), and_form('~[a]', 'b')), and_form('a', 'b'))
-#formula = FormConst.f_not(FormConst.f_until('a','b'))
-#formula = FormConst.f_or('a', 'b')
-#formula = FormConst.f_and('a','b')
-#formula = FormConst.f_until('b', 'a')
-#formula = FormConst.f_until('a', 'b')
-#formula = FormConst.f_teotology().replace('a', 'b')
-#formula = FormConst.f_and(formula, FormConst.f_teotology())
-#formula = FormConst.f_contradiction()
+def test_formula(formula, expected_nodes, exist):
+	global checker
+	result = checker.get_exists_nodes(formula)
+	states = set(checker.from_bdd_to_node_index(result))
+	print('Test : %s :' % (formula,), list(states))
+	assert states == set(expected_nodes)
 
-aandb = FormConst.f_and('a','b')
-aandnotb = FormConst.f_and('b', FormConst.f_not('a'))
-#formula = FormConst.f_until(aandb,aandnotb)
-formula = FormConst.f_and(aandb, FormConst.f_until(aandb,aandnotb))
-#formula = FormConst.f_not(formula)
-
-#formula = FormConst.f_eventually(FormConst.f_and('a','b'))
-#formula = FormConst.f_globally('b')
-
-print(formula)
-
-print('Exists', list(checker.get_exists_nodes(formula).satisfy_all()))
+test_formula('[a]|[b]', [1, 2, 4], True)  # a | b
+test_formula('[a]&[b]', [2], True)  # a & b
+test_formula('[b]U[a]', [1,2], True)  # b U a
+test_formula('[a]U[b]', [1,2,4], True) # a U b
+test_formula('[b]|[~[b]]', [1, 2, 3, 4], True)  # true
+test_formula('[a]|[~[a]]', [1, 2, 3, 4], True)  # true
+test_formula('~[[a]|[~[a]]]', [], True) # false
+test_formula('~[[[a]&[b]]&[[[a]&[b]]U[[b]&[~[a]]]]]', [1,2,3,4], True) # ~(ab & (ab U (a & ~b)))
+test_formula('[[a]&[b]]&[[[a]&[b]]U[[b]&[~[a]]]]', [], True)
 #print('Forall', list(checker.get_forall_nodes(formula).satisfy_all()))
 
 print('Nodes: %d' % len(_NODES))
