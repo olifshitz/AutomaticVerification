@@ -33,11 +33,13 @@ class FormConst():
 
     @staticmethod
     def f_eventually(g):
-        return FormConst._unary_op(consts.EVENTUALLY_IDENTIFIER, g)
+        #return FormConst._unary_op(consts.EVENTUALLY_IDENTIFIER, g)
+        return Simplify.f_eventually(g)
 
     @staticmethod
     def f_globally(g):
-        return FormConst._unary_op(consts.GLOBALY_IDENTIFIER, g)
+        #return FormConst._unary_op(consts.GLOBALY_IDENTIFIER, g)
+        return Simplify.f_globally(g)
 
     @staticmethod
     def f_until(g, h):
@@ -45,7 +47,7 @@ class FormConst():
 
     @staticmethod
     def f_teotology():
-        return FormConst.f_or('a', FormConst.f_not('a'))
+        return FormConst.f_or(consts.DUMMY_ATOMIC_PROPOSITION, FormConst.f_not(consts.DUMMY_ATOMIC_PROPOSITION))
 
     @staticmethod
     def f_contradiction():

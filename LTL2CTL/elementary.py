@@ -10,7 +10,7 @@ def get_elementary_formulas(formula):
 		op, form_g, form_h = parse_next_step(cur_formula)
 		if not op:
 			if (cur_formula not in el):
-				assert form_g.islower()
+				assert form_g.islower() or form_g == consts.DUMMY_ATOMIC_PROPOSITION
 				el.append(form_g)
 			continue
 		if op == consts.NOT_IDENTIFIER:

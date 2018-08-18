@@ -28,13 +28,19 @@ checker = LtlModelChecker(model)
 
 #formula = and_form('[%s]U[%s]' % (and_form('a', 'b'), and_form('~[a]', 'b')), and_form('a', 'b'))
 #formula = FormConst.f_not(FormConst.f_until('a','b'))
-formula = FormConst.f_or('a', 'b')
+#formula = FormConst.f_or('a', 'b')
 #formula = FormConst.f_and('a','b')
+#formula = FormConst.f_until('b', 'a')
+formula = FormConst.f_teotology()
 
 #aandb = FormConst.f_and('a','b')
-#aandnotb = FormConst.f_and('b',FormConst.f_not('a'))
+#aandnotb = FormConst.f_and('b', FormConst.f_not('a'))
+#formula = FormConst.f_until(aandb,aandnotb)
 #formula = FormConst.f_and(aandb, FormConst.f_until(aandb,aandnotb))
 #formula = FormConst.f_not(formula)
+
+#formula = FormConst.f_eventually(FormConst.f_and('a','b'))
+#formula = FormConst.f_globally('a')
 
 print(formula)
 
