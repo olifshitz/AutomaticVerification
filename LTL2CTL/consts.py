@@ -1,7 +1,7 @@
 
 # logical operations
 NOT_IDENTIFIER = '~'
-OR_IDENTIFIER = 'V'
+OR_IDENTIFIER = '|'
 AND_IDENTIFIER = '&'
 
 #temporal operations

@@ -16,7 +16,7 @@ class FormConst():
 
     @staticmethod
     def f_or(g, h):
-        return '%s%c%s' % (FormConst._wrap_with_bracket(g), consts.NOT_IDENTIFIER, FormConst._wrap_with_bracket(h))
+        return '%s%c%s' % (FormConst._wrap_with_bracket(g), consts.OR_IDENTIFIER, FormConst._wrap_with_bracket(h))
 
     @staticmethod
     def f_until(g, h):

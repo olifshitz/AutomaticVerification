@@ -10,7 +10,8 @@ from symbolic_model import SymbolicModel
 
 #formula = and_form('[%s]U[%s]' % (and_form('a', 'b'), and_form('~[a]', 'b')), and_form('a', 'b'))
 #formula = FormConst.f_not(FormConst.f_until('a','b'))
-formula = FormConst.f_until('a','b')
+#formula = FormConst.f_until('a', 'b')
+formula = FormConst.f_or('a','b')
 print('formula', formula)
 
 a,b = map(bddvar, 'ab')
