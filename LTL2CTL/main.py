@@ -61,8 +61,11 @@ print("product fairness [0]", list(product_relations.restrict({a:1,b:1}).satisfy
 
 print('--------------')
 
-print('predecssor:', list(predecessor(~a & msb[0] & msb[1], 1, product_relations, global_compose).satisfy_all()))
-print('global predecssor:', list(backword_set(~a & msb[0] & msb[1], 1, product_relations, global_compose).satisfy_all()))
+node24 = ~a & msb[0] & msb[1]
+
+print('predecssor:', list(predecessor(node24, 1, product_relations, global_compose).satisfy_all()))
+print('global predecssor:', list(backword_set(node24, 1, product_relations, global_compose).satisfy_all()))
+print('fmd predecssor:', list(fmd_predecessor(~a & msb[0] & msb[1], ~node24, product_relations, global_compose).satisfy_all()))
 
 print('Nodes: %d' % len(_NODES))
 
