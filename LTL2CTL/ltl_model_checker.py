@@ -16,7 +16,7 @@ class LtlModelChecker():
         prod = tableau.product(self._model)
 
         states = prod.find_fair_nodes(tableau.initial_states, tableau.fairness_constraints)
-        return bdd_utils.ignore_prims(states, tableau.el_bdds.values())
+        return bdd_utils.only_consider_prims(states, self._model.msb)
 
     def check_forall(self, formula):
         tableau = Tableau(FormConst.f_not(formula))

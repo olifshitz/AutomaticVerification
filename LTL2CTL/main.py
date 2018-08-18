@@ -1,6 +1,5 @@
 from elementary import get_elementary_formulas
 from sat import get_sat, get_set, get_all_fairness_constraints
-from relation import *
 from scc import *
 from bdd_utils import *
 from pyeda.inter import *
@@ -31,6 +30,7 @@ checker = LtlModelChecker(model)
 #formula = FormConst.f_or('a', 'b')
 #formula = FormConst.f_and('a','b')
 #formula = FormConst.f_until('b', 'a')
+#formula = FormConst.f_until('a', 'b')
 formula = FormConst.f_teotology().replace('a', 'b')
 #formula = FormConst.f_and(formula, FormConst.f_teotology())
 #formula = FormConst.f_contradiction()

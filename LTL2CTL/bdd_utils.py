@@ -23,6 +23,20 @@ def ignore_prims(bdd, prims):
         bdd = ignore_prim(bdd, prim)
     return bdd
 
+def get_prims(bdd):
+    prims = set()
+    for sat in bdd.satisfy_all():
+        prims |= sat.keys()
+    return prims
+
+def only_consider_prims(bdd, prims):
+    all_prims = get_prims(bdd)
+    for prim in all_prims:
+        if (prim in prims):
+            continue
+        bdd = ignore_prim(bdd, prim)
+    return bdd
+
 def pick_one(bdd, prims):
     sol = bdd.satisfy_one()
     res = 1

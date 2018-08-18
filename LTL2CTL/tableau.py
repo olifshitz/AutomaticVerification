@@ -1,6 +1,5 @@
 from elementary import *
 from sat import *
-from relation import *
 from symbolic_model import SymbolicModel, Graph
 import bdd_utils
 
@@ -23,12 +22,12 @@ class Tableau():
             bdd_utils.print_debug_bdd('fairness', fair)
 
     def _get_relation_table(self):
-        r = ONE
+        r = bdd_utils.ONE
         for el in self.el_bdds.keys():
             if el[0] != consts.NEXT_IDENTIFIER:
                 continue
             f = get_sat(el, self.el_bdds)
-            g = get_sat(el[2:-1], self.other_el_bdds)
+            g = get_sat(el[2:-1], self.el_bdds_other)
             r = r & ((f & g) | (~f & ~g))
         return r
 
