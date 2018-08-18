@@ -11,7 +11,7 @@ class LtlModelChecker():
 
         return prod.has_fair_path(tableau.initial_states, tableau.fairness_constraints)
 
-    def get_path_start(self, formula):
+    def get_exists_nodes(self, formula):
         tableau = Tableau(formula)
         prod = tableau.product(self._model)
 
@@ -19,7 +19,7 @@ class LtlModelChecker():
         return bdd_utils.only_consider_prims(states, self._model.msb)
 
     def check_forall(self, formula):
-        tableau = Tableau(FormConst.f_not(formula))
-        prod = tableau.product(self._model)
+        return not self.check_exist(FormConst.f_not(formula))
 
-        return not prod.has_fair_path(tableau.initial_states, tableau.fairness_constraints)
+    def get_forall_nodes(self, formula):
+        return ~self.get_exists_nodes(FormConst.f_not(formula))

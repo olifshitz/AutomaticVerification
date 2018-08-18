@@ -31,7 +31,7 @@ checker = LtlModelChecker(model)
 #formula = FormConst.f_and('a','b')
 #formula = FormConst.f_until('b', 'a')
 #formula = FormConst.f_until('a', 'b')
-formula = FormConst.f_teotology().replace('a', 'b')
+#formula = FormConst.f_teotology().replace('a', 'b')
 #formula = FormConst.f_and(formula, FormConst.f_teotology())
 #formula = FormConst.f_contradiction()
 
@@ -42,13 +42,12 @@ formula = FormConst.f_teotology().replace('a', 'b')
 #formula = FormConst.f_not(formula)
 
 #formula = FormConst.f_eventually(FormConst.f_and('a','b'))
-#formula = FormConst.f_globally('a')
+formula = FormConst.f_globally('b')
 
 print(formula)
 
-#print('Exists', checker.check_exist(formula))
-print('Exists', list(checker.get_path_start(formula).satisfy_all()))
-#print('Forall', checker.check_forall(formula))
+print('Exists', list(checker.get_exists_nodes(formula).satisfy_all()))
+print('Forall', list(checker.get_forall_nodes(formula).satisfy_all()))
 
 print('Nodes: %d' % len(_NODES))
 
