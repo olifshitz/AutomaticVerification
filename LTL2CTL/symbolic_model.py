@@ -26,21 +26,21 @@ class Graph():
 #nodes are indexes from 1 to n included
 class SymbolicModel():
     def __init__(self, number_of_states):
-        model_index_length = (number_of_states-1).bit_length()
+        self._model_index_length = (number_of_states-1).bit_length()
 
-        self.msb = bddvars(consts.MODEL_IDX, model_index_length)
-        self.msb_other = bddvars(consts.MODEL_OTHER_IDX, model_index_length)
+        self.msb = bddvars(consts.MODEL_IDX, self._model_index_length)
+        self.msb_other = bddvars(consts.MODEL_OTHER_IDX, self._model_index_length)
 
-        self.msb_compose = {self.msb[i]: self.msb_other[i] for i in range(model_index_length)}
+        self.msb_compose = {self.msb[i]: self.msb_other[i] for i in range(self._model_index_length)}
 
         self.atomic = bdd_utils.ZERO
         self.relations = bdd_utils.ZERO
 
     def _get_node_bdd(self, node_index):
-        node_index_bin = bin(node_index-1)[2:]
+        node_index_bin = bin(node_index-1)[2:][::-1]
         res = bdd_utils.ONE
-        for i in range(len(node_index_bin)):
-            if node_index_bin[i] == '1':
+        for i in range(self._model_index_length):
+            if i < len(node_index_bin) and node_index_bin[i] == '1':
                 res &= self.msb[i]
             else:
                 res &= ~self.msb[i]

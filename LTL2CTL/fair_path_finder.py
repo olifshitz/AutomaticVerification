@@ -23,7 +23,6 @@ class FairPathFinder():
             bdd_utils.print_debug_bdd('scc', scc)
             if (not self._check_scc_with_fairness(scc)):
                 continue
-            print('I am here')
             potential_init = self._check_scc_with_init(scc)
             bdd_utils.print_debug_bdd('potential_init', potential_init)
             if (potential_init.is_zero()):

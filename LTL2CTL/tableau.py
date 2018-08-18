@@ -25,4 +25,14 @@ class Tableau():
     def product(self, model):
         assert isinstance(model, SymbolicModel)
         global_compose = {**model.msb_compose, **self.el_bdds_compose}
-        return Graph(global_compose, model.relations & self.relations & model.atomic & model.atomic.compose(global_compose))
+
+        bdd_utils.print_debug_bdd('model.atomic', model.atomic)
+        bdd_utils.print_debug_bdd('model.atomic.compose', model.atomic.compose(global_compose))
+
+        bdd_utils.print_debug_bdd('model.relations', model.relations)
+        bdd_utils.print_debug_bdd('tableau.relations', self.relations)
+
+        product_relations = model.relations & self.relations & model.atomic & model.atomic.compose(global_compose)
+        bdd_utils.print_debug_bdd('product_relations', product_relations)
+
+        return Graph(global_compose, product_relations)
