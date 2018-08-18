@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.11.4)  18 AUG 2018 13:06
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.11.4)  18 AUG 2018 19:09
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -665,173 +665,186 @@ e
 ))
 \c@theorem=\count147
 \c@example=\count148
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 98.
 
-! Missing \endcsname inserted.
-<to be read again> 
-                   \ALG@currentblock@0 
-l.107             \Procedure
-                            {SCC\_Decomp}{N,V}
-? 
-! Extra \endcsname.
-\ALG@makebeginrepeat ...\ALG@thisblock \endcsname 
-                                                  \relax \def \ALG@thisblock...
-l.107             \Procedure
-                            {SCC\_Decomp}{N,V}
-? 
+(/usr/local/texlive/2017/texmf-dist/tex/latex/base/omscmr.fd
+File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10.95> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 98.
+LaTeX Font Info:    Try loading font information for U+msa on input line 98.
 
-! LaTeX Error: Lonely \item--perhaps a missing list environment.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.107             \Procedure
-                            {SCC\_Decomp}{N,V}
-? 
-
-Underfull \hbox (badness 10000) detected at line 107
-[][]
- []
-
-
-! LaTeX Error: Lonely \item--perhaps a missing list environment.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.108                 \State
-                             $V' \gets V$
-? 
-
-Underfull \hbox (badness 10000) detected at line 108
-[][]
- []
-
-LaTeX Font Info:    Try loading font information for U+msa on input line 108.
 (/usr/local/texlive/2017/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 108.
+LaTeX Font Info:    Try loading font information for U+msb on input line 98.
 
 (/usr/local/texlive/2017/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-)
+) [1
 
-! LaTeX Error: Lonely \item--perhaps a missing list environment.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.110                 \While
-                             {$V' \neq 0$}
-? 
-
-Underfull \hbox (badness 10000) detected at line 110
-[][]
- []
-
-
-! LaTeX Error: Lonely \item--perhaps a missing list environment.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.111                     \State
-                                 $v \gets random\_take(V')$
-? 
-
-Underfull \hbox (badness 10000) detected at line 111
-[][]
- []
-
-
-! LaTeX Error: Lonely \item--perhaps a missing list environment.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.112                     \State
-                                 $B(v) \gets backward_set(v, V', N)$
-? 
-
-Underfull \hbox (badness 10000) detected at line 112
-[][]
- []
-
-
-! LaTeX Error: Lonely \item--perhaps a missing list environment.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.113                     \State
-                                 $SCC\_DECOMP\_RECUR(v, B(v), N)$
-? 
-
-Underfull \hbox (badness 10000) detected at line 113
-[][]
- []
-
-
-! LaTeX Error: Lonely \item--perhaps a missing list environment.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.114                     \State
-                                 $V' \gets V' \wedge \overline{v \vee B(v)}$
-? 
-
-Underfull \hbox (badness 10000) detected at line 114
-[][]
- []
-
-
-! LaTeX Error: Lonely \item--perhaps a missing list environment.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.115                 \EndWhile
-                               
-? 
-
-Underfull \hbox (badness 10000) detected at line 115
-[][]
- []
-
-
-! LaTeX Error: Lonely \item--perhaps a missing list environment.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.116             \EndProcedure
-                               
-? 
-
-Underfull \hbox (badness 10000) detected at line 116
-[][]
- []
+{/usr/local/texlive/2017/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
+LaTeX Font Info:    Font shape `OMS/cmr/m/it' in size <10.95> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 160.
 
 ! Missing \endcsname inserted.
 <to be read again> 
                    \ALG@currentblock@0 
-l.121             \Procedure
+l.202             \Procedure
+                            {SCC\_Decomp}{N,V}
+? 
+! Extra \endcsname.
+\ALG@makebeginrepeat ...\ALG@thisblock \endcsname 
+                                                  \relax \def \ALG@thisblock...
+l.202             \Procedure
+                            {SCC\_Decomp}{N,V}
+? 
+
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.202             \Procedure
+                            {SCC\_Decomp}{N,V}
+? 
+
+Underfull \hbox (badness 10000) detected at line 202
+[][]
+ []
+
+
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.203                 \State
+                             $V' \gets V$
+? 
+
+Underfull \hbox (badness 10000) detected at line 203
+[][]
+ []
+
+
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.205                 \While
+                             {$V' \neq 0$}
+? 
+
+Underfull \hbox (badness 10000) detected at line 205
+[][]
+ []
+
+
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.206                     \State
+                                 $v \gets random\_take(V')$
+? 
+
+Underfull \hbox (badness 10000) detected at line 206
+[][]
+ []
+
+
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.207                     \State
+                                 $B(v) \gets backward_set(v, V', N)$
+? 
+
+Underfull \hbox (badness 10000) detected at line 207
+[][]
+ []
+
+
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.208                     \State
+                                 $SCC\_DECOMP\_RECUR(v, B(v), N)$
+? 
+
+Underfull \hbox (badness 10000) detected at line 208
+[][]
+ []
+
+
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.209                     \State
+                                 $V' \gets V' \wedge \overline{v \vee B(v)}$
+? 
+
+Underfull \hbox (badness 10000) detected at line 209
+[][]
+ []
+
+
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.210                 \EndWhile
+                               
+? 
+
+Underfull \hbox (badness 10000) detected at line 210
+[][]
+ []
+
+
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.211             \EndProcedure
+                               
+? 
+
+Underfull \hbox (badness 10000) detected at line 211
+[][]
+ []
+
+[2]
+! Missing \endcsname inserted.
+<to be read again> 
+                   \ALG@currentblock@0 
+l.216             \Procedure
                             {FMD\_Pred}{W, U, N}
 ? 
 ! Extra \endcsname.
 \ALG@makebeginrepeat ...\ALG@thisblock \endcsname 
                                                   \relax \def \ALG@thisblock...
-l.121             \Procedure
+l.216             \Procedure
                             {FMD\_Pred}{W, U, N}
 ? 
 
@@ -841,11 +854,11 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.121             \Procedure
+l.216             \Procedure
                             {FMD\_Pred}{W, U, N}
 ? 
 
-Underfull \hbox (badness 10000) detected at line 121
+Underfull \hbox (badness 10000) detected at line 216
 [][]
  []
 
@@ -856,11 +869,11 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.122                 \State
+l.217                 \State
                              $pred \gets 0$
 ? 
 
-Underfull \hbox (badness 10000) detected at line 122
+Underfull \hbox (badness 10000) detected at line 217
 [][]
  []
 
@@ -871,11 +884,11 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.123                 \State
+l.218                 \State
                              $front \gets W$
 ? 
 
-Underfull \hbox (badness 10000) detected at line 123
+Underfull \hbox (badness 10000) detected at line 218
 [][]
  []
 
@@ -886,11 +899,11 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.124                 \State
+l.219                 \State
                              $bound \gets U$
 ? 
 
-Underfull \hbox (badness 10000) detected at line 124
+Underfull \hbox (badness 10000) detected at line 219
 [][]
  []
 
@@ -901,11 +914,11 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.126                 \While
+l.221                 \While
                             {$front \neq 0$}
 ? 
 
-Underfull \hbox (badness 10000) detected at line 126
+Underfull \hbox (badness 10000) detected at line 221
 [][]
  []
 
@@ -916,12 +929,12 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.127                     \State
+l.222                     \State
                                  $x \gets \exists_Y front(Y)\wedge N(X, Y) \...
 
 ? 
 
-Underfull \hbox (badness 10000) detected at line 127
+Underfull \hbox (badness 10000) detected at line 222
 [][]
  []
 
@@ -932,12 +945,12 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.128                     \State
+l.223                     \State
                                  $y \gets \exists_Y bount(Y)\wedge N(X, Y) \...
 
 ? 
 
-Underfull \hbox (badness 10000) detected at line 128
+Underfull \hbox (badness 10000) detected at line 223
 [][]
  []
 
@@ -948,11 +961,11 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.129                     \State
+l.224                     \State
                                  $front \gets x \wedge \overline{y}$
 ? 
 
-Underfull \hbox (badness 10000) detected at line 129
+Underfull \hbox (badness 10000) detected at line 224
 [][]
  []
 
@@ -963,11 +976,11 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.130                     \State
+l.225                     \State
                                  $pred \gets pred \vee front$
 ? 
 
-Underfull \hbox (badness 10000) detected at line 130
+Underfull \hbox (badness 10000) detected at line 225
 [][]
  []
 
@@ -978,11 +991,11 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.131                     \State
+l.226                     \State
                                  $bount \gets bounts \wedge \overline{front}$
 ? 
 
-Underfull \hbox (badness 10000) detected at line 131
+Underfull \hbox (badness 10000) detected at line 226
 [][]
  []
 
@@ -993,11 +1006,11 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.132                 \EndWhile
+l.227                 \EndWhile
                                
 ? 
 
-Underfull \hbox (badness 10000) detected at line 132
+Underfull \hbox (badness 10000) detected at line 227
 [][]
  []
 
@@ -1008,11 +1021,11 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.134                 \State
+l.229                 \State
                              \textbf{return} $pred$
 ? 
 
-Underfull \hbox (badness 10000) detected at line 134
+Underfull \hbox (badness 10000) detected at line 229
 [][]
  []
 
@@ -1023,24 +1036,24 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.135             \EndProcedure
+l.230             \EndProcedure
                                
 ? 
 
-Underfull \hbox (badness 10000) detected at line 135
+Underfull \hbox (badness 10000) detected at line 230
 [][]
  []
 
 ! Missing \endcsname inserted.
 <to be read again> 
                    \ALG@currentblock@0 
-l.140             \Procedure
+l.235             \Procedure
                             {SCC\_Decomp\_Recur}{v, B(v), N}
 ? 
 ! Extra \endcsname.
 \ALG@makebeginrepeat ...\ALG@thisblock \endcsname 
                                                   \relax \def \ALG@thisblock...
-l.140             \Procedure
+l.235             \Procedure
                             {SCC\_Decomp\_Recur}{v, B(v), N}
 ? 
 
@@ -1050,11 +1063,11 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.140             \Procedure
+l.235             \Procedure
                             {SCC\_Decomp\_Recur}{v, B(v), N}
 ? 
 
-Underfull \hbox (badness 10000) detected at line 140
+Underfull \hbox (badness 10000) detected at line 235
 [][]
  []
 
@@ -1065,11 +1078,11 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.141                 \State
+l.236                 \State
                              $F(v) \gets forward\_set(v, B(v), N)$
 ? 
 
-Underfull \hbox (badness 10000) detected at line 141
+Underfull \hbox (badness 10000) detected at line 236
 [][]
  []
 
@@ -1080,11 +1093,11 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.142                 \If
+l.237                 \If
                          {$F(v) \neq 0$}
 ? 
 
-Underfull \hbox (badness 10000) detected at line 142
+Underfull \hbox (badness 10000) detected at line 237
 [][]
  []
 
@@ -1095,11 +1108,11 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.143                     \State
+l.238                     \State
                                  \textbf{report} $F(v)$ an SCC
 ? 
 
-Underfull \hbox (badness 10000) detected at line 143
+Underfull \hbox (badness 10000) detected at line 238
 [][]
  []
 
@@ -1110,11 +1123,11 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.144                 \Else
+l.239                 \Else
                            
 ? 
 
-Underfull \hbox (badness 10000) detected at line 144
+Underfull \hbox (badness 10000) detected at line 239
 [][]
  []
 
@@ -1125,11 +1138,11 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.145                     \State
+l.240                     \State
                                  \textbf{report} $v$ non- SCC
 ? 
 
-Underfull \hbox (badness 10000) detected at line 145
+Underfull \hbox (badness 10000) detected at line 240
 [][]
  []
 
@@ -1140,11 +1153,11 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.146                 \EndIf
+l.241                 \EndIf
                             
 ? 
 
-Underfull \hbox (badness 10000) detected at line 146
+Underfull \hbox (badness 10000) detected at line 241
 [][]
  []
 
@@ -1155,11 +1168,11 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.148                 \State
+l.243                 \State
                              $x \gets F(v) \vee v$
 ? 
 
-Underfull \hbox (badness 10000) detected at line 148
+Underfull \hbox (badness 10000) detected at line 243
 [][]
  []
 
@@ -1170,11 +1183,11 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.149                 \State
+l.244                 \State
                              $R \gets B(v) \wedge \overline{x}$
 ? 
 
-Underfull \hbox (badness 10000) detected at line 149
+Underfull \hbox (badness 10000) detected at line 244
 [][]
  []
 
@@ -1185,11 +1198,11 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.150                 \State
+l.245                 \State
                              $y \gets \text{FMD\_PRED}(x, R, N)$
 ? 
 
-Underfull \hbox (badness 10000) detected at line 150
+Underfull \hbox (badness 10000) detected at line 245
 [][]
  []
 
@@ -1200,11 +1213,11 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.151                 \State
+l.246                 \State
                              \textbf{report} $y$ non-SCC
 ? 
 
-Underfull \hbox (badness 10000) detected at line 151
+Underfull \hbox (badness 10000) detected at line 246
 [][]
  []
 
@@ -1215,11 +1228,11 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.152                 \State
+l.247                 \State
                              $R \gets R \wedge \overline{y}$
 ? 
 
-Underfull \hbox (badness 10000) detected at line 152
+Underfull \hbox (badness 10000) detected at line 247
 [][]
  []
 
@@ -1230,12 +1243,12 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.153                 \State
+l.248                 \State
                              $IP \gets \exists_Y (y\vee x)(Y)\wedge N(X,Y) \...
 
 ? 
 
-Underfull \hbox (badness 10000) detected at line 153
+Underfull \hbox (badness 10000) detected at line 248
 [][]
  []
 
@@ -1246,11 +1259,11 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.155                 \While
+l.250                 \While
                             {$R \neq 0$}
 ? 
 
-Underfull \hbox (badness 10000) detected at line 155
+Underfull \hbox (badness 10000) detected at line 250
 [][]
  []
 
@@ -1261,11 +1274,11 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.156                     \State
+l.251                     \State
                                  $v \gets random\_take(IP)$
 ? 
 
-Underfull \hbox (badness 10000) detected at line 156
+Underfull \hbox (badness 10000) detected at line 251
 [][]
  []
 
@@ -1276,11 +1289,11 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.157                     \State
+l.252                     \State
                                  $B(v) \gets backward_set(v, R, N)$
 ? 
 
-Underfull \hbox (badness 10000) detected at line 157
+Underfull \hbox (badness 10000) detected at line 252
 [][]
  []
 
@@ -1291,11 +1304,11 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.158                     \State
+l.253                     \State
                                  $SCC\_DECOMP\_RECURE(v, B(v), N)$
 ? 
 
-Underfull \hbox (badness 10000) detected at line 158
+Underfull \hbox (badness 10000) detected at line 253
 [][]
  []
 
@@ -1306,11 +1319,11 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.159                     \State
+l.254                     \State
                                  $R \gets R \wedge \overline{v \vee B(v)}$
 ? 
 
-Underfull \hbox (badness 10000) detected at line 159
+Underfull \hbox (badness 10000) detected at line 254
 [][]
  []
 
@@ -1321,11 +1334,11 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.160                     \State
+l.255                     \State
                                  $IP \gets IP \wedge \overline {v \vee B(v)}$
 ? 
 
-Underfull \hbox (badness 10000) detected at line 160
+Underfull \hbox (badness 10000) detected at line 255
 [][]
  []
 
@@ -1336,32 +1349,29 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.162             \EndProcedure
+l.257             \EndProcedure
                                
 ? 
 
-Underfull \hbox (badness 10000) detected at line 162
+Underfull \hbox (badness 10000) detected at line 257
 [][]
  []
 
 ! Missing number, treated as zero.
 <to be read again> 
                    \ALG@b@2@EndProcedure@0 
-l.162             \EndProcedure
+l.257             \EndProcedure
                                
 ? 
-[1
-
-{/usr/local/texlive/2017/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-[2] [3] (./final_project.bbl) [4] (./final_project.aux) ) 
+[3] [4] (./final_project.bbl) [5] (./final_project.aux) ) 
 Here is how much of TeX's memory you used:
- 14713 strings out of 492995
- 299717 string characters out of 6132704
- 351158 words of memory out of 5000000
- 17975 multiletter control sequences out of 15000+600000
- 10453 words of font info for 39 fonts, out of 8000000 for 9000
+ 14741 strings out of 492995
+ 300129 string characters out of 6132704
+ 350161 words of memory out of 5000000
+ 17996 multiletter control sequences out of 15000+600000
+ 11799 words of font info for 44 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 55i,7n,66p,417b,232s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 55i,11n,66p,417b,206s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/20
 17/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/201
 7/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2017
@@ -1370,13 +1380,14 @@ Here is how much of TeX's memory you used:
 texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2017/te
 xmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2017/texm
 f-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2017/texmf-
-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2017/texmf-d
-ist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2017/texmf-dis
-t/fonts/type1/public/amsfonts/cm/cmti10.pfb>
-Output written on final_project.pdf (4 pages, 126495 bytes).
+dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2017/texmf-dis
+t/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2017/texmf-dist
+/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2017/texmf-dist/f
+onts/type1/public/amsfonts/cm/cmti10.pfb>
+Output written on final_project.pdf (5 pages, 149321 bytes).
 PDF statistics:
- 60 PDF objects out of 1000 (max. 8388607)
- 43 compressed objects within 1 object stream
+ 67 PDF objects out of 1000 (max. 8388607)
+ 48 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  13 words of extra memory for PDF output out of 10000 (max. 10000000)
 

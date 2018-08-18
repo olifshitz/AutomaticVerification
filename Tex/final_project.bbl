@@ -1,5 +1,10 @@
 \begin{thebibliography}{1}
 
+\bibitem{ltl}
+Edmund~M. Clarke, Orna Grumberg, and Kiyoharu Hamaguchi.
+\newblock Another look at ltl model checking.
+\newblock {\em Formal Methods in System Design}, 10(1):47--71, Feb 1997.
+
 \bibitem{scc}
 Aiguo. Xie and P~A. Beerel.
 \newblock Implicit enumeration of strongly connected components.

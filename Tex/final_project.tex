@@ -81,13 +81,108 @@ of #1:\hspace*{1em}}{\qed\bigskip}
 
 %%Michal%% ==> Change the lecture number, lecture date, and Scribe name
 \finalProjTitle{September 3, 2018}{Dr. Sharon Shoham}{Omri Lifshitz, Idan Berkovits}
-{Symbolic Model checking}
+{Symbolic LTL Model checking}
 
 \section{Abstract}
 
 \section{Introduction}
 
 \section{CTL and LTL Model Checking}
+    Let us begin by describing the temporal logic CTL*, and from there continue
+    to describe both Computation Tree Logic (CTL) and Linear Temporal Logic(LTL).
+    CTL* contains two types of formulae: state formulae which hold for specific
+    states and path formulae which hold along a specific path. State formulae
+    are given by the following rules \cite{ltl}:
+    \begin{itemize}
+        \item
+            If $p \in AP$ (Atomic propositions) then $p$ is a state formula.
+
+        \item
+            If $f,\; g$ are state formulae then $\neg f, f \vee g$ are state formulae.
+
+        \item
+            If $f$ is a path formula, then $Ef$ ("for some computation path")
+            is a state formula.
+    \end{itemize}
+
+    Path formulae are defined by the following rules:
+    \begin{itemize}
+        \item
+            If $f$ is a state formula, it is also a path formula.
+
+        \item
+            If $f,\; g$ are path formulae then $\neg f,\; f \vee g, \; Xf$ and 
+            $fUg$ are also path formulae.
+
+        \item
+            If $f$ is a path formula, then $Ef$ ("for some computation path")
+            is a state formula.
+    \end{itemize}
+ 
+    Let $M = (S,R,L)$ be a Kripke structure where $S$ is the set of states, $R$
+    is the transition relation (we assume there is a total transition relation)
+    and $L$ be the labeling function.
+
+    \begin{definition}
+        A path in Kripke structure $M$ is an infinite sequence of states 
+        $\pi = s_0,s_1,\dots$ such that for every $i\geq 0$, 
+        $(s_i, s_{i+1})\in R$.
+    \end{definition}
+
+    The notation $M, s \models f$ is used to state that $f$ holds for state
+    $s$ in the Kripke structure $M$, and similarly for $M, \pi \models f$ for
+    path $\pi$ in $M$.
+
+    \begin{definition}
+        Let $f_1, f_2$ be state formulae and $g_1, g_2$ path formulae. 
+        The relation $\models$ is defined recursively as follows:
+        \begin{eqnarray}
+            M,s \models p &\iff & p\in L(s) \\
+            M,s \models \neg f_1 &\iff &M,s \not\models f_1 \\
+            M,s \models f_1 \vee f_2 &\iff & M,s \models f_1 \text{or} M,s \models f_2 \\
+            M,s \models Eg_1 &\iff &\text{there is a path $\pi$ starting at $s$ such
+            that $M, \pi \models g_1$}\\
+            M, \pi \models f_1 &\iff & s \text{ is the first state of $\pi$ and }
+            M,s \models f_1 \\
+            M, \pi \models \neg g_1 &\iff &M,\pi \not\models g_1\\
+            M,\pi \models g_1 \vee g_2 &\iff & M,\pi \models g_1 \text{ or } M,\pi \models g_2 \\
+            M, \pi \models Xg_1 &\iff &M,\pi^1 \models g_1\\
+            M,\pi \models g_1Ug_2 &\iff &\exists k\geq 0\; s.t.\; M,\pi^k\models g_2\;
+            \text{ and } \forall 0\leq j\leq k\; M,\pi^j \models g_1
+        \end{eqnarray}
+    \end{definition}
+
+    \begin{definition}
+        CTL is the subset of CTL* obtained by specifying the path formulae using
+        the following rules\cite{ltl}:
+        \begin{itemize}
+            \item
+                If $f,\;g$ are state formulae, then $Xf$ and $fUg$ are path
+                formulae.
+            \item
+                If $f$ is a path formulae, then so is $\neg f$.
+        \end{itemize}
+    \end{definition}
+
+    From the definition we can see that CTL is a subset of CTL* that only permits
+    branching operators. Therefore, in this new logic, all linear-time operators
+    can only appear if they are immediately preceded by path quantifiers.
+
+    \begin{definition}
+        LTL is a subset of CTL restricted to all formulae of the form $Af$ where
+        $f$ is a path formula in which the only state sub-formulae are atomic
+        propositions\cite{ltl}.
+        More precisely, path formulae here are defined in the following recursive
+        manner:
+        \begin{itemize}
+            \item
+                An atomic proposition.
+            \item
+                If $f,\; g$ are path formulae, then $\neg f,\; f\vee g,\;
+                Xf$ and $fUg$ are also path formulae.
+        \end{itemize}
+    \end{definition}
+
 
 \section{Symbolic Model Checking - BDDs}
 

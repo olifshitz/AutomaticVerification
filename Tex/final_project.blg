@@ -4,45 +4,45 @@ The top-level auxiliary file: final_project.aux
 The style file: plain.bst
 Database file #1: final_project.bib
 Warning--empty journal in scc
-You've used 1 entry,
+You've used 2 entries,
             2118 wiz_defined-function locations,
-            503 strings with 4206 characters,
-and the built_in function-call counts, 397 in all, are:
-= -- 38
-> -- 13
+            511 strings with 4349 characters,
+and the built_in function-call counts, 745 in all, are:
+= -- 73
+> -- 31
 < -- 1
-+ -- 5
-- -- 4
-* -- 24
-:= -- 65
-add.period$ -- 3
-call.type$ -- 1
-change.case$ -- 5
++ -- 12
+- -- 10
+* -- 55
+:= -- 124
+add.period$ -- 6
+call.type$ -- 2
+change.case$ -- 11
 chr.to.int$ -- 0
-cite$ -- 2
-duplicate$ -- 18
-empty$ -- 30
-format.name$ -- 4
-if$ -- 87
+cite$ -- 3
+duplicate$ -- 29
+empty$ -- 55
+format.name$ -- 10
+if$ -- 156
 int.to.chr$ -- 0
-int.to.str$ -- 1
-missing$ -- 1
-newline$ -- 8
-num.names$ -- 2
-pop$ -- 7
+int.to.str$ -- 2
+missing$ -- 2
+newline$ -- 13
+num.names$ -- 4
+pop$ -- 11
 preamble$ -- 1
-purify$ -- 4
+purify$ -- 9
 quote$ -- 0
-skip$ -- 17
+skip$ -- 24
 stack$ -- 0
-substring$ -- 25
-swap$ -- 7
+substring$ -- 49
+swap$ -- 8
 text.length$ -- 1
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 4
+type$ -- 8
 warning$ -- 1
-while$ -- 4
-width$ -- 2
-write$ -- 12
+while$ -- 8
+width$ -- 3
+write$ -- 23
 (There was 1 warning)
