@@ -1,69 +1,59 @@
 from elementary import get_elementary_formulas
 from sat import get_sat, get_set, get_all_fairness_constraints
-from relation import *
 from scc import *
+from bdd_utils import *
 from pyeda.inter import *
 from pyeda.boolalg.bdd import _NODES
+from ltl_model_checker import *
+from symbolic_model import SymbolicModel
 
-formula = '[a]U[b]'
+atomic_propositions = 'ab'
 
-el = get_elementary_formulas(formula)
-el_bdds = convert_list_to_index_dictionary(el)
-el_bdds_other = convert_list_to_index_dictionary(el,'^')
+a,b = map(bddvar, atomic_propositions)
 
-el_bdds_compose = {el_bdds[el]:el_bdds_other[el] for el in el_bdds}
+model = SymbolicModel(4)
 
-a,b = el_bdds['a'], el_bdds['b']
+model.add_atomic(1, a & ~b)
+model.add_atomic(2, a & b)
+model.add_atomic(3, ~a & ~b)
+model.add_atomic(4, ~a & b)
 
-#model
-model_index_length = 2
+model.add_relation(1, 2)
+model.add_relation(1, 3)
+model.add_relation(1, 4)
+model.add_relation(2, 1)
+model.add_relation(3, 4)
+model.add_relation(4, 4)
 
-msb = bddvars('$', model_index_length) # model states bits: 1=00, 2=01, 3=10, 4=11
-msb_other = bddvars('%', model_index_length) # model states bits: 1=00, 2=01, 3=10, 4=11
+checker = LtlModelChecker(model, set(atomic_propositions))
 
-msb_compose = {msb[i]:msb_other[i] for i in range(model_index_length)}
+def test_formula(formula, expected_nodes, exist):
+	global checker
+	result = checker.get_exists_nodes(formula)
+	states = set(checker.from_bdd_to_node_index(result))
+	print('Test : %s :' % (formula,), list(states))
+	assert states == set(expected_nodes)
+	print('Nodes: %d' % len(_NODES))
+	#input()
 
-model_atomic = (~msb[0] & ~msb[1]) & a & ~b # 1->a
-model_atomic |= (msb[0] & ~msb[1]) & a & b # 2->ab
-model_atomic |= (~msb[0] & msb[1]) & ~a & ~b # 3->[]
-model_atomic |= (msb[0] & msb[1]) & ~a & b # 4->b
+test_formula('[a]|[b]', [1, 2, 4], True)  # a | b
+test_formula('[a]&[b]', [2], True)  # a & b
+test_formula('[b]U[a]', [1,2], True)  # b U a
+test_formula('[a]U[b]', [1,2,4], True) # a U b
+test_formula('[b]|[~[b]]', [1, 2, 3, 4], True)  # true
+test_formula('[a]|[~[a]]', [1, 2, 3, 4], True)  # true
+test_formula('~[[a]|[~[a]]]', [], True)  # false
 
-model_atomic_other = model_atomic.compose(msb_compose)
-model_atomic_other = model_atomic_other.compose(el_bdds_compose)
+aandb = FormConst.f_and('a', 'b')
+aandnotb = FormConst.f_and('a', FormConst.f_not('b'))
+notaandb = FormConst.f_and(FormConst.f_not('a'), 'b')
 
-model_relations = (~msb[0] & ~msb[1]) & (msb_other[0] | msb_other[1]) # 1->2, 1->3, 1->4
-model_relations |= (msb[0] & ~msb[1]) & (~msb_other[0] & ~msb_other[1]) # 2->1
-model_relations |= (~msb[0] & msb[1]) & (msb_other[0] & msb_other[1]) # 3->4
-model_relations |= (msb[0] & msb[1]) & (msb_other[0] & msb_other[1]) # 4->4
+test_formula(FormConst.f_not(FormConst.f_and(aandb, FormConst.f_until(aandb, aandnotb))), [1,3,4], True)
+test_formula(FormConst.f_and(aandb, FormConst.f_until(aandb, notaandb)), [], True)
 
-#tableau
-
-global_compose = {**msb_compose, **el_bdds_compose}
-
-print("model atomic", list(model_atomic.satisfy_all()))
-print("model relations", list(model_relations.satisfy_all()))
-
-print("elemntary bdds", el_bdds)
-initial_states = get_sat(formula, el_bdds)
-print("sat(f)", list(initial_states.satisfy_all()))
-tableau_relations = get_relation_table(el_bdds)
-print("tableau relations", list(tableau_relations.satisfy_all()))
-
-fairness_constraints = get_all_fairness_constraints(formula, el_bdds)
-print("product fairness length", len(fairness_constraints))
-print("product fairness [0]", list(fairness_constraints[0].satisfy_all()))
-
-product_relations = model_relations & tableau_relations & model_atomic & model_atomic_other
-for rel in product_relations.satisfy_all():
-	print("product relation", rel)
-
-print("product fairness [0]", list(product_relations.restrict({a:1,b:1}).satisfy_all()))
-
-print('--------------')
-
-print('predecssor:', list(predecessor(~a & msb[0] & msb[1], 1, product_relations, global_compose).satisfy_all()))
-
-print('Nodes: %d' % len(_NODES))
+test_formula(FormConst.f_globally('b'), [4], True)
+test_formula(FormConst.f_eventually(FormConst.f_not('b')), [1,2,3], True)
+test_formula(FormConst.f_globally(FormConst.f_eventually(FormConst.f_not('b'))), [1,2], True)
 
 if __name__ == '__main__':
 	print("Hello, World!")
