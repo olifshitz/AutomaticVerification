@@ -18,6 +18,8 @@ class LtlModelChecker():
     def get_exists_nodes(self, formula):
         tableau = Tableau(formula, self._atomic_str)
         prod = tableau.product(self._model)
+        print('#relations', prod.count_relations())
+        print('#reachable states', prod.count_reachable_states(tableau.initial_states & self._model.atomic))
 
         states = prod.find_fair_nodes(tableau.initial_states, tableau.fairness_constraints)
         states = bdd_utils.only_consider_prims(states, self._model.msb)

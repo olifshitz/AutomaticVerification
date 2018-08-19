@@ -1,6 +1,7 @@
 import bdd_utils
 from scc import *
 from fair_path_finder import FairPathFinder
+from formula_parser import dict_invert
 
 class Graph():
     def __init__(self, nto_compose, relation):
@@ -14,6 +15,12 @@ class Graph():
         for fair in fairness_constraints:
             bdd_utils.print_debug_bdd('fair', fair)
         return FairPathFinder(initial_states, fairness_constraints, self._relation, self._nto_compose)
+
+    def count_relations(self):
+        return bdd_utils.count_solutions(self._relation, len(self._nto_compose.keys()) * 2)
+
+    def count_reachable_states(self, initial_states):
+        return bdd_utils.count_solutions(initial_states | forward_set(initial_states, bdd_utils.ONE, self._relation, dict_invert(self._nto_compose)), len(self._nto_compose.keys()))
 
     def has_fair_path(self, initial_states, fairness_constraints):
         res = self._get_fair_path_finder(initial_states, fairness_constraints)

@@ -34,6 +34,7 @@ def test_formula(formula, expected_nodes, exist):
 	print('Test : %s :' % (formula,), list(states))
 	assert states == set(expected_nodes)
 	print('Nodes: %d' % len(_NODES))
+	#input()
 
 test_formula('[a]|[b]', [1, 2, 4], True)  # a | b
 test_formula('[a]&[b]', [2], True)  # a & b
@@ -51,6 +52,7 @@ test_formula(FormConst.f_not(FormConst.f_and(aandb, FormConst.f_until(aandb, aan
 test_formula(FormConst.f_and(aandb, FormConst.f_until(aandb, notaandb)), [], True)
 
 test_formula(FormConst.f_globally('b'), [4], True)
+test_formula(FormConst.f_eventually(FormConst.f_not('b')), [1,2,3], True)
 test_formula(FormConst.f_globally(FormConst.f_eventually(FormConst.f_not('b'))), [1,2], True)
 
 if __name__ == '__main__':
