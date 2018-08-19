@@ -78,10 +78,24 @@ of #1:\hspace*{1em}}{\qed\bigskip}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\title{\vspace{-2.0cm}\textbf{Automatic Verification of Systems \\ Final Project - 
+Symbolic LTL Model Checking}}
+\author{
+	Omri Lifshitz \\
+	\texttt{205490675} \\
+	\texttt{omrilifshitz@mail.tau.ac.il}
+	\and 
+	Idan Berkovits \\
+	\texttt{205404130} \\
+	\texttt{berkovits@mail.tau.ac.il}
+}
+\date{}
+
+\maketitle
 
 %%Michal%% ==> Change the lecture number, lecture date, and Scribe name
-\finalProjTitle{September 3, 2018}{Dr. Sharon Shoham}{Omri Lifshitz, Idan Berkovits}
-{Symbolic LTL Model checking}
+%\finalProjTitle{September 3, 2018}{Dr. Sharon Shoham}{Omri Lifshitz, Idan Berkovits}
+%{Symbolic LTL Model checking}
 
 \section{Abstract}
 
@@ -186,7 +200,10 @@ of #1:\hspace*{1em}}{\qed\bigskip}
 
 \section{Symbolic Model Checking - BDDs}
 
-\section{Algorithm}
+\section{Implementation}
+    \subsection{Parsing formulae}
+    \subsection{Creating the tableau}
+    \subsection{Creating the product structure}
     \subsection{Finding Maximal SCC}
         As taught in class, in order to assert that there is a fair path in the 
         product structure, we need to find a strongly connected component (SCC)
@@ -197,7 +214,8 @@ of #1:\hspace*{1em}}{\qed\bigskip}
         a given model using BDDs. Our algorithm is based the algorithm explained
         in \cite{scc}.
 
-        \begin{algorithm}
+        \begin{multicols}{2}
+        \begin{algorithm}[H]
             \caption{SCC Decomposition}\label{scc}
             \Procedure{SCC\_Decomp}{N,V}
                 \State $V' \gets V$
@@ -211,7 +229,7 @@ of #1:\hspace*{1em}}{\qed\bigskip}
             \EndProcedure
         \end{algorithm}
 
-        \begin{algorithm}
+        \begin{algorithm}[H]
             \caption{Finite maximum distance predecessors}\label{fmd}
             \Procedure{FMD\_Pred}{W, U, N}
                 \State $pred \gets 0$
@@ -230,7 +248,7 @@ of #1:\hspace*{1em}}{\qed\bigskip}
             \EndProcedure
         \end{algorithm}
 
-        \begin{algorithm}
+        \begin{algorithm}[H]
             \caption{Recursive method to find SCCs}\label{recursiveSCC}
             \Procedure{SCC\_Decomp\_Recur}{v, B(v), N}
                 \State $F(v) \gets forward\_set(v, B(v), N)$
@@ -256,10 +274,10 @@ of #1:\hspace*{1em}}{\qed\bigskip}
 
             \EndProcedure
         \end{algorithm}
+        \end{multicols}
 
+    \subsection{Finding fair paths}
 
-
-\section{Implementation}
 
 \section{Experiments and Results}
 
