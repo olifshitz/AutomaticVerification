@@ -2,11 +2,12 @@ from tableau import *
 import bdd_utils
 
 class LtlModelChecker():
-    def __init__(self, model):
+    def __init__(self, model, atomic_str):
         self._model = model
+        self._atomic_str = atomic_str
 
     def check_exist(self, formula):
-        tableau = Tableau(formula)
+        tableau = Tableau(formula, self._atomic_str)
         prod = tableau.product(self._model)
 
         return prod.has_fair_path(tableau.initial_states, tableau.fairness_constraints)
@@ -15,7 +16,7 @@ class LtlModelChecker():
         return self._model.from_bdd_to_node_index(node_set)
 
     def get_exists_nodes(self, formula):
-        tableau = Tableau(formula)
+        tableau = Tableau(formula, self._atomic_str)
         prod = tableau.product(self._model)
 
         states = prod.find_fair_nodes(tableau.initial_states, tableau.fairness_constraints)

@@ -100,10 +100,10 @@ def parse_next_step(formula):
 def get_next_until_form(form_g, form_h):
     return FormConst.f_next(FormConst.f_until(form_g, form_h))
 
-def convert_list_to_index_dictionary(l, suffix=''):
+def convert_list_to_index_dictionary(lis, suffix=''):
     d = {}
-    for i in range(len(l)):
-        d[l[i]] = bddvar(l[i]+suffix)
+    for l in lis:
+        d[l] = bddvar(l+suffix)
     return d
 
 def dict_invert(dictionary):

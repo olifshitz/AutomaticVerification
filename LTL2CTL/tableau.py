@@ -4,8 +4,8 @@ from symbolic_model import SymbolicModel, Graph
 import bdd_utils
 
 class Tableau():
-    def __init__(self, formula):
-        el = get_elementary_formulas(formula)
+    def __init__(self, formula, atomic_str):
+        el = set(get_elementary_formulas(formula)) | set(atomic_str)
         self.el_bdds = convert_list_to_index_dictionary(el)
         self.el_bdds_other = convert_list_to_index_dictionary(el, consts.TAG_IDENTIFIER)
 

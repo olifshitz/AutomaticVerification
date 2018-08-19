@@ -23,7 +23,7 @@ model.add_relation(2, 1)
 model.add_relation(3, 4)
 model.add_relation(4, 4)
 
-checker = LtlModelChecker(model)
+checker = LtlModelChecker(model, set('ab'))
 
 def test_formula(formula, expected_nodes, exist):
 	global checker
