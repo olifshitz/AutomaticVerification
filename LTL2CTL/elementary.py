@@ -20,6 +20,14 @@ def get_elementary_formulas(formula):
 			formulas_to_check.append(form_g)
 			el.append(cur_formula)
 			continue
+		if op == consts.GLOBALY_IDENTIFIER:
+			formulas_to_check.append(form_g)
+			el.append(FormConst.f_next(FormConst.f_globally(form_g)))
+			continue
+		if op == consts.EVENTUALLY_IDENTIFIER:
+			formulas_to_check.append(form_g)
+			el.append(FormConst.f_next(FormConst.f_eventually(form_g)))
+			continue
 		if op in (consts.OR_IDENTIFIER, consts.AND_IDENTIFIER):
 			formulas_to_check.append(form_g)
 			formulas_to_check.append(form_h)

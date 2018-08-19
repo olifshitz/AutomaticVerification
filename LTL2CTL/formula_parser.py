@@ -33,13 +33,13 @@ class FormConst():
 
     @staticmethod
     def f_eventually(g):
-        #return FormConst._unary_op(consts.EVENTUALLY_IDENTIFIER, g)
-        return Simplify.f_eventually(g)
+        return FormConst._unary_op(consts.EVENTUALLY_IDENTIFIER, g)
+        #return Simplify.f_eventually(g)
 
     @staticmethod
     def f_globally(g):
-        #return FormConst._unary_op(consts.GLOBALY_IDENTIFIER, g)
-        return Simplify.f_globally(g)
+        return FormConst._unary_op(consts.GLOBALY_IDENTIFIER, g)
+        #return Simplify.f_globally(g)
 
     @staticmethod
     def f_until(g, h):
@@ -80,7 +80,7 @@ def find_close_bracket(formula, index):
 			return i+index+1
 
 def parse_next_step(formula):
-    if formula[0] in (consts.NOT_IDENTIFIER, consts.NEXT_IDENTIFIER):
+    if formula[0] in (consts.NOT_IDENTIFIER, consts.NEXT_IDENTIFIER, consts.GLOBALY_IDENTIFIER, consts.EVENTUALLY_IDENTIFIER):
         # ?[g]
         assert formula[1] == consts.BRA
         assert formula[-1] == consts.KET

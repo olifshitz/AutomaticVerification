@@ -13,6 +13,10 @@ def get_sat(formula, el_bdds):
         return get_sat(form_g, el_bdds) | get_sat(form_h, el_bdds)
     if op == consts.AND_IDENTIFIER:
         return get_sat(form_g, el_bdds) & get_sat(form_h, el_bdds)
+    if op == consts.GLOBALY_IDENTIFIER:
+        return get_sat(form_g, el_bdds) & get_sat(FormConst.f_next(FormConst.f_globally(form_g)), el_bdds)
+    if op == consts.EVENTUALLY_IDENTIFIER:
+        return get_sat(form_g, el_bdds) | get_sat(FormConst.f_next(FormConst.f_eventually(form_g)), el_bdds)
     if op == consts.UNTIL_IDENTIFIER:
         return get_sat(form_h, el_bdds) | (get_sat(form_g, el_bdds) &
                 get_sat(get_next_until_form(form_g, form_h), el_bdds))
@@ -39,8 +43,15 @@ def get_all_fairness_constraints(formula, el_bdds):
         if op == consts.UNTIL_IDENTIFIER:
             formulas_to_check.append(form_g)
             formulas_to_check.append(form_h)
-            FormConst.f_or(FormConst.f_not(FormConst.f_until(form_g, form_h)), form_h)
             fairness.append(get_sat(FormConst.f_or(FormConst.f_not(FormConst.f_until(form_g, form_h)), form_h), el_bdds))
+            continue
+        if op == consts.GLOBALY_IDENTIFIER:
+            formulas_to_check.append(form_g)
+            fairness.append(get_sat(FormConst.f_or(FormConst.f_globally(form_g), FormConst.f_not(form_g)), el_bdds))
+            continue
+        if op == consts.EVENTUALLY_IDENTIFIER:
+            formulas_to_check.append(form_g)
+            fairness.append(get_sat(FormConst.f_or(FormConst.f_not(FormConst.f_eventually(form_g)), form_g), el_bdds))
             continue
         raise Exception('Not my problem %s' % (cur_formula,))
     return fairness

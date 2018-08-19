@@ -41,10 +41,17 @@ test_formula('[b]U[a]', [1,2], True)  # b U a
 test_formula('[a]U[b]', [1,2,4], True) # a U b
 test_formula('[b]|[~[b]]', [1, 2, 3, 4], True)  # true
 test_formula('[a]|[~[a]]', [1, 2, 3, 4], True)  # true
-test_formula('~[[a]|[~[a]]]', [], True) # false
-test_formula('~[[[a]&[b]]&[[[a]&[b]]U[[b]&[~[a]]]]]', [1,2,3,4], True) # ~(ab & (ab U (a & ~b)))
-test_formula('[[a]&[b]]&[[[a]&[b]]U[[b]&[~[a]]]]', [], True)
-#print('Forall', list(checker.get_forall_nodes(formula).satisfy_all()))
+test_formula('~[[a]|[~[a]]]', [], True)  # false
+
+aandb = FormConst.f_and('a', 'b')
+aandnotb = FormConst.f_and('a', FormConst.f_not('b'))
+notaandb = FormConst.f_and(FormConst.f_not('a'), 'b')
+
+test_formula(FormConst.f_not(FormConst.f_and(aandb, FormConst.f_until(aandb, aandnotb))), [1,3,4], True)
+test_formula(FormConst.f_and(aandb, FormConst.f_until(aandb, notaandb)), [], True)
+
+test_formula(FormConst.f_globally('b'), [4], True)
+test_formula(FormConst.f_globally(FormConst.f_eventually(FormConst.f_not('b'))), [1,2], True)
 
 if __name__ == '__main__':
 	print("Hello, World!")
