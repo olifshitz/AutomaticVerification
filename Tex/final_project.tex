@@ -2,9 +2,10 @@
 \usepackage{amssymb}
 \usepackage{mathtools}
 \usepackage{algorithm}
+\usepackage{listings}
 \usepackage{multicol}
 \usepackage[noend]{algpseudocode}
-
+\usepackage[english]{babel}
 \DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
 
 % TikZ Drawing packages
@@ -14,6 +15,14 @@
 \usetikzlibrary{arrows}
 \usetikzlibrary{automata,positioning}
 
+\lstset{
+  frame=tb,
+  language=python,
+  tabsize=4,
+  keywordstyle=\textbf,
+  basicstyle={\small},
+  breaklines=true
+}
 
 \textwidth=6in
 \oddsidemargin=0.25in
@@ -79,7 +88,7 @@ of #1:\hspace*{1em}}{\qed\bigskip}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \title{\vspace{-2.0cm}\textbf{Automatic Verification of Systems \\ Final Project - 
-Symbolic LTL Model Checking}}
+Symbolic Model Checker}}
 \author{
 	Omri Lifshitz \\
 	\texttt{205490675} \\
@@ -201,9 +210,90 @@ Symbolic LTL Model Checking}}
 \section{Symbolic Model Checking - BDDs}
 
 \section{Implementation}
-    \subsection{Parsing formulae}
-    \subsection{Creating the tableau}
-    \subsection{Creating the product structure}
+    In our project we implemented a symbolic CTL and LTL model cheker in python 
+    using python. Throughout our entire implementation we used the python module
+    \textbf{pyeda} which allows easy use of ROBDDs, as explained in the previous section.
+    In the following sections we present the main modules in our implemenation and how
+    they are used to create the model checker.
+
+    \subsection{Logical model parsing}
+        The first module we implemented is the \textbf{SymbolicModel} class; 
+        a python class used in order to represent a the symbolic version of 
+        a given logical model.
+        The class' conststructor receives an integer specifying the number of
+        states in the model, and uses that in order to create the variables 
+        $v_1, \dots, v_n$ representing the states in the states. It also
+        has two interface methods, $add\_atomic$, $add\_relation$ used to
+        specify the atomic propositions that hold in each state and the
+        transition relation between the states in the model. As explained in
+        the previous sections, both the labeling and the transition relation
+        of the model are also given as BDDs.
+        The SymbolicModel is used to represent the model that we wish to check,
+        and thus this class is used throught the entire project.
+
+    \subsection{Tableau construction}
+        The next module we implemented is a module in charge of creating the
+        tableau for a given LTL formual. In order to create this module we began
+        by implementing a formula parser in charge of parsing the given formula 
+        for later uses such as parsing the elementary formulae for the tableau or iterating
+        over subformulae.
+
+        The next step of implementing the tableau was to create a list of all
+        elementary formulae. This was done using the \textbf{get\_elementary\_formulas}
+        method we implemented. This method uses the aforementioned formula parser 
+        in order to iterate over all parts of the formula and for each quantifier
+        found in the formula it creates the relevant elementary formulae.
+        For each of the elementary formulae we create a BDD variable that will
+        late be used to indicate whether this elementary formula is satisfied.
+
+        The next part of creating the tableau is to find its initial states. As
+        explained in the previous section, the initial states of the tableau are
+        all states that satisfy the given formula. In order to find these states,
+        we implemented the \textbf{sat} module. This module implements the method
+        \textbf{get\_sat(formula, el\_bbds)} (where el\_bdds is the set of BDDs
+        explained above) and returns a new BDD using logical operands on the
+        received BDDs according to the construction of the given formula.
+
+        The elementary BDDs and the \textbf{sat} module described above are then
+        used in order to create the transition relation of the tableau itself.
+        Again, in order to make this a symbolic model checker and not explicitly
+        describe all of the states and transitions, the transition relation is
+        also given as a BDD. The fairness constraints of the tableau are also 
+        given as a BDD and constructed in a similar manner to the statisfaction
+        BDD.
+
+        All the methods described above are encapsulated inside a \textbf{Tableau}
+        class object that we created. This object receives the formula and its
+        atomic propositions as parameters for the constructor and uses all the
+        methods and modules described above in order to create the tableau.
+
+    \subsection{Product structure construction}
+        Using the tableau construction above we now implemented the product of
+        the tableau and the given logical model. We implemented this as a 
+        method of the tableau class described above. This method receives as
+        input the symbolic model described earlier and using its relations,
+        atomic propositions and the relations and states of the tableau creates
+        the product model.
+
+        The use of BDDs makes this operation very simple, as we can see in the
+        implemenation presented below.
+
+        \begin{algorithm}[H]
+            \caption{Product model creation}\label{product}
+            \Procedure{product}{self,model}
+                \State \textbf{assert} isinstance(model, SymbolicModel)
+                \State product\_relations = model.relations \& self.relations 
+                    \quad\quad\& model.atomic \& model.atomic.compose(global\_compose)
+                \State \textbf{return} Graph(global\_compose, product\_relations)
+            \EndProcedure
+        \end{algorithm}
+
+        The use of global\_compose is in order to create a new set of variables
+        used for the product model. The Graph object used in the code above is
+        a data structure we created in order to create a symbolic representation
+        of the product including both its vertices and the edges between them
+        based on the relation BDD.
+
     \subsection{Finding Maximal SCC}
         As taught in class, in order to assert that there is a fair path in the 
         product structure, we need to find a strongly connected component (SCC)
@@ -212,9 +302,40 @@ Symbolic LTL Model Checking}}
         
         In this section we will present the algorithm use to find the SCCs in
         a given model using BDDs. Our algorithm is based the algorithm explained
-        in \cite{scc}.
+        in \cite{scc}. The algorithm presented in the paper, and implemented in
+        our project uses reachability analysis in order to find the set of SCCs
+        in a graph. This idea will also be useful late when we analyse the number
+        of reachable states in our product structure.
+
+        We first begin by creating two very crucial methods allowing use to find
+        the successor and predecessor states of a set of states in the graph when
+        searching for them int a given bound. These two methods are presented 
+        below.
 
         \begin{multicols}{2}
+        \begin{algorithm}[H]
+            \caption{Predecessor}\label{predecessor}
+            \Procedure{Predecessor}{base, bound, relation, other\_compose}
+                \State result = ignore\_prims(relation \& base.compose(other\_compose), other\_compose.values())
+                \State \textbf{return} result & bound
+            \EndProcedure
+        \end{algorithm}
+        \begin{algorithm}[H]
+            \caption{Successor}\label{successor}
+            \Procedure{Successor}{base, bound, relation, other\_compose}
+                \State result = ignore\_prims(relation \& base, other\_compose.values()).compose(other\_compose)
+                \State \textbf{return} result & bound
+            \EndProcedure
+        \end{algorithm}
+        \end{multicols}
+
+        Next, use reachability analysis in order to find the backward\_set
+        and forward\_set of each node in the graph. The backward\_set is 
+        the set of all states in the graph from which we have a path that
+        reaches our desired and node. The forward\_set is defined in a similar
+        manner and contains all the nodes to which there exists a path from
+        the specified base node.
+
         \begin{algorithm}[H]
             \caption{SCC Decomposition}\label{scc}
             \Procedure{SCC\_Decomp}{N,V}
@@ -274,7 +395,6 @@ Symbolic LTL Model Checking}}
 
             \EndProcedure
         \end{algorithm}
-        \end{multicols}
 
     \subsection{Finding fair paths}
 
@@ -282,7 +402,6 @@ Symbolic LTL Model Checking}}
 \section{Experiments and Results}
 
 \section{Further Work}
-
 
 \pagebreak
 \bibliographystyle{plain}
