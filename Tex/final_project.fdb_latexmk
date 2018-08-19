@@ -4,10 +4,10 @@
   "final_project.aux" 0 -1 0 ""
   "final_project.bib" 1534707412 2230 a596405ad44b91ce5eccd58f373d1b1d ""
   (generated)
-  "final_project.bbl"
   "final_project.blg"
-["pdflatex"] 1534719112 "/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex" "final_project.pdf" "final_project" 1534719112
-  "/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex" 1534719111 17117 97c65f5022da8de6194fa9b05b777959 ""
+  "final_project.bbl"
+["pdflatex"] 1534720081 "/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex" "final_project.pdf" "final_project" 1534720081
+  "/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex" 1534720079 18503 f04fd2da5c66b87958048cc40c1ea114 ""
   "/usr/local/texlive/2017/texmf-dist/fonts/map/fontname/texfonts.map" 1480098670 3287 e6b82fe08f5336d4d5ebc73fb1152e87 ""
   "/usr/local/texlive/2017/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1480098698 1004 54797486969f23fa377b128694d548df ""
   "/usr/local/texlive/2017/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm" 1480098698 988 bdf658c3bfc2d96d3c8b02cfc1c94c20 ""
@@ -170,9 +170,9 @@
   "/usr/local/texlive/2017/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1495593472 2350277 a699055bee05bf8a40b0504752487295 ""
   "/usr/local/texlive/2017/texmf-var/web2c/pdftex/pdflatex.fmt" 1509803625 4129592 701b20ce8a225b0e39cf6fb9d98624d4 ""
   "/usr/local/texlive/2017/texmf.cnf" 1495593465 577 2b71d4d888f9e5560b2e99985915a9fa ""
-  "final_project.aux" 1534719112 8 a94a2480d3289e625eea47cd1b285758 ""
+  "final_project.aux" 1534720081 8 a94a2480d3289e625eea47cd1b285758 ""
   "final_project.bbl" 0 -1 0 "bibtex final_project"
-  "final_project.tex" 1534719111 17117 97c65f5022da8de6194fa9b05b777959 ""
+  "final_project.tex" 1534720079 18503 f04fd2da5c66b87958048cc40c1ea114 ""
   (generated)
   "final_project.pdf"
   "final_project.log"

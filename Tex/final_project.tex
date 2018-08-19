@@ -294,7 +294,7 @@ Symbolic Model Checker}}
         of the product including both its vertices and the edges between them
         based on the relation BDD.
 
-    \subsection{Finding Maximal SCC}
+    \subsection{Finding maximal SCCs}
         As taught in class, in order to assert that there is a fair path in the 
         product structure, we need to find a strongly connected component (SCC)
         that is reachable from the initial state and that intersects with
@@ -335,6 +335,15 @@ Symbolic Model Checker}}
         reaches our desired and node. The forward\_set is defined in a similar
         manner and contains all the nodes to which there exists a path from
         the specified base node.
+
+        Besides the forward and backward sets described above, the algorithm
+        also introduces finite maximal distance (FMD) predecessors. These
+        predecessors to a given node which can traverse through a finite
+        distance path on the way to the node. These FMDs are used in order
+        to find SCCs, as each FMD predecessor is not part of an SCC
+        connected the node that it is a predecessor to. Below we present
+        the algorithm found in \cite{scc} which we used in order to find
+        all SCCs in the graph.
 
         \begin{algorithm}[H]
             \caption{SCC Decomposition}\label{scc}
@@ -397,7 +406,19 @@ Symbolic Model Checker}}
         \end{algorithm}
 
     \subsection{Finding fair paths}
-
+        As explained in the previous section, in order to check the model, we
+        need to assert that there is a fair path in the product. In order to do 
+        so, we need to check that each of the fairness constraints is satisfied
+        in one of the strongly connected components we found earlier.
+        This will tell us if there is a fair SCC in the graph. If no such SCC 
+        exists, we can conclude that no fair path exists in the graph. Otherwise,
+        we continue to check that this SCC is reachable from one of the initial
+        states in the graph.
+        
+        The logic described above is implemented in the module 
+        \textbf{FairPathFinder}. We use the method \textbf{find\_fair\_path}
+        that returns a python generator with possible initial states from
+        which there exist fair paths.
 
 \section{Experiments and Results}
 
