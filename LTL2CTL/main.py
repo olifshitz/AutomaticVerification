@@ -7,7 +7,9 @@ from pyeda.boolalg.bdd import _NODES
 from ltl_model_checker import *
 from symbolic_model import SymbolicModel
 
-a,b = map(bddvar, 'ab')
+atomic_propositions = 'ab'
+
+a,b = map(bddvar, atomic_propositions)
 
 model = SymbolicModel(4)
 
@@ -23,7 +25,7 @@ model.add_relation(2, 1)
 model.add_relation(3, 4)
 model.add_relation(4, 4)
 
-checker = LtlModelChecker(model, set('ab'))
+checker = LtlModelChecker(model, set(atomic_propositions))
 
 def test_formula(formula, expected_nodes, exist):
 	global checker
@@ -31,6 +33,7 @@ def test_formula(formula, expected_nodes, exist):
 	states = set(checker.from_bdd_to_node_index(result))
 	print('Test : %s :' % (formula,), list(states))
 	assert states == set(expected_nodes)
+	print('Nodes: %d' % len(_NODES))
 
 test_formula('[a]|[b]', [1, 2, 4], True)  # a | b
 test_formula('[a]&[b]', [2], True)  # a & b
@@ -42,8 +45,6 @@ test_formula('~[[a]|[~[a]]]', [], True) # false
 test_formula('~[[[a]&[b]]&[[[a]&[b]]U[[b]&[~[a]]]]]', [1,2,3,4], True) # ~(ab & (ab U (a & ~b)))
 test_formula('[[a]&[b]]&[[[a]&[b]]U[[b]&[~[a]]]]', [], True)
 #print('Forall', list(checker.get_forall_nodes(formula).satisfy_all()))
-
-print('Nodes: %d' % len(_NODES))
 
 if __name__ == '__main__':
 	print("Hello, World!")
