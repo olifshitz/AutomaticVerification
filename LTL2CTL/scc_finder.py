@@ -3,19 +3,27 @@ from bdd_utils import *
 from symbolic_model import dict_invert
 
 def predecessor(base, bound, relation, norm_to_other_compose):
+    print_debug_bdd('rela', relation)
+    print_debug_bdd('base', base)
+    print_debug_bdd('bound', bound)
+    print_debug_bdd('base.compose(norm_to_other_compose)', base.compose(norm_to_other_compose))
+    print_debug_bdd('relation & base.compose(norm_to_other_compose)', relation & base.compose(norm_to_other_compose))
     result = ignore_prims(relation & base.compose(norm_to_other_compose), norm_to_other_compose.values())
+    print_debug_bdd('result', result)
     return result & bound
 
 def successor(base, bound, relation, other_to_norm_compose):
     result = ignore_prims(relation & base, other_to_norm_compose.values()).compose(other_to_norm_compose)
     return result & bound
 
-def backword_set(base, bound, relation, norm_to_other_compose):
+def backward_set(base, bound, relation, norm_to_other_compose, include_base=False):
     res = ZERO
     new_candidates = predecessor(base, bound, relation, norm_to_other_compose)
     while not new_candidates.equivalent(res):
         res = new_candidates
         new_candidates |= predecessor(res, bound, relation, norm_to_other_compose)
+    if include_base:
+        res = res | base
     return res
 
 def forward_set(base, bound, relation, other_to_norm_compose):
@@ -48,7 +56,7 @@ class SccFinder():
     def scc_decomp(self):
         while (not self._current_node_set.is_zero()):
             v = pick_one(self._current_node_set, self._nto_compose.keys())
-            bv = backword_set(v, self._current_node_set, self._relation, self._nto_compose)
+            bv = backward_set(v, self._current_node_set, self._relation, self._nto_compose)
             for scc in self._scc_decomp_recur(v, bv):
                 self._current_node_set &= ~scc
                 yield scc
@@ -71,7 +79,7 @@ class SccFinder():
         IP = predecessor(y | x, R, self._relation, self._nto_compose)
         while (not R.is_zero()):
             v = pick_one(IP, self._nto_compose.keys())
-            bv = backword_set(v, R, self._relation, self._nto_compose)
+            bv = backward_set(v, R, self._relation, self._nto_compose)
             for scc in self._scc_decomp_recur(v, bv):
                 yield scc
             R &= ~(v | bv)

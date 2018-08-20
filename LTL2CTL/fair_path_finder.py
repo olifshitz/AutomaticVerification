@@ -15,7 +15,7 @@ class FairPathFinder():
         return True
 
     def _check_scc_with_init(self, scc):
-        return (scc_finder.backword_set(scc, bdd_utils.ONE, self._relation, self._nto_compose) & self._init_states)
+        return (scc_finder.backward_set(scc, bdd_utils.ONE, self._relation, self._nto_compose) & self._init_states)
 
     def find_fair_path(self):
         sccFinder = scc_finder.SccFinder(self._relation, self._nto_compose)

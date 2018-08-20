@@ -16,7 +16,6 @@
         "**/__pycache__": true
     },
     "python.formatting.provider": "yapf",
-    "editor.wordWrap": "on",
     "diffEditor.renderSideBySide": false,
     "editor.stablePeek": true,
     "editor.formatOnType": true,
