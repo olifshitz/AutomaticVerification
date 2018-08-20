@@ -1,6 +1,6 @@
 from pyeda.inter import *
-from formula_parser import *
 from bdd_utils import *
+from symbolic_model import dict_invert
 
 def predecessor(base, bound, relation, norm_to_other_compose):
     result = ignore_prims(relation & base.compose(norm_to_other_compose), norm_to_other_compose.values())

@@ -1,4 +1,4 @@
-from scc import *
+import scc_finder
 import bdd_utils
 
 class FairPathFinder():
@@ -15,10 +15,10 @@ class FairPathFinder():
         return True
 
     def _check_scc_with_init(self, scc):
-        return (backword_set(scc, ONE, self._relation, self._nto_compose) & self._init_states)
+        return (scc_finder.backword_set(scc, bdd_utils.ONE, self._relation, self._nto_compose) & self._init_states)
 
     def find_fair_path(self):
-        sccFinder = SccFinder(self._relation, self._nto_compose)
+        sccFinder = scc_finder.SccFinder(self._relation, self._nto_compose)
         for scc in sccFinder.scc_decomp():
             bdd_utils.print_debug_bdd('scc', scc)
             if (not self._check_scc_with_fairness(scc)):
@@ -35,7 +35,7 @@ class FairPathFinder():
         return False
 
     def find_fair_nodes(self):
-        res = ZERO
+        res = bdd_utils.ZERO
         for valid_init in self.find_fair_path():
             res |= valid_init
         return res

@@ -1,8 +1,8 @@
-from scc import *
+from scc_finder import *
 from bdd_utils import *
 from pyeda.inter import *
 from pyeda.boolalg.bdd import _NODES
-from ltl_model_checker import *
+from ltl.model_checker import *
 from symbolic_model import SymbolicModel
 
 atomic_propositions = 'ab'

@@ -1,7 +1,8 @@
+from pyeda.inter import *
 import bdd_utils
-from scc import *
+import consts
 from fair_path_finder import FairPathFinder
-from formula_parser import dict_invert
+import scc_finder
 
 class Graph():
     def __init__(self, nto_compose, relation):
@@ -20,7 +21,7 @@ class Graph():
         return bdd_utils.count_solutions(self._relation, len(self._nto_compose.keys()) * 2)
 
     def count_reachable_states(self, initial_states):
-        return bdd_utils.count_solutions(initial_states | forward_set(initial_states, bdd_utils.ONE, self._relation, dict_invert(self._nto_compose)), len(self._nto_compose.keys()))
+        return bdd_utils.count_solutions(initial_states | scc_finder.forward_set(initial_states, bdd_utils.ONE, self._relation, dict_invert(self._nto_compose)), len(self._nto_compose.keys()))
 
     def has_fair_path(self, initial_states, fairness_constraints):
         res = self._get_fair_path_finder(initial_states, fairness_constraints)
@@ -66,3 +67,7 @@ class SymbolicModel():
             if ((self._get_node_bdd(i + 1) & node_set).is_zero()):
                 continue
             yield i+1
+
+
+def dict_invert(dictionary):
+    return {dictionary[key]:key for key in dictionary}

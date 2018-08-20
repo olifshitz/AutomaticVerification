@@ -1,8 +1,10 @@
 from pyeda.inter import *
 from collections import deque
-from formula_parser import *
+import ltl.formula_parser
 from symbolic_model import SymbolicModel, Graph
 import bdd_utils
+import consts
+from ltl.formula_parser import FormConst
 
 class Tableau():
     def __init__(self, formula, atomic_str):
@@ -52,7 +54,7 @@ class Tableau():
         formulas_to_check = deque([formula])
         while len(formulas_to_check):
             cur_formula = formulas_to_check.popleft()
-            op, form_g, form_h = parse_next_step(cur_formula)
+            op, form_g, form_h = ltl.formula_parser.parse_next_step(cur_formula)
             if not op:
                 if (cur_formula not in el):
                     assert form_g.islower() or form_g == consts.DUMMY_ATOMIC_PROPOSITION
@@ -80,7 +82,7 @@ class Tableau():
             if op == consts.UNTIL_IDENTIFIER:
                 formulas_to_check.append(form_g)
                 formulas_to_check.append(form_h)
-                el.append(get_next_until_form(form_g, form_h))
+                el.append(FormConst.f_next(FormConst.f_until(form_g, form_h)))
                 continue
             raise Exception('Not my problem %s' % (formula,))
         return el
@@ -92,7 +94,7 @@ class Tableau():
             return self.el_bdds[formula]
         if use_other_el and formula in self.el_bdds_other:
             return self.el_bdds_other[formula]
-        op, form_g, form_h = parse_next_step(formula)
+        op, form_g, form_h = ltl.formula_parser.parse_next_step(formula)
         if op == consts.NOT_IDENTIFIER:
             return ~self.get_sat(form_g, use_other_el)
         if op == consts.OR_IDENTIFIER:
@@ -105,7 +107,7 @@ class Tableau():
             return self.get_sat(form_g, use_other_el) | self.get_sat(FormConst.f_next(FormConst.f_eventually(form_g)), use_other_el)
         if op == consts.UNTIL_IDENTIFIER:
             return self.get_sat(form_h, use_other_el) | (self.get_sat(form_g, use_other_el) &
-                    self.get_sat(get_next_until_form(form_g, form_h), use_other_el))
+                    self.get_sat(FormConst.f_next(FormConst.f_until(form_g, form_h)), use_other_el))
         raise Exception('Unsupported operator by <get_sat>: %s' % (formula,))
 
     def get_fairness_constraints(self, formula):
@@ -113,7 +115,7 @@ class Tableau():
         formulas_to_check = deque([formula])
         while len(formulas_to_check):
             cur_formula = formulas_to_check.popleft()
-            op, form_g, form_h = parse_next_step(cur_formula)
+            op, form_g, form_h = ltl.formula_parser.parse_next_step(cur_formula)
             if not op:
                 continue
             if op in (consts.NOT_IDENTIFIER, consts.NEXT_IDENTIFIER):
@@ -138,3 +140,10 @@ class Tableau():
                 continue
             raise Exception('Unsupported operator by <get_fairness_constraints>: %s' % (formula,))
         return fairness
+
+def convert_list_to_index_dictionary(lis, suffix=''):
+    d = {}
+    for l in lis:
+        d[l] = bddvar(l+suffix)
+    return d
+
