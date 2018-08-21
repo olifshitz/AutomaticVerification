@@ -2,12 +2,12 @@
 ["bibtex final_project"] 0 "final_project.aux" "final_project.bbl" "final_project" 0
   "/usr/local/texlive/2017/texmf-dist/bibtex/bst/base/plain.bst" 1480098433 20613 bd3fbfa9f64872b81ac57a0dd2ed855f ""
   "final_project.aux" 0 -1 0 ""
-  "final_project.bib" 1534707412 2230 a596405ad44b91ce5eccd58f373d1b1d ""
+  "final_project.bib" 1534805679 2230 a596405ad44b91ce5eccd58f373d1b1d ""
   (generated)
   "final_project.blg"
   "final_project.bbl"
-["pdflatex"] 1534720081 "/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex" "final_project.pdf" "final_project" 1534720081
-  "/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex" 1534720079 18503 f04fd2da5c66b87958048cc40c1ea114 ""
+["pdflatex"] 1534809441 "/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex" "final_project.pdf" "final_project" 1534809441
+  "/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex" 1534809440 22308 dc5bacd9e80d2658db6a26cc4e08b383 ""
   "/usr/local/texlive/2017/texmf-dist/fonts/map/fontname/texfonts.map" 1480098670 3287 e6b82fe08f5336d4d5ebc73fb1152e87 ""
   "/usr/local/texlive/2017/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1480098698 1004 54797486969f23fa377b128694d548df ""
   "/usr/local/texlive/2017/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm" 1480098698 988 bdf658c3bfc2d96d3c8b02cfc1c94c20 ""
@@ -19,6 +19,8 @@
   "/usr/local/texlive/2017/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm7.tfm" 1480098698 940 228d6584342e91276bf566bcf9716b83 ""
   "/usr/local/texlive/2017/texmf-dist/fonts/tfm/public/cm/cmbx10.tfm" 1480098701 1328 c834bbb027764024c09d3d2bf908b5f0 ""
   "/usr/local/texlive/2017/texmf-dist/fonts/tfm/public/cm/cmbx12.tfm" 1480098701 1324 c910af8c371558dc20f2d7822f66fe64 ""
+  "/usr/local/texlive/2017/texmf-dist/fonts/tfm/public/cm/cmbx6.tfm" 1480098701 1344 8a0be4fe4d376203000810ad4dc81558 ""
+  "/usr/local/texlive/2017/texmf-dist/fonts/tfm/public/cm/cmbx8.tfm" 1480098701 1332 1fde11373e221473104d6cc5993f046e ""
   "/usr/local/texlive/2017/texmf-dist/fonts/tfm/public/cm/cmcsc10.tfm" 1480098701 1300 63a6111ee6274895728663cf4b4e7e81 ""
   "/usr/local/texlive/2017/texmf-dist/fonts/tfm/public/cm/cmex10.tfm" 1480098701 992 662f679a0b3d2d53c1b94050fdaa3f50 ""
   "/usr/local/texlive/2017/texmf-dist/fonts/tfm/public/cm/cmmi10.tfm" 1480098701 1528 abec98dbc43e172678c11b3b9031252a ""
@@ -40,6 +42,7 @@
   "/usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb" 1480098733 34811 78b52f49e893bcba91bd7581cdc144c0 ""
   "/usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb" 1480098733 32080 340ef9bf63678554ee606688e7b5339d ""
   "/usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb" 1480098733 32001 6aeea3afe875097b1eb0da29acd61e28 ""
+  "/usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb" 1480098733 30251 6afa5cb1d0204815a708a080681d4674 ""
   "/usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb" 1480098733 36299 5f9df58c2139e7edcf37c8fca4bd384d ""
   "/usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb" 1480098733 35469 70d41d2b9ea31d5d813066df7c99281c ""
   "/usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb" 1480098733 35752 024fb6c41858982481f6968b5fc26508 ""
@@ -170,9 +173,9 @@
   "/usr/local/texlive/2017/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1495593472 2350277 a699055bee05bf8a40b0504752487295 ""
   "/usr/local/texlive/2017/texmf-var/web2c/pdftex/pdflatex.fmt" 1509803625 4129592 701b20ce8a225b0e39cf6fb9d98624d4 ""
   "/usr/local/texlive/2017/texmf.cnf" 1495593465 577 2b71d4d888f9e5560b2e99985915a9fa ""
-  "final_project.aux" 1534720081 8 a94a2480d3289e625eea47cd1b285758 ""
+  "final_project.aux" 1534809441 8 a94a2480d3289e625eea47cd1b285758 ""
   "final_project.bbl" 0 -1 0 "bibtex final_project"
-  "final_project.tex" 1534720079 18503 f04fd2da5c66b87958048cc40c1ea114 ""
+  "final_project.tex" 1534809440 22308 dc5bacd9e80d2658db6a26cc4e08b383 ""
   (generated)
   "final_project.pdf"
   "final_project.log"

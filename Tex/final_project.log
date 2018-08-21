@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.11.4)  20 AUG 2018 02:08
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.11.4)  21 AUG 2018 02:57
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -721,708 +721,46 @@ LaTeX Font Info:    Try loading font information for U+msb on input line 103.
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 
-LaTeX Warning: Citation `ltl' on page 1 undefined on input line 118.
+LaTeX Warning: Citation `ltl' on page 1 undefined on input line 120.
 
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 121.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 123.
 
 (/usr/local/texlive/2017/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10.95> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 121.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 123.
  [1
 
 {/usr/local/texlive/2017/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
 
-LaTeX Warning: Citation `ltl' on page 2 undefined on input line 180.
+LaTeX Warning: Citation `ltl' on page 2 undefined on input line 182.
 
 LaTeX Font Info:    Font shape `OMS/cmr/m/it' in size <10.95> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 183.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 185.
 
-LaTeX Warning: Citation `ltl' on page 2 undefined on input line 197.
+LaTeX Warning: Citation `ltl' on page 2 undefined on input line 199.
 
-[2] [3]
-/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:283: Missin
+
+LaTeX Warning: Citation `ltl' on page 2 undefined on input line 214.
+
+[2] [3] [4]
+/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:373: Missin
 g \endcsname inserted.
 <to be read again> 
                    \ALG@currentblock@0 
-l.283             \Procedure
+l.373             \Procedure
                             {product}{self,model}
 The control sequence marked <to be read again> should
 not appear between \csname and \endcsname.
 
-/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:283: Extra 
+/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:373: Extra 
 \endcsname.
 \ALG@makebeginrepeat ...\ALG@thisblock \endcsname 
                                                   \relax \def \ALG@thisblock...
-l.283             \Procedure
+l.373             \Procedure
                             {product}{self,model}
 I'm ignoring this, since I wasn't doing a \csname.
-
-
-/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:283: LaTeX 
-Error: Lonely \item--perhaps a missing list environment.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.283             \Procedure
-                            {product}{self,model}
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-Underfull \hbox (badness 10000) detected at line 283
-[][]
- []
-
-
-/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:284: LaTeX 
-Error: Lonely \item--perhaps a missing list environment.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.284                 \State
-                             \textbf{assert} isinstance(model, SymbolicModel)
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-Underfull \hbox (badness 10000) detected at line 284
-[][]
- []
-
-
-/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:285: LaTeX 
-Error: Lonely \item--perhaps a missing list environment.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.285                 \State
-                             product\_relations = model.relations \& self.re...
-
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-Underfull \hbox (badness 10000) detected at line 285
-[][]
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 285--287
-[] \OT1/cmr/m/n/10.95 prod-uct[]relations = model.relations & self.relations   
-& model.atomic &
- []
-
-
-/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:287: LaTeX 
-Error: Lonely \item--perhaps a missing list environment.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.287                 \State
-                             \textbf{return} Graph(global\_compose, product\...
-
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-Underfull \hbox (badness 10000) detected at line 287
-[][]
- []
-
-
-/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:288: LaTeX 
-Error: Lonely \item--perhaps a missing list environment.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.288             \EndProcedure
-                               
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-Underfull \hbox (badness 10000) detected at line 288
-[][]
- []
-
-
-LaTeX Warning: Citation `scc' on page 4 undefined on input line 305.
-
-[4]
-/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:318: Missin
-g \endcsname inserted.
-<to be read again> 
-                   \ALG@currentblock@0 
-l.318             \Procedure
-                            {Predecessor}{base, bound, relation, other\_comp...
-The control sequence marked <to be read again> should
-not appear between \csname and \endcsname.
-
-/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:318: Extra 
-\endcsname.
-\ALG@makebeginrepeat ...\ALG@thisblock \endcsname 
-                                                  \relax \def \ALG@thisblock...
-l.318             \Procedure
-                            {Predecessor}{base, bound, relation, other\_comp...
-I'm ignoring this, since I wasn't doing a \csname.
-
-
-/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:318: LaTeX 
-Error: Lonely \item--perhaps a missing list environment.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.318             \Procedure
-                            {Predecessor}{base, bound, relation, other\_comp...
-
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-Underfull \hbox (badness 10000) detected at line 318
-[][]
- []
-
-
-/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:319: LaTeX 
-Error: Lonely \item--perhaps a missing list environment.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.319                 \State
-                             result = ignore\_prims(relation \& base.compose...
-
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-Underfull \hbox (badness 10000) detected at line 319
-[][]
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 319--320
-[] \OT1/cmr/m/n/10.95 re-sult = ig-nore[]prims(relation
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 319--320
-\OT1/cmr/m/n/10.95 & base.compose(other[]compose),
- []
-
-
-/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:320: LaTeX 
-Error: Lonely \item--perhaps a missing list environment.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.320                 \State
-                             \textbf{return} result & bound
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-Underfull \hbox (badness 10000) detected at line 320
-[][]
- []
-
-/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:320: Mispla
-ced alignment tab character &.
-l.320 ...          \State \textbf{return} result &
-                                                   bound
-I can't figure out why you would want to use a tab mark
-here. If you just want an ampersand, the remedy is
-simple: Just type `I\&' now. But if some right brace
-up above has ended a previous alignment prematurely,
-you're probably due for more error messages, and you
-might try typing `S' now just to see what is salvageable.
-
-
-/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:321: LaTeX 
-Error: Lonely \item--perhaps a missing list environment.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.321             \EndProcedure
-                               
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-Underfull \hbox (badness 10000) detected at line 321
-[][]
- []
-
-/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:325: Missin
-g \endcsname inserted.
-<to be read again> 
-                   \ALG@currentblock@0 
-l.325             \Procedure
-                            {Successor}{base, bound, relation, other\_compose}
-The control sequence marked <to be read again> should
-not appear between \csname and \endcsname.
-
-/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:325: Extra 
-\endcsname.
-\ALG@makebeginrepeat ...\ALG@thisblock \endcsname 
-                                                  \relax \def \ALG@thisblock...
-l.325             \Procedure
-                            {Successor}{base, bound, relation, other\_compose}
-I'm ignoring this, since I wasn't doing a \csname.
-
-
-/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:325: LaTeX 
-Error: Lonely \item--perhaps a missing list environment.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.325             \Procedure
-                            {Successor}{base, bound, relation, other\_compose}
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-Underfull \hbox (badness 10000) detected at line 325
-[][]
- []
-
-
-/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:326: LaTeX 
-Error: Lonely \item--perhaps a missing list environment.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.326                 \State
-                             result = ignore\_prims(relation \& base, other\...
-
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-Underfull \hbox (badness 10000) detected at line 326
-[][]
- []
-
-
-Overfull \hbox (23.89517pt too wide) in paragraph at lines 326--327
-\OT1/cmr/m/n/10.95 other[]compose.values()).compose(other[]compose) 
- []
-
-
-/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:327: LaTeX 
-Error: Lonely \item--perhaps a missing list environment.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.327                 \State
-                             \textbf{return} result & bound
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-Underfull \hbox (badness 10000) detected at line 327
-[][]
- []
-
-/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:327: Mispla
-ced alignment tab character &.
-l.327 ...          \State \textbf{return} result &
-                                                   bound
-I can't figure out why you would want to use a tab mark
-here. If you just want an ampersand, the remedy is
-simple: Just type `I\&' now. But if some right brace
-up above has ended a previous alignment prematurely,
-you're probably due for more error messages, and you
-might try typing `S' now just to see what is salvageable.
-
-
-/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:328: LaTeX 
-Error: Lonely \item--perhaps a missing list environment.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.328             \EndProcedure
-                               
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-Underfull \hbox (badness 10000) detected at line 328
-[][]
- []
-
-
-LaTeX Warning: Citation `scc' on page 5 undefined on input line 345.
-
-/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:350: Missin
-g \endcsname inserted.
-<to be read again> 
-                   \ALG@currentblock@0 
-l.350             \Procedure
-                            {SCC\_Decomp}{N,V}
-The control sequence marked <to be read again> should
-not appear between \csname and \endcsname.
-
-/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:350: Extra 
-\endcsname.
-\ALG@makebeginrepeat ...\ALG@thisblock \endcsname 
-                                                  \relax \def \ALG@thisblock...
-l.350             \Procedure
-                            {SCC\_Decomp}{N,V}
-I'm ignoring this, since I wasn't doing a \csname.
-
-
-/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:350: LaTeX 
-Error: Lonely \item--perhaps a missing list environment.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.350             \Procedure
-                            {SCC\_Decomp}{N,V}
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-Underfull \hbox (badness 10000) detected at line 350
-[][]
- []
-
-
-/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:351: LaTeX 
-Error: Lonely \item--perhaps a missing list environment.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.351                 \State
-                             $V' \gets V$
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-Underfull \hbox (badness 10000) detected at line 351
-[][]
- []
-
-
-/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:353: LaTeX 
-Error: Lonely \item--perhaps a missing list environment.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.353                 \While
-                             {$V' \neq 0$}
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-Underfull \hbox (badness 10000) detected at line 353
-[][]
- []
-
-
-/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:354: LaTeX 
-Error: Lonely \item--perhaps a missing list environment.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.354                     \State
-                                 $v \gets random\_take(V')$
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-Underfull \hbox (badness 10000) detected at line 354
-[][]
- []
-
-
-/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:355: LaTeX 
-Error: Lonely \item--perhaps a missing list environment.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.355                     \State
-                                 $B(v) \gets backward_set(v, V', N)$
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-Underfull \hbox (badness 10000) detected at line 355
-[][]
- []
-
-
-/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:356: LaTeX 
-Error: Lonely \item--perhaps a missing list environment.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.356                     \State
-                                 $SCC\_DECOMP\_RECUR(v, B(v), N)$
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-Underfull \hbox (badness 10000) detected at line 356
-[][]
- []
-
-
-/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:357: LaTeX 
-Error: Lonely \item--perhaps a missing list environment.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.357                     \State
-                                 $V' \gets V' \wedge \overline{v \vee B(v)}$
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-Underfull \hbox (badness 10000) detected at line 357
-[][]
- []
-
-
-/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:358: LaTeX 
-Error: Lonely \item--perhaps a missing list environment.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.358                 \EndWhile
-                               
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-Underfull \hbox (badness 10000) detected at line 358
-[][]
- []
-
-
-/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:359: LaTeX 
-Error: Lonely \item--perhaps a missing list environment.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.359             \EndProcedure
-                               
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-Underfull \hbox (badness 10000) detected at line 359
-[][]
- []
-
-/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:364: Missin
-g \endcsname inserted.
-<to be read again> 
-                   \ALG@currentblock@0 
-l.364             \Procedure
-                            {FMD\_Pred}{W, U, N}
-The control sequence marked <to be read again> should
-not appear between \csname and \endcsname.
-
-/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:364: Extra 
-\endcsname.
-\ALG@makebeginrepeat ...\ALG@thisblock \endcsname 
-                                                  \relax \def \ALG@thisblock...
-l.364             \Procedure
-                            {FMD\_Pred}{W, U, N}
-I'm ignoring this, since I wasn't doing a \csname.
-
-
-/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:364: LaTeX 
-Error: Lonely \item--perhaps a missing list environment.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.364             \Procedure
-                            {FMD\_Pred}{W, U, N}
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-Underfull \hbox (badness 10000) detected at line 364
-[][]
- []
-
-
-/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:365: LaTeX 
-Error: Lonely \item--perhaps a missing list environment.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.365                 \State
-                             $pred \gets 0$
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-Underfull \hbox (badness 10000) detected at line 365
-[][]
- []
-
-
-/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:366: LaTeX 
-Error: Lonely \item--perhaps a missing list environment.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.366                 \State
-                             $front \gets W$
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-Underfull \hbox (badness 10000) detected at line 366
-[][]
- []
-
-
-/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:367: LaTeX 
-Error: Lonely \item--perhaps a missing list environment.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.367                 \State
-                             $bound \gets U$
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-Underfull \hbox (badness 10000) detected at line 367
-[][]
- []
-
-
-/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:369: LaTeX 
-Error: Lonely \item--perhaps a missing list environment.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.369                 \While
-                            {$front \neq 0$}
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-Underfull \hbox (badness 10000) detected at line 369
-[][]
- []
-
-
-/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:370: LaTeX 
-Error: Lonely \item--perhaps a missing list environment.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.370                     \State
-                                 $x \gets \exists_Y front(Y)\wedge N(X, Y) \...
-
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-Underfull \hbox (badness 10000) detected at line 370
-[][]
- []
-
-
-/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:371: LaTeX 
-Error: Lonely \item--perhaps a missing list environment.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.371                     \State
-                                 $y \gets \exists_Y bount(Y)\wedge N(X, Y) \...
-
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-Underfull \hbox (badness 10000) detected at line 371
-[][]
- []
-
-
-/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:372: LaTeX 
-Error: Lonely \item--perhaps a missing list environment.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.372                     \State
-                                 $front \gets x \wedge \overline{y}$
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-Underfull \hbox (badness 10000) detected at line 372
-[][]
- []
 
 
 /Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:373: LaTeX 
@@ -1432,8 +770,8 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.373                     \State
-                                 $pred \gets pred \vee front$
+l.373             \Procedure
+                            {product}{self,model}
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
@@ -1450,8 +788,8 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.374                     \State
-                                 $bount \gets bounts \wedge \overline{front}$
+l.374                 \State
+                             \textbf{assert} isinstance(model, SymbolicModel)
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
@@ -1468,14 +806,21 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.375                 \EndWhile
-                               
+l.375                 \State
+                             product\_relations = model.relations \& self.re...
+
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
 
 Underfull \hbox (badness 10000) detected at line 375
 [][]
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 375--377
+[] \OT1/cmr/m/n/10.95 prod-uct[]relations = model.relations & self.relations   
+& model.atomic &
  []
 
 
@@ -1487,7 +832,8 @@ Type  H <return>  for immediate help.
  ...                                              
                                                   
 l.377                 \State
-                             \textbf{return} $pred$
+                             \textbf{return} Graph(global\_compose, product\...
+
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
@@ -1515,395 +861,1052 @@ Underfull \hbox (badness 10000) detected at line 378
  []
 
 [5]
-/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:383: Missin
+
+LaTeX Warning: Citation `scc' on page 6 undefined on input line 395.
+
+/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:408: Missin
 g \endcsname inserted.
 <to be read again> 
                    \ALG@currentblock@0 
-l.383             \Procedure
-                            {SCC\_Decomp\_Recur}{v, B(v), N}
+l.408             \Procedure
+                            {Predecessor}{base, bound, relation, other\_comp...
 The control sequence marked <to be read again> should
 not appear between \csname and \endcsname.
 
-/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:383: Extra 
+/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:408: Extra 
 \endcsname.
 \ALG@makebeginrepeat ...\ALG@thisblock \endcsname 
                                                   \relax \def \ALG@thisblock...
-l.383             \Procedure
-                            {SCC\_Decomp\_Recur}{v, B(v), N}
+l.408             \Procedure
+                            {Predecessor}{base, bound, relation, other\_comp...
 I'm ignoring this, since I wasn't doing a \csname.
 
 
-/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:383: LaTeX 
+/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:408: LaTeX 
 Error: Lonely \item--perhaps a missing list environment.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.383             \Procedure
+l.408             \Procedure
+                            {Predecessor}{base, bound, relation, other\_comp...
+
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 408
+[][]
+ []
+
+
+/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:409: LaTeX 
+Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.409                 \State
+                             result = ignore\_prims(relation \& base.compose...
+
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 409
+[][]
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 409--410
+[] \OT1/cmr/m/n/10.95 re-sult = ig-nore[]prims(relation
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 409--410
+\OT1/cmr/m/n/10.95 & base.compose(other[]compose),
+ []
+
+
+/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:410: LaTeX 
+Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.410                 \State
+                             \textbf{return} result & bound
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 410
+[][]
+ []
+
+/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:410: Mispla
+ced alignment tab character &.
+l.410 ...          \State \textbf{return} result &
+                                                   bound
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+
+/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:411: LaTeX 
+Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.411             \EndProcedure
+                               
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 411
+[][]
+ []
+
+/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:415: Missin
+g \endcsname inserted.
+<to be read again> 
+                   \ALG@currentblock@0 
+l.415             \Procedure
+                            {Successor}{base, bound, relation, other\_compose}
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+
+/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:415: Extra 
+\endcsname.
+\ALG@makebeginrepeat ...\ALG@thisblock \endcsname 
+                                                  \relax \def \ALG@thisblock...
+l.415             \Procedure
+                            {Successor}{base, bound, relation, other\_compose}
+I'm ignoring this, since I wasn't doing a \csname.
+
+
+/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:415: LaTeX 
+Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.415             \Procedure
+                            {Successor}{base, bound, relation, other\_compose}
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 415
+[][]
+ []
+
+
+/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:416: LaTeX 
+Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.416                 \State
+                             result = ignore\_prims(relation \& base, other\...
+
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 416
+[][]
+ []
+
+
+Overfull \hbox (23.89517pt too wide) in paragraph at lines 416--417
+\OT1/cmr/m/n/10.95 other[]compose.values()).compose(other[]compose) 
+ []
+
+
+/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:417: LaTeX 
+Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.417                 \State
+                             \textbf{return} result & bound
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 417
+[][]
+ []
+
+/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:417: Mispla
+ced alignment tab character &.
+l.417 ...          \State \textbf{return} result &
+                                                   bound
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+
+/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:418: LaTeX 
+Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.418             \EndProcedure
+                               
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 418
+[][]
+ []
+
+
+LaTeX Warning: Citation `scc' on page 6 undefined on input line 435.
+
+/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:440: Missin
+g \endcsname inserted.
+<to be read again> 
+                   \ALG@currentblock@0 
+l.440             \Procedure
+                            {SCC\_Decomp}{N,V}
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+
+/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:440: Extra 
+\endcsname.
+\ALG@makebeginrepeat ...\ALG@thisblock \endcsname 
+                                                  \relax \def \ALG@thisblock...
+l.440             \Procedure
+                            {SCC\_Decomp}{N,V}
+I'm ignoring this, since I wasn't doing a \csname.
+
+
+/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:440: LaTeX 
+Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.440             \Procedure
+                            {SCC\_Decomp}{N,V}
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 440
+[][]
+ []
+
+
+/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:441: LaTeX 
+Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.441                 \State
+                             $V' \gets V$
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 441
+[][]
+ []
+
+
+/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:443: LaTeX 
+Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.443                 \While
+                             {$V' \neq 0$}
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 443
+[][]
+ []
+
+
+/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:444: LaTeX 
+Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.444                     \State
+                                 $v \gets random\_take(V')$
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 444
+[][]
+ []
+
+
+/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:445: LaTeX 
+Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.445                     \State
+                                 $B(v) \gets backward_set(v, V', N)$
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 445
+[][]
+ []
+
+
+/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:446: LaTeX 
+Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.446                     \State
+                                 $SCC\_DECOMP\_RECUR(v, B(v), N)$
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 446
+[][]
+ []
+
+
+/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:447: LaTeX 
+Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.447                     \State
+                                 $V' \gets V' \wedge \overline{v \vee B(v)}$
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 447
+[][]
+ []
+
+
+/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:448: LaTeX 
+Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.448                 \EndWhile
+                               
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 448
+[][]
+ []
+
+
+/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:449: LaTeX 
+Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.449             \EndProcedure
+                               
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 449
+[][]
+ []
+
+[6]
+/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:454: Missin
+g \endcsname inserted.
+<to be read again> 
+                   \ALG@currentblock@0 
+l.454             \Procedure
+                            {FMD\_Pred}{W, U, N}
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+
+/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:454: Extra 
+\endcsname.
+\ALG@makebeginrepeat ...\ALG@thisblock \endcsname 
+                                                  \relax \def \ALG@thisblock...
+l.454             \Procedure
+                            {FMD\_Pred}{W, U, N}
+I'm ignoring this, since I wasn't doing a \csname.
+
+
+/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:454: LaTeX 
+Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.454             \Procedure
+                            {FMD\_Pred}{W, U, N}
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 454
+[][]
+ []
+
+
+/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:455: LaTeX 
+Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.455                 \State
+                             $pred \gets 0$
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 455
+[][]
+ []
+
+
+/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:456: LaTeX 
+Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.456                 \State
+                             $front \gets W$
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 456
+[][]
+ []
+
+
+/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:457: LaTeX 
+Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.457                 \State
+                             $bound \gets U$
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 457
+[][]
+ []
+
+
+/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:459: LaTeX 
+Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.459                 \While
+                            {$front \neq 0$}
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 459
+[][]
+ []
+
+
+/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:460: LaTeX 
+Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.460                     \State
+                                 $x \gets \exists_Y front(Y)\wedge N(X, Y) \...
+
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 460
+[][]
+ []
+
+
+/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:461: LaTeX 
+Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.461                     \State
+                                 $y \gets \exists_Y bount(Y)\wedge N(X, Y) \...
+
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 461
+[][]
+ []
+
+
+/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:462: LaTeX 
+Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.462                     \State
+                                 $front \gets x \wedge \overline{y}$
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 462
+[][]
+ []
+
+
+/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:463: LaTeX 
+Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.463                     \State
+                                 $pred \gets pred \vee front$
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 463
+[][]
+ []
+
+
+/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:464: LaTeX 
+Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.464                     \State
+                                 $bount \gets bounts \wedge \overline{front}$
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 464
+[][]
+ []
+
+
+/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:465: LaTeX 
+Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.465                 \EndWhile
+                               
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 465
+[][]
+ []
+
+
+/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:467: LaTeX 
+Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.467                 \State
+                             \textbf{return} $pred$
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 467
+[][]
+ []
+
+
+/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:468: LaTeX 
+Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.468             \EndProcedure
+                               
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 468
+[][]
+ []
+
+/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:473: Missin
+g \endcsname inserted.
+<to be read again> 
+                   \ALG@currentblock@0 
+l.473             \Procedure
+                            {SCC\_Decomp\_Recur}{v, B(v), N}
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+
+/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:473: Extra 
+\endcsname.
+\ALG@makebeginrepeat ...\ALG@thisblock \endcsname 
+                                                  \relax \def \ALG@thisblock...
+l.473             \Procedure
+                            {SCC\_Decomp\_Recur}{v, B(v), N}
+I'm ignoring this, since I wasn't doing a \csname.
+
+
+/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:473: LaTeX 
+Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.473             \Procedure
                             {SCC\_Decomp\_Recur}{v, B(v), N}
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
 
-Underfull \hbox (badness 10000) detected at line 383
+Underfull \hbox (badness 10000) detected at line 473
 [][]
  []
 
 
-/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:384: LaTeX 
+/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:474: LaTeX 
 Error: Lonely \item--perhaps a missing list environment.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.384                 \State
+l.474                 \State
                              $F(v) \gets forward\_set(v, B(v), N)$
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
 
-Underfull \hbox (badness 10000) detected at line 384
+Underfull \hbox (badness 10000) detected at line 474
 [][]
  []
 
 
-/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:385: LaTeX 
+/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:475: LaTeX 
 Error: Lonely \item--perhaps a missing list environment.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.385                 \If
+l.475                 \If
                          {$F(v) \neq 0$}
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
 
-Underfull \hbox (badness 10000) detected at line 385
+Underfull \hbox (badness 10000) detected at line 475
 [][]
  []
 
 
-/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:386: LaTeX 
+/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:476: LaTeX 
 Error: Lonely \item--perhaps a missing list environment.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.386                     \State
+l.476                     \State
                                  \textbf{report} $F(v)$ an SCC
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
 
-Underfull \hbox (badness 10000) detected at line 386
+Underfull \hbox (badness 10000) detected at line 476
 [][]
  []
 
 
-/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:387: LaTeX 
+/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:477: LaTeX 
 Error: Lonely \item--perhaps a missing list environment.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.387                 \Else
+l.477                 \Else
                            
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
 
-Underfull \hbox (badness 10000) detected at line 387
+Underfull \hbox (badness 10000) detected at line 477
 [][]
  []
 
 
-/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:388: LaTeX 
+/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:478: LaTeX 
 Error: Lonely \item--perhaps a missing list environment.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.388                     \State
+l.478                     \State
                                  \textbf{report} $v$ non- SCC
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
 
-Underfull \hbox (badness 10000) detected at line 388
+Underfull \hbox (badness 10000) detected at line 478
 [][]
  []
 
 
-/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:389: LaTeX 
+/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:479: LaTeX 
 Error: Lonely \item--perhaps a missing list environment.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.389                 \EndIf
+l.479                 \EndIf
                             
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
 
-Underfull \hbox (badness 10000) detected at line 389
+Underfull \hbox (badness 10000) detected at line 479
 [][]
  []
 
 
-/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:391: LaTeX 
+/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:481: LaTeX 
 Error: Lonely \item--perhaps a missing list environment.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.391                 \State
+l.481                 \State
                              $x \gets F(v) \vee v$
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
 
-Underfull \hbox (badness 10000) detected at line 391
+Underfull \hbox (badness 10000) detected at line 481
 [][]
  []
 
 
-/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:392: LaTeX 
+/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:482: LaTeX 
 Error: Lonely \item--perhaps a missing list environment.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.392                 \State
+l.482                 \State
                              $R \gets B(v) \wedge \overline{x}$
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
 
-Underfull \hbox (badness 10000) detected at line 392
+Underfull \hbox (badness 10000) detected at line 482
 [][]
  []
 
 
-/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:393: LaTeX 
+/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:483: LaTeX 
 Error: Lonely \item--perhaps a missing list environment.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.393                 \State
+l.483                 \State
                              $y \gets \text{FMD\_PRED}(x, R, N)$
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
 
-Underfull \hbox (badness 10000) detected at line 393
+Underfull \hbox (badness 10000) detected at line 483
 [][]
  []
 
 
-/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:394: LaTeX 
+/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:484: LaTeX 
 Error: Lonely \item--perhaps a missing list environment.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.394                 \State
+l.484                 \State
                              \textbf{report} $y$ non-SCC
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
 
-Underfull \hbox (badness 10000) detected at line 394
+Underfull \hbox (badness 10000) detected at line 484
 [][]
  []
 
 
-/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:395: LaTeX 
+/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:485: LaTeX 
 Error: Lonely \item--perhaps a missing list environment.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.395                 \State
+l.485                 \State
                              $R \gets R \wedge \overline{y}$
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
 
-Underfull \hbox (badness 10000) detected at line 395
+Underfull \hbox (badness 10000) detected at line 485
 [][]
  []
 
 
-/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:396: LaTeX 
+/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:486: LaTeX 
 Error: Lonely \item--perhaps a missing list environment.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.396                 \State
+l.486                 \State
                              $IP \gets \exists_Y (y\vee x)(Y)\wedge N(X,Y) \...
 
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
 
-Underfull \hbox (badness 10000) detected at line 396
+Underfull \hbox (badness 10000) detected at line 486
 [][]
  []
 
 
-/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:398: LaTeX 
+/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:488: LaTeX 
 Error: Lonely \item--perhaps a missing list environment.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.398                 \While
+l.488                 \While
                             {$R \neq 0$}
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
 
-Underfull \hbox (badness 10000) detected at line 398
+Underfull \hbox (badness 10000) detected at line 488
 [][]
  []
 
 
-/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:399: LaTeX 
+/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:489: LaTeX 
 Error: Lonely \item--perhaps a missing list environment.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.399                     \State
+l.489                     \State
                                  $v \gets random\_take(IP)$
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
 
-Underfull \hbox (badness 10000) detected at line 399
+Underfull \hbox (badness 10000) detected at line 489
 [][]
  []
 
 
-/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:400: LaTeX 
+/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:490: LaTeX 
 Error: Lonely \item--perhaps a missing list environment.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.400                     \State
+l.490                     \State
                                  $B(v) \gets backward_set(v, R, N)$
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
 
-Underfull \hbox (badness 10000) detected at line 400
+Underfull \hbox (badness 10000) detected at line 490
 [][]
  []
 
 
-/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:401: LaTeX 
+/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:491: LaTeX 
 Error: Lonely \item--perhaps a missing list environment.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.401                     \State
+l.491                     \State
                                  $SCC\_DECOMP\_RECURE(v, B(v), N)$
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
 
-Underfull \hbox (badness 10000) detected at line 401
+Underfull \hbox (badness 10000) detected at line 491
 [][]
  []
 
 
-/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:402: LaTeX 
+/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:492: LaTeX 
 Error: Lonely \item--perhaps a missing list environment.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.402                     \State
+l.492                     \State
                                  $R \gets R \wedge \overline{v \vee B(v)}$
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
 
-Underfull \hbox (badness 10000) detected at line 402
+Underfull \hbox (badness 10000) detected at line 492
 [][]
  []
 
 
-/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:403: LaTeX 
+/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:493: LaTeX 
 Error: Lonely \item--perhaps a missing list environment.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.403                     \State
+l.493                     \State
                                  $IP \gets IP \wedge \overline {v \vee B(v)}$
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
 
-Underfull \hbox (badness 10000) detected at line 403
+Underfull \hbox (badness 10000) detected at line 493
 [][]
  []
 
 
-/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:405: LaTeX 
+/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:495: LaTeX 
 Error: Lonely \item--perhaps a missing list environment.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.405             \EndProcedure
+l.495             \EndProcedure
                                
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
 
-Underfull \hbox (badness 10000) detected at line 405
+Underfull \hbox (badness 10000) detected at line 495
 [][]
  []
 
-/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:405: Missin
+/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex:495: Missin
 g number, treated as zero.
 <to be read again> 
                    \ALG@b@2@EndProcedure@0 
-l.405             \EndProcedure
+l.495             \EndProcedure
                                
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
 look up `weird error' in the index to The TeXbook.)
 
-[6] [7]
+[7] [8] [9]
 No file final_project.bbl.
 (./final_project.aux)
 
@@ -1914,29 +1917,30 @@ LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
  ) 
 Here is how much of TeX's memory you used:
- 16419 strings out of 492995
- 324246 string characters out of 6132704
- 398197 words of memory out of 5000000
- 19644 multiletter control sequences out of 15000+600000
- 13821 words of font info for 52 fonts, out of 8000000 for 9000
+ 16423 strings out of 492995
+ 324284 string characters out of 6132704
+ 399197 words of memory out of 5000000
+ 19646 multiletter control sequences out of 15000+600000
+ 14442 words of font info for 54 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 55i,11n,66p,467b,256s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 55i,11n,66p,467b,258s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
 ></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
 </usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb>
-</usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><
-/usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></u
-sr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr
-/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/l
-ocal/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/loca
-l/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local
-/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/t
-exlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/te
-xlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on final_project.pdf (7 pages, 164023 bytes).
+</usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><
+/usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></
+usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></us
+r/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/
+local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/lo
+cal/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local
+/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/
+texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/te
+xlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/tex
+live/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
+Output written on final_project.pdf (9 pages, 179769 bytes).
 PDF statistics:
- 79 PDF objects out of 1000 (max. 8388607)
- 57 compressed objects within 1 object stream
+ 89 PDF objects out of 1000 (max. 8388607)
+ 64 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  13 words of extra memory for PDF output out of 10000 (max. 10000000)
 

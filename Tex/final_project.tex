@@ -111,6 +111,8 @@ Symbolic Model Checker}}
 \section{Introduction}
 
 \section{CTL and LTL Model Checking}
+
+   \subsection{CTL*, LTL and CTL}
     Let us begin by describing the temporal logic CTL*, and from there continue
     to describe both Computation Tree Logic (CTL) and Linear Temporal Logic(LTL).
     CTL* contains two types of formulae: state formulae which hold for specific
@@ -206,8 +208,96 @@ Symbolic Model Checker}}
         \end{itemize}
     \end{definition}
 
+    \subsection{Symbolic CTL Model Checking}
+        //TODO
+    \subsection{LTL Model Checking Using Tableaus}
+        As taught in class, and also shown in \cite{ltl}, we can use tableaus in
+        order to perform LTL model checking. In this section we present the
+        construction of the tableau and how to use in order to create the product
+        model. We also explain how the product model can be used in order to 
+        find every path that satisfies $f$ in formula $Ef$ givne model $M$.
 
-\section{Symbolic Model Checking - BDDs}
+        Let us begin by describing the tableau. Let $AP$ be the set of atomic
+        propositions in formula $f$. We define the set of elementary formulae
+        in the following inductive manner:
+        \begin{itemize}
+            \item 
+                $el(p) = \left\{p\right\}$ if $p\in AP$
+
+            \item
+                $el(\neg g) = el(g)$
+
+            \item 
+                $el(g\vee h) = el(g) \cup el(h)$
+
+            \item 
+                $el(\mathbf{X}g) = \left\{\mathbf{X}g\right\} \cup el(g)$
+
+            \item 
+                $el(gUh) = \left\{X(gUh)\right\} \cup el(g) \cup el(h)$
+        \end{itemize}
+
+        From the elementary formulae defined above, we create the states of the
+        tableau by looking at the states $2^{el(f)}$. The labeling function for
+        the tableau gives each state the atomic propositions found in the 
+        elementary formulae that makes up the state.
+
+        We also define the set $sat(g)$ for each subformula $g$ to be the set of
+        states that satisfy $g$. The set is defined in the following inductive
+        manner:
+        \begin{itemize}
+            \item 
+                $sat(g) = \left\{\sigma \; |\; g\in \sigma\right\}$ where
+                $g \in el(f)$
+
+            \item 
+                $sat(\neg g) = \left\{\sigma \;|\; \sigma \not\in sat(g)\right\}$
+
+            \item
+                $sat(g\vee h) = sat(g) \cup sat(h)$
+
+            \item
+                $sat(g U h) = sat(h) \cup (sat(g) \cap sat(X(gUh)))$
+        \end{itemize}
+
+        The transition relation of the tableau is given by the following formula:
+        \[
+            R_T(\sigma, \sigma') = \underset{Xg\in el(g)}{\bigwedge}
+                \sigma\in sat(Xg) \iff \sigma' \in sat(g)
+        \]
+
+        The transition relation above does not guarantee that the eventually
+        property holds; for example in the case of the subformula $aUb$ - the
+        transition relation leading to a path where $a$ always holds and $b$ is
+        never reached is also valid. 
+        
+        In order to overcome this problem we need to add more conditions on the
+        paths accepted by the tableau. We do this by adding the fairness 
+        constraint matching the eventually property described above. 
+        That is, for every subformula $gUh$, we add the fairness constraint
+        \[
+            \left\{sat(\neg(gUh)\vee h \;|\; gUh in f \right\}
+        \]
+
+        This concludes the construction of the tableau; we now move to describing
+        the product model created from the tableau above, $T$ and the original 
+        model $M$. The product is defined as the following Kripke structure:
+        \begin{itemize}
+            \item
+                $S = \left\{(\sigma, \sigma')\;|\; \sigma \in S_T, \sigma' \in S_M
+                \text{ and } L_M(\sigma')\cap AP = L_T(\sigma) \right\}$ 
+            
+            \item
+                $R((\sigma, \sigma'), (\tau, \tau'))$ iff $R_T(\sigma, \tau)$
+                and $R_M(\sigma', \tau')$
+
+            \item
+                $L((\sigma, \sigma')) = L_T(\sigma)$
+        \end{itemize}
+
+        Finally, all that is left to do is apply CTL model checking to the product
+        to find the set of states that satisfy $EGtrue$ under the fairness
+        constraints described above.
 
 \section{Implementation}
     In our project we implemented a symbolic CTL and LTL model cheker in python 
