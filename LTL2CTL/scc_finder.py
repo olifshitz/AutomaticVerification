@@ -1,6 +1,6 @@
 from pyeda.inter import *
 from bdd_utils import *
-from symbolic_model import dict_invert
+import symbolic_model
 
 def predecessor(base, bound, relation, norm_to_other_compose):
     print_debug_bdd('rela', relation)
@@ -49,7 +49,7 @@ class SccFinder():
     def __init__(self, relation, norm_to_other_compose):
         self._relation = relation
         self._nto_compose = norm_to_other_compose
-        self._otn_compose = dict_invert(norm_to_other_compose)
+        self._otn_compose = symbolic_model.dict_invert(norm_to_other_compose)
         arbitrary_prim = next(iter(norm_to_other_compose.values()))
         self._current_node_set = arbitrary_prim | ~arbitrary_prim
 

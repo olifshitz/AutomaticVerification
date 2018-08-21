@@ -58,8 +58,8 @@ class SymbolicModel():
     def add_atomic(self, node_index, symbols):
         self.atomic |= self._get_node_bdd(node_index) & symbols
 
-    def add_relation(self, node_index1, node_index2):
-        self.relations |= self._get_node_bdd(node_index1) & self._get_node_bdd(node_index2).compose(self.msb_compose)
+    def add_relation(self, node_index1, node_index2, additional_bdd=bdd_utils.ONE):
+        self.relations |= self._get_node_bdd(node_index1) & self._get_node_bdd(node_index2).compose(self.msb_compose) & additional_bdd
 
     def from_bdd_to_node_index(self, node_set):
         for i in range(self._number_of_states):
@@ -68,6 +68,5 @@ class SymbolicModel():
                 continue
             yield i+1
 
-
 def dict_invert(dictionary):
-    return {dictionary[key]:key for key in dictionary}
+    return {dictionary[key]: key for key in dictionary}

@@ -11,6 +11,14 @@ class CtlModelChecker():
     def from_bdd_to_node_index(self, node_set):
         return self._model.from_bdd_to_node_index(node_set)
 
+    def compute_exists_globally(self, form_g):
+        Q = bdd_utils.ONE
+        Qt = self.check(form_g)
+        while (not Q.equivalent(Qt)):
+            Q = Qt
+            Qt = Q & predecessor(Q, bdd_utils.ONE, self._model.relations, self._model.msb_compose)
+        return Q
+
     def check(self, formula):
         op, form_g, form_h = ctl.formula_parser.parse_next_step(formula)
         if not op:
@@ -24,7 +32,7 @@ class CtlModelChecker():
         if op == consts.NEXT_IDENTIFIER:
             return predecessor(self.check(form_g), bdd_utils.ONE, self._model.relations, self._model.msb_compose)
         if op == consts.GLOBALY_IDENTIFIER:
-            return backward_set(self.check(form_g), bdd_utils.ONE, self._model.relations, self._model.msb_compose, True)
+            return self.compute_exists_globally(form_g)
         if op == consts.UNTIL_IDENTIFIER:
             return backward_set(self.check(form_h), self.check(form_g), self._model.relations, self._model.msb_compose, True)
         raise Exception('Unsupported operator by <ctl_check>: %s' % (formula,))
