@@ -222,7 +222,6 @@ print('Test : liveness :', list(liveness_nodes))
 startvation_nodes = model.ctl_check(starvation_ctl)
 print('Test : startvation_nodes :', list(startvation_nodes))
 
-#starvation_sat = model.ltl_check(starvation_ltl)
-starvation_sat = model.ltl_check(LTLFormConst.f_or('s','o'))
+starvation_sat = model.ltl_check(starvation_ltl)
 print('Test : starvation_sat :', starvation_sat)
 
