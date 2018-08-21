@@ -54,3 +54,15 @@ def count_solutions(bdd, prims_len):
     for satisfy in bdd.satisfy_all():
         res += 1 << (prims_len - len(satisfy))
     return res
+
+def merge_bdds_only_one_true(bdds):
+    res = ZERO
+    for bdd1 in bdds:
+        step = ONE
+        for bdd2 in bdds:
+            if (bdd1 == bdd2):
+                step &= bdd2
+            else:
+                step &= ~bdd2
+        res |= step
+    return res

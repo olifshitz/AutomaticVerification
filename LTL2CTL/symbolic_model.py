@@ -32,17 +32,37 @@ class Graph():
 
 #nodes are indexes from 1 to n included
 class SymbolicModel():
-    def __init__(self, number_of_states):
+    def __init__(self, number_of_states, suffix=''):
         self._number_of_states = number_of_states
         self._model_index_length = (number_of_states-1).bit_length()
 
-        self.msb = bddvars(consts.MODEL_IDX, self._model_index_length)
-        self.msb_other = bddvars(consts.MODEL_OTHER_IDX, self._model_index_length)
+        self.msb = bddvars(consts.MODEL_IDX + suffix, self._model_index_length)
+        self.msb_other = bddvars(consts.MODEL_OTHER_IDX + suffix, self._model_index_length)
 
         self.msb_compose = {self.msb[i]: self.msb_other[i] for i in range(self._model_index_length)}
 
         self.atomic = bdd_utils.ZERO
         self.relations = bdd_utils.ZERO
+
+        self.atomic_str = []
+
+    def multiply(self, other_model):
+        self._number_of_states *= other_model._number_of_states
+        self._model_index_length += other_model._model_index_length
+
+        self.msb += other_model.msb
+        self.msb_other += other_model.msb_other
+
+        self.msb_compose = {**self.msb_compose, **other_model.msb_compose}
+
+        self.atomic &= other_model.atomic
+        self.relations &= other_model.relations
+
+        self.atomic_str += other_model.atomic_str
+
+    def restrict(self, restriction):
+        self.atomic &= restriction
+        self.relations &= restriction & restriction.compose(self.msb_compose)
 
     def get_node_bdd(self, node_index):
         node_index_bin = bin(node_index-1)[2:][::-1]
@@ -64,7 +84,7 @@ class SymbolicModel():
         for i in range(self._number_of_states):
             if ((self.get_node_bdd(i + 1) & node_set).is_zero()):
                 continue
-            yield i+1
+            yield i + 1
 
 def dict_invert(dictionary):
     return {dictionary[key]: key for key in dictionary}
