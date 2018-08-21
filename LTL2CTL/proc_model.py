@@ -51,7 +51,7 @@ class ProcModel():
         self.model.add_atomic(invalid_snoop, ~s & ~o & i & ~w & sp)
         self.model.add_atomic(invalid_snoop + master, ~s & ~o & i & ~w & sp)
 
-        self.model.add_atomic(sink, ~s & ~o & ~i & ~w & sp)
+        self.model.add_atomic(sink, ~s & ~o & ~i & ~w & ~sp)
 
         # Master
 
@@ -201,27 +201,33 @@ class ProcModel():
 readable = CTLFormConst.f_and(CTLFormConst.f_not('w'), CTLFormConst.f_or('s','o'))
 writable = CTLFormConst.f_and(CTLFormConst.f_not('w'), 'o')
 
-liveness_ctl = CTLFormConst.f_forall_globally(CTLFormConst.f_and(CTLFormConst.f_exists_eventually(readable), CTLFormConst.f_exists_eventually(writable)))
-print(liveness_ctl)
-
-starvation_ctl = CTLFormConst.f_forall_globally(CTLFormConst.f_implies(CTLFormConst.f_and('o', 'w'), CTLFormConst.f_forall_eventually(CTLFormConst.f_and('o', CTLFormConst.f_not('w')))))
-print(starvation_ctl)
-
-starvation_ltl = LTLFormConst.f_globally(LTLFormConst.f_implies(LTLFormConst.f_and('o', 'w'), LTLFormConst.f_eventually(LTLFormConst.f_and('o', LTLFormConst.f_not('w')))))
-print(starvation_ltl)
-
-
 model = ProcModel()
 
 bdd_utils.print_debug_bdd('debug atomic', model.model.atomic)
 bdd_utils.print_debug_bdd('debug relation', model.model.relations)
 
+liveness_ctl = CTLFormConst.f_forall_globally(CTLFormConst.f_and(CTLFormConst.f_exists_eventually(readable), CTLFormConst.f_exists_eventually(writable)))
+print(liveness_ctl)
 liveness_nodes = model.ctl_check(liveness_ctl)
 print('Test : liveness :', list(liveness_nodes))
 
+starvation_ctl = CTLFormConst.f_forall_globally(CTLFormConst.f_implies(CTLFormConst.f_and('o', 'w'), CTLFormConst.f_forall_eventually(CTLFormConst.f_and('o', CTLFormConst.f_not('w')))))
+print(starvation_ctl)
 startvation_nodes = model.ctl_check(starvation_ctl)
-print('Test : startvation_nodes :', list(startvation_nodes))
+print('Test : startvation_ctl :', list(startvation_nodes))
 
+starvation_ltl = LTLFormConst.f_globally(LTLFormConst.f_implies(LTLFormConst.f_and('o', 'w'), LTLFormConst.f_eventually(LTLFormConst.f_and('o', LTLFormConst.f_not('w')))))
+print(starvation_ltl)
 starvation_sat = model.ltl_check(starvation_ltl)
-print('Test : starvation_sat :', starvation_sat)
+print('Test : starvation_ltl :', starvation_sat)
+
+safety_ctl = CTLFormConst.f_forall_globally(LTLFormConst.f_or(LTLFormConst.f_or('s','o'),'i'))
+print(safety_ctl)
+safety_nodes = model.ctl_check(safety_ctl)
+print('Test : safety_ctl :', list(safety_nodes))
+
+safety_ltl = LTLFormConst.f_globally(LTLFormConst.f_or(LTLFormConst.f_or('s','o'),'i'))
+print(safety_ltl)
+safety_sat = model.ltl_check(LTLFormConst.f_globally(LTLFormConst.f_or(LTLFormConst.f_or('s','o'),'i')))
+print('Test : safety_ltl :', safety_sat)
 
