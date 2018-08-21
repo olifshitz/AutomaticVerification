@@ -2,12 +2,12 @@
 ["bibtex final_project"] 0 "final_project.aux" "final_project.bbl" "final_project" 0
   "/usr/local/texlive/2017/texmf-dist/bibtex/bst/base/plain.bst" 1480098433 20613 bd3fbfa9f64872b81ac57a0dd2ed855f ""
   "final_project.aux" 0 -1 0 ""
-  "final_project.bib" 1534805679 2230 a596405ad44b91ce5eccd58f373d1b1d ""
+  "final_project.bib" 1534872504 2694 f4157cc2ea57bdb00642f98df20d037d ""
   (generated)
   "final_project.blg"
   "final_project.bbl"
-["pdflatex"] 1534809441 "/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex" "final_project.pdf" "final_project" 1534809441
-  "/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex" 1534809440 22308 dc5bacd9e80d2658db6a26cc4e08b383 ""
+["pdflatex"] 1534872941 "/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex" "final_project.pdf" "final_project" 1534872941
+  "/Users/omrilifshitz/Git/AutomaticVerification/Tex/final_project.tex" 1534872940 23770 1848f0e0d552637c66f64bd434979d1c ""
   "/usr/local/texlive/2017/texmf-dist/fonts/map/fontname/texfonts.map" 1480098670 3287 e6b82fe08f5336d4d5ebc73fb1152e87 ""
   "/usr/local/texlive/2017/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1480098698 1004 54797486969f23fa377b128694d548df ""
   "/usr/local/texlive/2017/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm" 1480098698 988 bdf658c3bfc2d96d3c8b02cfc1c94c20 ""
@@ -173,10 +173,10 @@
   "/usr/local/texlive/2017/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1495593472 2350277 a699055bee05bf8a40b0504752487295 ""
   "/usr/local/texlive/2017/texmf-var/web2c/pdftex/pdflatex.fmt" 1509803625 4129592 701b20ce8a225b0e39cf6fb9d98624d4 ""
   "/usr/local/texlive/2017/texmf.cnf" 1495593465 577 2b71d4d888f9e5560b2e99985915a9fa ""
-  "final_project.aux" 1534809441 8 a94a2480d3289e625eea47cd1b285758 ""
+  "final_project.aux" 1534872941 8 a94a2480d3289e625eea47cd1b285758 ""
   "final_project.bbl" 0 -1 0 "bibtex final_project"
-  "final_project.tex" 1534809440 22308 dc5bacd9e80d2658db6a26cc4e08b383 ""
+  "final_project.tex" 1534872940 23770 1848f0e0d552637c66f64bd434979d1c ""
   (generated)
+  "final_project.aux"
   "final_project.pdf"
   "final_project.log"
-  "final_project.aux"
