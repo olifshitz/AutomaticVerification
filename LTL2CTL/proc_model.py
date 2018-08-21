@@ -1,126 +1,228 @@
 from pyeda.inter import *
 import bdd_utils
 import symbolic_model
+from ltl.formula_parser import FormConst as LTLFormConst
+from ctl.formula_parser import FormConst as CTLFormConst
+from ctl.model_checker import CtlModelChecker
+from ltl.model_checker import LtlModelChecker
 
-atomic = ['s', 'o', 'i', 'w', 'sp', 'm']
+class ProcModel():
+    def __init__(self):
+        self.atomic_str = ['s', 'o', 'i', 'w', 'sp']
+        s, o, i, w, sp = map(bddvar, self.atomic_str)
+        memory_status = [s & ~o & ~i, ~s & o & ~i, ~s & ~o & i]
+        response_status = [~w & ~sp, w & ~sp, ~w & sp]
+        commands = ['cs', 'co', 'ci', 'cr']
+        com_s, com_o, com_i, com_res = map(bddvar, commands)
 
-s, o, i, w, sp, m = map(bddvar, atomic)
+        # commands
+        read_shared = com_s & ~com_o & ~com_res & ~com_i
+        read_owned = ~com_s & com_o & ~com_res & ~com_i
+        response = ~com_s & ~com_o & com_res & ~com_i
+        idle = ~com_s & ~com_o & ~com_res & com_i
 
-memory_status = [s & ~o & ~i, ~s & o & ~i, ~s & ~o & i]
-response_status = [~w & ~sp, w & ~sp, ~w & sp]
-master_status = [m, ~m]
+        # states
+        shared = 1
+        shared_wait = 2
+        shared_snoop = 3
+        owned = 4
+        owned_wait = 5
+        invalid = 6
+        invalid_snoop = 7
+        master = 8
+        sink = 8
 
-model = symbolic_model.SymbolicModel(18)
+        self.model = symbolic_model.SymbolicModel(16)
 
-current_index = 1
-for mstatus in master_status:
-    for memstat in memory_status:
-        for rstat in response_status:
-            atomic_bdd = mstatus & memstat & rstat
-            print('s', current_index, list(atomic_bdd.satisfy_all()))
-            model.add_atomic(current_index, atomic_bdd)
-            current_index += 1
+        self.model.add_atomic(shared, s & ~o & ~i & ~w & ~sp)
+        self.model.add_atomic(shared + master, s & ~o & ~i & ~w & ~sp)
+        self.model.add_atomic(shared_wait, s & ~o & ~i & w & ~sp)
+        self.model.add_atomic(shared_wait + master, s & ~o & ~i & w & ~sp)
+        self.model.add_atomic(shared_snoop, s & ~o & ~i & ~w & sp)
+        self.model.add_atomic(shared_snoop + master, s & ~o & ~i & ~w & sp)
 
-commands = ['cs', 'co', 'ci', 'cr']
+        self.model.add_atomic(owned, ~s & o & ~i & ~w & ~sp)
+        self.model.add_atomic(owned + master, ~s & o & ~i & ~w & ~sp)
+        self.model.add_atomic(owned_wait, ~s & o & ~i & w & ~sp)
+        self.model.add_atomic(owned_wait + master, ~s & o & ~i & w & ~sp)
 
-com_s, com_o, com_i, com_res = map(bddvar, commands)
+        self.model.add_atomic(invalid, ~s & ~o & i & ~w & ~sp)
+        self.model.add_atomic(invalid + master, ~s & ~o & i & ~w & ~sp)
+        self.model.add_atomic(invalid_snoop, ~s & ~o & i & ~w & sp)
+        self.model.add_atomic(invalid_snoop + master, ~s & ~o & i & ~w & sp)
 
-#idle = ~com_rw & ~com_s & ~com_o & ~com_i & ~com_res
-#write_shared = com_rw & com_s & ~com_o & ~com_i & ~com_res
-read_shared = com_s & ~com_o & ~com_res & ~com_i
-read_owned = ~com_s & com_o & ~com_res & ~com_i
-response = ~com_s & ~com_o & com_res & ~com_i
-idle = ~com_s & ~com_o & ~com_res & com_i
+        self.model.add_atomic(sink, ~s & ~o & ~i & ~w & sp)
 
-# Master
+        # Master
 
-# shared -> read_owned -> owned
-model.add_relation(1, 4, read_owned)
-model.add_relation(1, 13, read_owned)
-# shared -> idle -> shared
-model.add_relation(1, 1, idle)
-model.add_relation(1, 10, idle)
+        # shared -> read_owned -> owned
+        self.model.add_relation(shared+master, owned, read_owned)
+        self.model.add_relation(shared+master, owned+master, read_owned)
+        # shared -> idle -> shared
+        self.model.add_relation(shared+master, shared, idle)
+        self.model.add_relation(shared+master, shared+master, idle)
 
-# shared, waiting -> read_owned -> owned, waiting
-model.add_relation(2, 5, read_owned)
-model.add_relation(2, 14, read_owned)
+        # !!! think about that
+        # shared, waiting -> read_owned -> owned, waiting
+        self.model.add_relation(shared_wait+master, owned_wait, read_owned)
+        self.model.add_relation(shared_wait + master, owned_wait + master, read_owned)
+        # shared, waiting -> idle -> shared, waiting
+        self.model.add_relation(shared_wait+master, shared_wait, idle)
+        self.model.add_relation(shared_wait+master, shared_wait+master, idle)
 
-# shared, snooping -> response -> shared
-model.add_relation(3, 1, response)
-model.add_relation(3, 10, response)
+        # shared, snooping -> response -> shared
+        self.model.add_relation(shared_snoop+master, shared, response)
+        self.model.add_relation(shared_snoop+master, shared+master, response)
 
-# owned -> nop (do we need this?)
-model.add_relation(4, 4, idle)
-model.add_relation(4, 13, idle)
+        # owned -> idle -> owned
+        self.model.add_relation(owned+master, owned, idle)
+        self.model.add_relation(owned+master, owned+master, idle)
 
-# owned, waiting -> nop
-# owned, snooping -> nop
+        # owned, waiting -> idle -> owned, waiting
+        self.model.add_relation(owned_wait+master, owned_wait, idle)
+        self.model.add_relation(owned_wait+master, owned_wait+master, idle)
 
-# invalid -> read_shared -> shared, waiting
-model.add_relation(7, 2, read_shared)
-model.add_relation(7, 11, read_shared)
-# invalid -> read_owned -> owned, waiting
-model.add_relation(7, 5, read_owned)
-model.add_relation(7, 14, read_owned)
+        # invalid -> idle -> invalid
+        self.model.add_relation(invalid+master, invalid, idle)
+        self.model.add_relation(invalid+master, invalid+master, idle)
+        # invalid -> read_shared -> shared, waiting
+        self.model.add_relation(invalid+master, shared_wait, read_shared)
+        self.model.add_relation(invalid+master, shared_wait+master, read_shared)
+        # invalid -> read_owned -> owned, waiting
+        self.model.add_relation(invalid+master, owned_wait, read_owned)
+        self.model.add_relation(invalid+master, owned_wait+master, read_owned)
 
-#invalid, waiting -> nop
-#inalid, snooping -> response -> invalid
-model.add_relation(9, 7, response)
-model.add_relation(9, 16, response)
+        # inalid, snooping -> response -> invalid
+        self.model.add_relation(invalid_snoop+master, invalid, response)
+        self.model.add_relation(invalid_snoop+master, invalid+master, response)
 
-# Not master
-# shared -> read_owned -> invalid
-model.add_relation(10, 7, read_owned)
-model.add_relation(10, 16, read_owned)
-# shared -> read_shared -> shared
-model.add_relation(10, 1, read_shared)
-model.add_relation(10, 10, read_shared)
+        # Not master
+        # shared -> read_owned -> invalid
+        self.model.add_relation(shared, invalid, read_owned)
+        self.model.add_relation(shared, invalid+master, read_owned)
+        # shared -> read_shared -> sink
+        self.model.add_relation(shared, sink, read_shared)
+        # shared -> response -> sink
+        self.model.add_relation(shared, sink, response)
+        # shared -> idle -> shared
+        self.model.add_relation(shared, shared, idle)
+        self.model.add_relation(shared, shared+master, idle)
 
-# shared, waiting -> read_owned -> invalid
-model.add_relation(11, 7, read_shared)
-model.add_relation(11, 16, read_shared)
-# shared, waiting -> read_shared -> shared, waiting
-model.add_relation(11, 2, read_shared)
-model.add_relation(11, 11, read_shared)
-# shared, waiting -> response -> shared
-model.add_relation(11, 1, response)
-model.add_relation(11, 10, response)
+        # shared, waiting -> read_owned -> invalid
+        self.model.add_relation(shared_wait, invalid, read_owned)
+        self.model.add_relation(shared_wait, invalid+master, read_owned)
+        # shared, waiting -> read_shared -> shared, waiting
+        self.model.add_relation(shared_wait, sink, read_shared)
+        # shared, waiting -> response -> shared
+        self.model.add_relation(shared_wait, shared, response)
+        self.model.add_relation(shared_wait, shared + master, response)
+        # shared, waiting -> idle -> shared, waiting
+        self.model.add_relation(shared_wait, shared_wait, idle)
+        self.model.add_relation(shared_wait, shared_wait + master, idle)
 
-# shared, snooping -> nop
+        # shared, snooping -> read_owned -> invalid, snooping
+        self.model.add_relation(shared_snoop, invalid_snoop, read_owned)
+        self.model.add_relation(shared_snoop, invalid_snoop+master, read_owned)
+        # shared, snooping -> read_shared -> sink
+        self.model.add_relation(shared_snoop, sink, read_shared)
+        # shared, snooping -> response -> shared
+        self.model.add_relation(shared_snoop, sink, response)
+        # shared, snooping -> idle -> shared, snooping
+        self.model.add_relation(shared_snoop, shared_snoop, idle)
+        self.model.add_relation(shared_snoop, shared_snoop+master, idle)
 
-# owned -> read_owned -> invalid, snooping
-model.add_relation(13, 9, read_owned)
-model.add_relation(13, 18, read_owned)
-# owned -> read_shared -> shared, snooping
-model.add_relation(13, 3, read_shared)
-model.add_relation(13, 12, read_shared)
+        # owned -> read_owned -> invalid, snooping
+        self.model.add_relation(owned, invalid_snoop, read_owned)
+        self.model.add_relation(owned, invalid_snoop+master, read_owned)
+        # owned -> read_shared -> shared, snooping
+        self.model.add_relation(owned, shared_snoop, read_shared)
+        self.model.add_relation(owned, shared_snoop+master, read_shared)
+        # owned -> response -> shared
+        self.model.add_relation(owned, sink, response)
+        # owned -> idle -> owned
+        self.model.add_relation(owned, owned, idle)
+        self.model.add_relation(owned, owned+master, idle)
 
-#owned, waiting -> read_owned -> invalid
-model.add_relation(14, 7, read_owned)
-model.add_relation(14, 16, read_owned)
-#owned, waiting -> read_shared -> shared, waiting
-model.add_relation(14, 2, read_shared)
-model.add_relation(14, 11, read_shared)
-#owned, waiting -> response -> owned
-model.add_relation(14, 4, response)
-model.add_relation(14, 13, response)
+        # owned, waiting -> read_owned -> invalid
+        self.model.add_relation(owned_wait, invalid, read_owned)
+        self.model.add_relation(owned_wait, invalid+master, read_owned)
+        # owned, waiting -> read_shared -> shared, waiting
+        self.model.add_relation(owned_wait, shared_wait, read_shared)
+        self.model.add_relation(owned_wait, shared_wait+master, read_shared)
+        # owned, waiting -> response -> owned
+        self.model.add_relation(owned_wait, owned, response)
+        self.model.add_relation(owned_wait, owned+master, response)
+        # owned, waiting -> idle -> owned
+        self.model.add_relation(owned_wait, owned_wait, idle)
+        self.model.add_relation(owned_wait, owned_wait+master, idle)
 
-#should we have a loop here?
-#owned, snooping -> nop
+        # invalid -> read_owned -> invalid
+        self.model.add_relation(invalid, invalid, read_owned)
+        self.model.add_relation(invalid, invalid+master, read_owned)
+        # invalid -> read_shared -> shared, waiting
+        self.model.add_relation(invalid, shared_wait, read_shared)
+        self.model.add_relation(invalid, shared_wait+master, read_shared)
+        # invalid -> response -> invalid
+        self.model.add_relation(invalid, invalid, response)
+        self.model.add_relation(invalid, invalid+master, response)
+        # invalid -> idle -> invalid
+        self.model.add_relation(invalid, invalid, idle)
+        self.model.add_relation(invalid, invalid+master, idle)
 
-#invalid -> read_shared -> shared, waiting
-model.add_relation(16, 2, read_shared)
-model.add_relation(16, 11, read_shared)
-#invalid -> read_owned -> invalid
-model.add_relation(16, 7, read_owned)
-model.add_relation(16, 16, read_owned)
-#invalid -> response -> invalid
-model.add_relation(16, 7, response)
-model.add_relation(16, 16, response)
+        # invalid, snoopping -> read_owned -> invalid, snoopping
+        self.model.add_relation(invalid_snoop, invalid_snoop, read_owned)
+        self.model.add_relation(invalid_snoop, invalid_snoop+master, read_owned)
+        # invalid, snoopping -> read_shared -> shared, snooping
+        self.model.add_relation(invalid_snoop, shared_snoop, read_shared)
+        self.model.add_relation(invalid_snoop, shared_snoop+master, read_shared)
+        # invalid, snoopping -> response -> sink
+        self.model.add_relation(invalid_snoop, sink, response)
+        # invalid, snoopping -> idle -> invalid, snoopping
+        self.model.add_relation(invalid_snoop, invalid_snoop, idle)
+        self.model.add_relation(invalid_snoop, invalid_snoop + master, idle)
 
-#invalid, waiting -> nop
-#invalid, snoopping -> nop
+        # product for one - do this only after multiplying every thing
+        self.model.relations &= self.model.msb[3] & self.model.msb_other[3]
+        self.model.atomic &= self.model.msb[3]
+        self.model.relations = bdd_utils.ignore_prims(self.model.relations, [com_s, com_o, com_i, com_res])
+
+    def ctl_check(self, formula):
+        checker = CtlModelChecker(model.model, self.atomic_str)
+        possible_init = checker.check(formula) & self.model.msb[3]
+
+        return set(checker.from_bdd_to_node_index(possible_init))
+
+    def ltl_check(self, formula):
+        checker = LtlModelChecker(self.model, self.atomic_str)
+        return checker.check_forall(formula, self.model.get_node_bdd(9) | self.model.get_node_bdd(12))
 
 
-bdd_utils.print_debug_bdd('debug atomic', model.atomic)
-bdd_utils.print_debug_bdd('debug relation', model.relations)
+# CTL formulas
+readable = CTLFormConst.f_and(CTLFormConst.f_not('w'), CTLFormConst.f_or('s','o'))
+writable = CTLFormConst.f_and(CTLFormConst.f_not('w'), 'o')
+
+liveness_ctl = CTLFormConst.f_forall_globally(CTLFormConst.f_and(CTLFormConst.f_exists_eventually(readable), CTLFormConst.f_exists_eventually(writable)))
+print(liveness_ctl)
+
+starvation_ctl = CTLFormConst.f_forall_globally(CTLFormConst.f_implies(CTLFormConst.f_and('o', 'w'), CTLFormConst.f_forall_eventually(CTLFormConst.f_and('o', CTLFormConst.f_not('w')))))
+print(starvation_ctl)
+
+starvation_ltl = LTLFormConst.f_globally(LTLFormConst.f_implies(LTLFormConst.f_and('o', 'w'), LTLFormConst.f_eventually(LTLFormConst.f_and('o', LTLFormConst.f_not('w')))))
+print(starvation_ltl)
+
+
+model = ProcModel()
+
+bdd_utils.print_debug_bdd('debug atomic', model.model.atomic)
+bdd_utils.print_debug_bdd('debug relation', model.model.relations)
+
+liveness_nodes = model.ctl_check(liveness_ctl)
+print('Test : liveness :', list(liveness_nodes))
+
+startvation_nodes = model.ctl_check(starvation_ctl)
+print('Test : startvation_nodes :', list(startvation_nodes))
+
+#starvation_sat = model.ltl_check(starvation_ltl)
+starvation_sat = model.ltl_check(LTLFormConst.f_or('s','o'))
+print('Test : starvation_sat :', starvation_sat)
+

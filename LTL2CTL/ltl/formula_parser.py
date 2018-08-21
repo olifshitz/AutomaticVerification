@@ -23,9 +23,12 @@ class FormConst():
         return FormConst._binary_op(consts.OR_IDENTIFIER, g, h)
 
     @staticmethod
+    def f_implies(g, h):
+        return FormConst.f_or(FormConst.f_not(g), h)
+
+    @staticmethod
     def f_and(g, h):
         return FormConst._binary_op(consts.AND_IDENTIFIER, g, h)
-        #return Simplify.f_and(g,h)
 
     @staticmethod
     def f_next(g):

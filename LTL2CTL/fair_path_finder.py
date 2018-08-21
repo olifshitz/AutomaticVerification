@@ -19,7 +19,9 @@ class FairPathFinder():
 
     def find_fair_path(self):
         sccFinder = scc_finder.SccFinder(self._relation, self._nto_compose)
+        print('Starting SCC decomposition')
         for scc in sccFinder.scc_decomp():
+            print('Found an SCC')
             bdd_utils.print_debug_bdd('scc', scc)
             if (not self._check_scc_with_fairness(scc)):
                 continue
@@ -27,6 +29,7 @@ class FairPathFinder():
             bdd_utils.print_debug_bdd('potential_init', potential_init)
             if (potential_init.is_zero()):
                 continue
+            print('Found potential init', list(potential_init.satisfy_all()))
             yield potential_init
 
     def does_fair_path_exists(self):

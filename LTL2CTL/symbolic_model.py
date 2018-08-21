@@ -25,7 +25,6 @@ class Graph():
 
     def has_fair_path(self, initial_states, fairness_constraints):
         res = self._get_fair_path_finder(initial_states, fairness_constraints)
-        bdd_utils.print_debug_bdd('res', res.find_fair_nodes())
         return res.does_fair_path_exists()
 
     def find_fair_nodes(self, initial_states, fairness_constraints):
@@ -45,7 +44,7 @@ class SymbolicModel():
         self.atomic = bdd_utils.ZERO
         self.relations = bdd_utils.ZERO
 
-    def _get_node_bdd(self, node_index):
+    def get_node_bdd(self, node_index):
         node_index_bin = bin(node_index-1)[2:][::-1]
         res = bdd_utils.ONE
         for i in range(self._model_index_length):
@@ -56,15 +55,14 @@ class SymbolicModel():
         return res
 
     def add_atomic(self, node_index, symbols):
-        self.atomic |= self._get_node_bdd(node_index) & symbols
+        self.atomic |= self.get_node_bdd(node_index) & symbols
 
     def add_relation(self, node_index1, node_index2, additional_bdd=bdd_utils.ONE):
-        self.relations |= self._get_node_bdd(node_index1) & self._get_node_bdd(node_index2).compose(self.msb_compose) & additional_bdd
+        self.relations |= self.get_node_bdd(node_index1) & self.get_node_bdd(node_index2).compose(self.msb_compose) & additional_bdd
 
     def from_bdd_to_node_index(self, node_set):
         for i in range(self._number_of_states):
-            #print_debug_bdd('hello %d' % i, (self._get_node_bdd(i + 1) & node_set))
-            if ((self._get_node_bdd(i + 1) & node_set).is_zero()):
+            if ((self.get_node_bdd(i + 1) & node_set).is_zero()):
                 continue
             yield i+1
 
