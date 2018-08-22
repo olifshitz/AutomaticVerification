@@ -109,6 +109,30 @@ Symbolic Model Checker}}
 \section{Abstract}
 
 \section{Introduction}
+   Throughout the course we studied LTL and CTL model checking and algorithms
+   used to solve this problem. Though we thoroughly learned the theoretical 
+   approach to the model checking problem and the algorithms used to solve them, we did not
+   go into detail regarding the verifcation tools available to solve these problems.
+   One verifcation tool that we came across during the course was the SMV model
+   checker and its expansion to LTL formulae found in \cite{ltl}. Although the
+   SMV model checker is a very useful tool for model checking, it is written
+   in a pseudo-code language that is not very common to most programmer.
+   
+   In our project we created a new model checker in $python$ that allows
+   verifcation of both temporal logics LTL and CTL. The model checker we
+   implemented is symbolic in order to be efficient and uses the algorithms
+   shown in class for model checking. Our intention was to create a model
+   checker that is both efficeint and easy to use and expand. We have developed
+   the relevant modules to simply translate a logical model $M$ into a symbolic
+   representation and use this symbolic representation in order validate
+   LTL and CTL formulae.
+   We tested our model checker on the snooping cache coherence protocol as
+   found in \cite{cache}. 
+   
+   In this paper we describe the relevant algorithms and theory needed to
+   understand the implemenation of our model checker. We also describe the 
+   main modules of the model checker and the results it achieved on the 
+   cache coherence model.
 
 \section{CTL and LTL Model Checking}
 
@@ -539,6 +563,15 @@ Symbolic Model Checker}}
         which there exist fair paths.
 
     \subsection{CTL model checking}
+        In order to implement CTL model checking we implemented the CTL model
+        checking algorithms shown in class when solving the find the set
+        of nodes satisfying the temporal quantifiers $EX, EG EU$.
+
+        When implementing these algorithm we used many of the methods already
+        described in the previous section; mostly the modules that are relevant
+        to reachability analysis. For example, when solving $EX$ we used the
+        successor method described earlier in order to find all the successor
+        of a given node.
 
 \section{Experiments and Results}
 
