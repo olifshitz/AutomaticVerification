@@ -259,7 +259,16 @@ Symbolic Model Checker}}
         \end{itemize}
 
         BDDs are very efficient in boolean function representation and can be
-        easily manipulated and thus 
+        easily manipulated and thus can be very useful in model checking.
+
+        The objective of CTL model checking is to find the set of states in a
+        given model for which a CTL formula holds. Symbolic CTL model checking
+        uses BDDs in order to represent the states int he model and its transitions.
+        That is, the transition relation in the Kripke structure is given by
+        a boolean formula $R(v,v')$ representing if there is a relation from the
+        set of state $v$ to the set of states $v'$. For each subformula, the 
+        algorithm computes the states satisfying it in a bottom up manner and returns
+        a BDD that represents the relevant states.
 
 
     \subsection{LTL Model Checking Using Tableaus}
