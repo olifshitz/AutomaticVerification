@@ -187,7 +187,7 @@ class ProcModel():
         self.model.relations = bdd_utils.ignore_prims(self.model.relations, [com_s, com_o, com_i, com_res])
 
     def ctl_check(self, formula):
-        checker = CtlModelChecker(model.model, self.atomic_str)
+        checker = CtlModelChecker(self.model, self.atomic_str)
         possible_init = checker.check(formula) & self.model.msb[3]
 
         return set(checker.from_bdd_to_node_index(possible_init))
