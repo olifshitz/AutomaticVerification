@@ -1,4 +1,5 @@
 from pyeda.inter import *
+import random
 
 _arbitrary_bdd = bddvar('a')
 ZERO = _arbitrary_bdd & ~_arbitrary_bdd
@@ -43,7 +44,10 @@ def pick_one(bdd, prims):
     sol = bdd.satisfy_one()
     res = 1
     for prim in prims:
-        if (prim not in sol or sol[prim]):
+        prim_value = prim in sol and sol[prim]
+        if prim not in sol:
+            prim_value = random.getrandbits(1)
+        if prim_value:
             res &= prim
             continue
         res &= ~prim
