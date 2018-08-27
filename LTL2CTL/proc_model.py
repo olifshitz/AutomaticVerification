@@ -25,12 +25,12 @@ class ProcModel():
         shared = 1
         shared_wait = 2
         shared_snoop = 3
-        owned = 4
-        owned_wait = 5
-        invalid = 6
-        invalid_snoop = 7
+        owned = 5
+        owned_wait = 6
+        invalid = 7
+        invalid_snoop = 8
         master = 8
-        sink = 8
+        sink = 4
 
         self.model = symbolic_model.SymbolicModel(16)
 
@@ -194,7 +194,7 @@ class ProcModel():
 
     def ltl_check(self, formula):
         checker = LtlModelChecker(self.model, self.atomic_str)
-        return checker.check_forall(formula, self.model.get_node_bdd(9) | self.model.get_node_bdd(12))
+        return checker.check_forall(formula, self.model.get_node_bdd(9) | self.model.get_node_bdd(13))
 
 
 # CTL formulas
