@@ -1,7 +1,9 @@
-from tableau import *
+from pyeda.inter import bddvar
+import consts
 import bdd_utils
 import ctl.formula_parser
 from scc_finder import predecessor, backward_set
+
 
 class CtlModelChecker():
     def __init__(self, model, atomic_str):
@@ -16,13 +18,16 @@ class CtlModelChecker():
         Qt = self.check(form_g)
         while (not Q.equivalent(Qt)):
             Q = Qt
-            Qt = Q & predecessor(Q, bdd_utils.ONE, self._model.relations, self._model.msb_compose)
+            Qt = Q & predecessor(
+                Q, bdd_utils.ONE,
+                self._model.relations, self._model.msb_compose)
         return Q
 
     def check(self, formula):
         op, form_g, form_h = ctl.formula_parser.parse_next_step(formula)
         if not op:
-            return bdd_utils.ignore_prims(self._model.atomic & bddvar(form_g), map(bddvar, self._atomic_str))
+            return bdd_utils.ignore_prims(self._model.atomic & bddvar(form_g),
+                                          map(bddvar, self._atomic_str))
         if op == consts.NOT_IDENTIFIER:
             return ~self.check(form_g)
         if op == consts.OR_IDENTIFIER:
@@ -30,11 +35,12 @@ class CtlModelChecker():
         if op == consts.AND_IDENTIFIER:
             return self.check(form_g) & self.check(form_h)
         if op == consts.NEXT_IDENTIFIER:
-            return predecessor(self.check(form_g), bdd_utils.ONE, self._model.relations, self._model.msb_compose)
+            return predecessor(self.check(form_g), bdd_utils.ONE,
+                               self._model.relations, self._model.msb_compose)
         if op == consts.GLOBALY_IDENTIFIER:
             return self.compute_exists_globally(form_g)
         if op == consts.UNTIL_IDENTIFIER:
-            return backward_set(self.check(form_h), self.check(form_g), self._model.relations, self._model.msb_compose, True)
+            return backward_set(self.check(form_h), self.check(form_g),
+                                self._model.relations, self._model.msb_compose,
+                                True)
         raise Exception('Unsupported operator by <ctl_check>: %s' % (formula,))
-
-

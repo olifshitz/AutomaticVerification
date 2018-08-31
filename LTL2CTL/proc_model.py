@@ -195,8 +195,8 @@ class ProcModel():
         self.model.add_relation(invalid_snoop, invalid_snoop + master, idle)
 
         # product for one - do this only after multiplying every thing
-        #self.model.relations &= self.model.msb[3] & self.model.msb_other[3]
-        #self.model.atomic &= self.model.msb[3]
+        # self.model.relations &= self.model.msb[3] & self.model.msb_other[3]
+        # self.model.atomic &= self.model.msb[3]
 
     def ctl_check(self, formula):
         checker = CtlModelChecker(self.model, self.atomic_str)

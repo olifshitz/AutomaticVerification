@@ -11,9 +11,11 @@ class Tableau():
     def __init__(self, formula, atomic_str):
         el = set(self.get_elementary_formulas(formula)) | set(atomic_str)
         self.el_bdds = convert_list_to_index_dictionary(el)
-        self.el_bdds_other = convert_list_to_index_dictionary(el, consts.TAG_IDENTIFIER)
+        self.el_bdds_other = convert_list_to_index_dictionary(
+            el, consts.TAG_IDENTIFIER)
 
-        self.el_bdds_compose = {self.el_bdds[el]: self.el_bdds_other[el] for el in self.el_bdds}
+        self.el_bdds_compose = {self.el_bdds[el]: self.el_bdds_other[el]
+                                for el in self.el_bdds}
 
         self.initial_states = self.get_sat(formula)
         self.relations = self._get_relation_table()
@@ -40,12 +42,15 @@ class Tableau():
         global_compose = {**model.msb_compose, **self.el_bdds_compose}
 
         bdd_utils.print_debug_bdd('model.atomic', model.atomic)
-        bdd_utils.print_debug_bdd('model.atomic.compose', model.atomic.compose(global_compose))
+        bdd_utils.print_debug_bdd(
+            'model.atomic.compose', model.atomic.compose(global_compose))
 
         bdd_utils.print_debug_bdd('model.relations', model.relations)
         bdd_utils.print_debug_bdd('tableau.relations', self.relations)
 
-        product_relations = model.relations & self.relations & model.atomic & model.atomic.compose(global_compose)
+        product_relations = model.relations & self.relations
+        product_relations &= model.atomic & model.atomic.compose(
+            global_compose)
         bdd_utils.print_debug_bdd('product_relations', product_relations)
 
         return Graph(global_compose, product_relations)
@@ -55,10 +60,13 @@ class Tableau():
         formulas_to_check = deque([formula])
         while len(formulas_to_check):
             cur_formula = formulas_to_check.popleft()
-            op, form_g, form_h = ltl.formula_parser.parse_next_step(cur_formula)
+            op, form_g, form_h = ltl.formula_parser.parse_next_step(
+                cur_formula)
             if not op:
                 if (cur_formula not in el):
-                    assert form_g.islower() or form_g == consts.DUMMY_ATOMIC_PROPOSITION
+                    legal_atomic = form_g.islower()
+                    legal_atomic |= form_g == consts.DUMMY_ATOMIC_PROPOSITION
+                    assert legal_atomic
                     el.append(form_g)
                 continue
             if op == consts.NOT_IDENTIFIER:
@@ -88,8 +96,6 @@ class Tableau():
             raise Exception('Not my problem %s' % (formula,))
         return el
 
-
-
     def get_sat(self, formula, use_other_el=False):
         if not use_other_el and formula in self.el_bdds:
             return self.el_bdds[formula]
@@ -99,16 +105,23 @@ class Tableau():
         if op == consts.NOT_IDENTIFIER:
             return ~self.get_sat(form_g, use_other_el)
         if op == consts.OR_IDENTIFIER:
-            return self.get_sat(form_g, use_other_el) | self.get_sat(form_h, use_other_el)
+            return self.get_sat(form_g, use_other_el) | self.get_sat(
+                form_h, use_other_el)
         if op == consts.AND_IDENTIFIER:
-            return self.get_sat(form_g, use_other_el) & self.get_sat(form_h, use_other_el)
+            return self.get_sat(form_g, use_other_el) & self.get_sat(
+                form_h, use_other_el)
         if op == consts.GLOBALY_IDENTIFIER:
-            return self.get_sat(form_g, use_other_el) & self.get_sat(FormConst.f_next(FormConst.f_globally(form_g)), use_other_el)
+            return self.get_sat(form_g, use_other_el) & self.get_sat(
+                FormConst.f_next(FormConst.f_globally(form_g)), use_other_el)
         if op == consts.EVENTUALLY_IDENTIFIER:
-            return self.get_sat(form_g, use_other_el) | self.get_sat(FormConst.f_next(FormConst.f_eventually(form_g)), use_other_el)
+            return self.get_sat(form_g, use_other_el) | self.get_sat(
+                FormConst.f_next(FormConst.f_eventually(form_g)), use_other_el)
         if op == consts.UNTIL_IDENTIFIER:
-            return self.get_sat(form_h, use_other_el) | (self.get_sat(form_g, use_other_el) &
-                    self.get_sat(FormConst.f_next(FormConst.f_until(form_g, form_h)), use_other_el))
+            return self.get_sat(form_h, use_other_el) | (self.get_sat(
+                form_g, use_other_el) &
+                self.get_sat(
+                FormConst.f_next(FormConst.f_until(form_g, form_h)),
+                use_other_el))
         raise Exception('Unsupported operator by <get_sat>: %s' % (formula,))
 
     def get_fairness_constraints(self, formula):
@@ -116,7 +129,8 @@ class Tableau():
         formulas_to_check = deque([formula])
         while len(formulas_to_check):
             cur_formula = formulas_to_check.popleft()
-            op, form_g, form_h = ltl.formula_parser.parse_next_step(cur_formula)
+            op, form_g, form_h = ltl.formula_parser.parse_next_step(
+                cur_formula)
             if not op:
                 continue
             if op in (consts.NOT_IDENTIFIER, consts.NEXT_IDENTIFIER):
@@ -129,22 +143,28 @@ class Tableau():
             if op == consts.UNTIL_IDENTIFIER:
                 formulas_to_check.append(form_g)
                 formulas_to_check.append(form_h)
-                fairness.append(self.get_sat(FormConst.f_or(FormConst.f_not(FormConst.f_until(form_g, form_h)), form_h)))
+                fairness.append(self.get_sat(FormConst.f_or(
+                    FormConst.f_not(FormConst.f_until(
+                        form_g, form_h)), form_h)))
                 continue
             if op == consts.GLOBALY_IDENTIFIER:
                 formulas_to_check.append(form_g)
-                fairness.append(self.get_sat(FormConst.f_or(FormConst.f_globally(form_g), FormConst.f_not(form_g))))
+                fairness.append(self.get_sat(FormConst.f_or(
+                    FormConst.f_globally(form_g), FormConst.f_not(form_g))))
                 continue
             if op == consts.EVENTUALLY_IDENTIFIER:
                 formulas_to_check.append(form_g)
-                fairness.append(self.get_sat(FormConst.f_or(FormConst.f_not(FormConst.f_eventually(form_g)), form_g)))
+                fairness.append(self.get_sat(FormConst.f_or(
+                    FormConst.f_not(FormConst.f_eventually(form_g)), form_g)))
                 continue
-            raise Exception('Unsupported operator by <get_fairness_constraints>: %s' % (formula,))
+            raise Exception(
+                'Unsupported operator by <get_fairness_constraints>: %s' % (
+                    formula,))
         return fairness
+
 
 def convert_list_to_index_dictionary(lis, suffix=''):
     d = {}
     for l in lis:
         d[l] = bddvar(l+suffix)
     return d
-

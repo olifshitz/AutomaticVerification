@@ -15,7 +15,7 @@
         "**/*.pyc": true,
         "**/__pycache__": true
     },
-    "python.formatting.provider": "yapf",
+    "python.formatting.provider": "autopep8",
     "diffEditor.renderSideBySide": false,
     "editor.stablePeek": true,
     "editor.formatOnType": true,

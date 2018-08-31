@@ -1,5 +1,6 @@
-from tableau import *
+from tableau import Tableau, FormConst
 import bdd_utils
+
 
 class LtlModelChecker():
     def __init__(self, model, atomic_str):
@@ -10,7 +11,9 @@ class LtlModelChecker():
         tableau = Tableau(formula, self._atomic_str)
         prod = tableau.product(self._model)
 
-        return prod.has_fair_path(tableau.initial_states & init_states, tableau.fairness_constraints)
+        return prod.has_fair_path(
+            tableau.initial_states & init_states,
+            tableau.fairness_constraints)
 
     def from_bdd_to_node_index(self, node_set):
         return self._model.from_bdd_to_node_index(node_set)
@@ -19,9 +22,11 @@ class LtlModelChecker():
         tableau = Tableau(formula, self._atomic_str)
         prod = tableau.product(self._model)
         print('#relations', prod.count_relations())
-        print('#reachable states', prod.count_reachable_states(tableau.initial_states & self._model.atomic))
+        print('#reachable states', prod.count_reachable_states(
+            tableau.initial_states & self._model.atomic))
 
-        states = prod.find_fair_nodes(tableau.initial_states, tableau.fairness_constraints)
+        states = prod.find_fair_nodes(
+            tableau.initial_states, tableau.fairness_constraints)
         states = bdd_utils.only_consider_prims(states, self._model.msb)
         bdd_utils.print_debug_bdd('states', states)
         return states

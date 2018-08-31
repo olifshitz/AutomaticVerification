@@ -1,5 +1,5 @@
-from pyeda.inter import *
 import consts
+
 
 class FormConst():
     @staticmethod
@@ -12,7 +12,8 @@ class FormConst():
 
     @staticmethod
     def _binary_op(op, g, h):
-        return '%s%c%s' % (FormConst._wrap_with_bracket(g), op, FormConst._wrap_with_bracket(h))
+        return '%s%c%s' % (FormConst._wrap_with_bracket(g), op,
+                           FormConst._wrap_with_bracket(h))
 
     @staticmethod
     def f_not(g):
@@ -44,7 +45,8 @@ class FormConst():
 
     @staticmethod
     def f_teotology():
-        return FormConst.f_or(consts.DUMMY_ATOMIC_PROPOSITION, FormConst.f_not(consts.DUMMY_ATOMIC_PROPOSITION))
+        return FormConst.f_or(consts.DUMMY_ATOMIC_PROPOSITION,
+                              FormConst.f_not(consts.DUMMY_ATOMIC_PROPOSITION))
 
     @staticmethod
     def f_contradiction():
@@ -64,27 +66,33 @@ class FormConst():
 
     @staticmethod
     def f_forall_globally(g):
-        return FormConst.f_not(FormConst.f_exists_eventually(FormConst.f_not(g)))
+        return FormConst.f_not(FormConst.f_exists_eventually(
+            FormConst.f_not(g)))
 
     @staticmethod
     def f_forall_until(g, h):
-        return FormConst.f_not(FormConst.f_or(FormConst.f_exists_until(FormConst.f_not(h), FormConst.f_not(FormConst.f_or(g,h))), FormConst.f_exists_globally(FormConst.f_not(h))))
+        return FormConst.f_not(FormConst.f_or(FormConst.f_exists_until(
+            FormConst.f_not(h), FormConst.f_not(FormConst.f_or(g, h))),
+            FormConst.f_exists_globally(FormConst.f_not(h))))
+
 
 def find_close_bracket(formula, index):
-	assert formula[index] == consts.BRA
-	counter = 1
-	for i in range(len(formula)-index):
-		if(formula[index+i+1] not in (consts.BRA, consts.KET)):
-			continue
-		if(formula[index+i+1] == consts.BRA):
-			counter += 1
-		if(formula[index+i+1] == consts.KET):
-			counter -= 1
-		if counter == 0:
-			return i+index+1
+    assert formula[index] == consts.BRA
+    counter = 1
+    for i in range(len(formula)-index):
+        if(formula[index+i+1] not in (consts.BRA, consts.KET)):
+            continue
+        if(formula[index+i+1] == consts.BRA):
+            counter += 1
+        if(formula[index+i+1] == consts.KET):
+            counter -= 1
+        if counter == 0:
+            return i+index+1
+
 
 def parse_next_step(formula):
-    if formula[0] in (consts.NOT_IDENTIFIER, consts.NEXT_IDENTIFIER, consts.GLOBALY_IDENTIFIER, consts.EVENTUALLY_IDENTIFIER):
+    if formula[0] in (consts.NOT_IDENTIFIER, consts.NEXT_IDENTIFIER,
+                      consts.GLOBALY_IDENTIFIER, consts.EVENTUALLY_IDENTIFIER):
         # ?[g]
         assert formula[1] == consts.BRA
         assert formula[-1] == consts.KET
@@ -100,4 +108,3 @@ def parse_next_step(formula):
         formula_h = formula[close_bracket+3:-1]
         return operand, formula_g, formula_h
     return None, formula, None
-
