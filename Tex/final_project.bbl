@@ -1,0 +1,25 @@
+\begin{thebibliography}{1}
+
+\bibitem{bdd}
+Bryant.
+\newblock Graph-based algorithms for boolean function manipulation.
+\newblock {\em IEEE Transactions on Computers}, C-35(8):677--691, Aug 1986.
+
+\bibitem{ltl}
+Edmund~M. Clarke, Orna Grumberg, and Kiyoharu Hamaguchi.
+\newblock Another look at ltl model checking.
+\newblock {\em Formal Methods in System Design}, 10(1):47--71, Feb 1997.
+
+\bibitem{cache}
+Kenneth~Lauchlin McMillan.
+\newblock {\em Symbolic Model Checking: An Approach to the State Explosion
+  Problem}.
+\newblock PhD thesis, Pittsburgh, PA, USA, 1992.
+\newblock UMI Order No. GAX92-24209.
+
+\bibitem{scc}
+Aiguo. Xie and P~A. Beerel.
+\newblock Implicit enumeration of strongly connected components.
+\newblock pages 37--40, Nov 1999.
+
+\end{thebibliography}
