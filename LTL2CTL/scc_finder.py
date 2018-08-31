@@ -1,38 +1,53 @@
-from pyeda.inter import *
-from bdd_utils import *
+from bdd_utils import print_debug_bdd, ignore_prims, ZERO, pick_one
 import symbolic_model
+
 
 def predecessor(base, bound, relation, norm_to_other_compose):
     print_debug_bdd('rela', relation)
     print_debug_bdd('base', base)
     print_debug_bdd('bound', bound)
-    print_debug_bdd('base.compose(norm_to_other_compose)', base.compose(norm_to_other_compose))
-    print_debug_bdd('relation & base.compose(norm_to_other_compose)', relation & base.compose(norm_to_other_compose))
-    result = ignore_prims(relation & base.compose(norm_to_other_compose), norm_to_other_compose.values())
+    print_debug_bdd('base.compose(norm_to_other_compose)',
+                    base.compose(norm_to_other_compose))
+    print_debug_bdd('relation & base.compose(norm_to_other_compose)',
+                    relation & base.compose(norm_to_other_compose))
+    result = ignore_prims(relation & base.compose(norm_to_other_compose),
+                          norm_to_other_compose.values())
     print_debug_bdd('result', result)
     return result & bound
 
+
 def successor(base, bound, relation, other_to_norm_compose):
-    result = ignore_prims(relation & base, other_to_norm_compose.values()).compose(other_to_norm_compose)
+    result = ignore_prims(
+        relation & base,
+        other_to_norm_compose.values()).compose(other_to_norm_compose)
     return result & bound
 
-def backward_set(base, bound, relation, norm_to_other_compose, include_base=False):
+
+def backward_set(base,
+                 bound,
+                 relation,
+                 norm_to_other_compose,
+                 include_base=False):
     res = ZERO
     new_candidates = predecessor(base, bound, relation, norm_to_other_compose)
     while not new_candidates.equivalent(res):
         res = new_candidates
-        new_candidates |= predecessor(res, bound, relation, norm_to_other_compose)
+        new_candidates |= predecessor(res, bound, relation,
+                                      norm_to_other_compose)
     if include_base:
         res = res | base
     return res
+
 
 def forward_set(base, bound, relation, other_to_norm_compose):
     res = ZERO
     new_candidates = successor(base, bound, relation, other_to_norm_compose)
     while not new_candidates.equivalent(res):
         res = new_candidates
-        new_candidates |= successor(res, bound, relation, other_to_norm_compose)
+        new_candidates |= successor(res, bound, relation,
+                                    other_to_norm_compose)
     return res
+
 
 def fmd_predecessor(base, bound, relation, norm_to_other_compose):
     pred = ZERO
@@ -45,6 +60,7 @@ def fmd_predecessor(base, bound, relation, norm_to_other_compose):
         bound &= ~front
     return pred
 
+
 class SccFinder():
     def __init__(self, relation, norm_to_other_compose):
         self._relation = relation
@@ -56,7 +72,8 @@ class SccFinder():
     def scc_decomp(self):
         while (not self._current_node_set.is_zero()):
             v = pick_one(self._current_node_set, self._nto_compose.keys())
-            bv = backward_set(v, self._current_node_set, self._relation, self._nto_compose)
+            bv = backward_set(v, self._current_node_set, self._relation,
+                              self._nto_compose)
             for scc in self._scc_decomp_recur(v, bv):
                 self._current_node_set &= ~scc
                 yield scc
@@ -84,4 +101,3 @@ class SccFinder():
                 yield scc
             R &= ~(v | bv)
             IP &= ~(v | bv)
-            pass

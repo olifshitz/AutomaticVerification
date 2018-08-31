@@ -22,4 +22,5 @@
     "telemetry.enableCrashReporter": false,
     "workbench.startupEditor": "none",
     "explorer.confirmDelete": false,
+    "editor.formatOnSave": true,
 }

@@ -1,8 +1,9 @@
-from pyeda.inter import *
+from pyeda.inter import bddvars
 import bdd_utils
 import consts
 from fair_path_finder import FairPathFinder
 import scc_finder
+
 
 class Graph():
     def __init__(self, nto_compose, relation):
@@ -30,7 +31,8 @@ class Graph():
     def find_fair_nodes(self, initial_states, fairness_constraints):
         return self._get_fair_path_finder(initial_states, fairness_constraints).find_fair_nodes()
 
-#nodes are indexes from 1 to n included
+
+# nodes are indexes from 1 to n included
 class SymbolicModel():
     def __init__(self, number_of_states, suffix=''):
         self._number_of_states = number_of_states
@@ -85,6 +87,7 @@ class SymbolicModel():
             if ((self.get_node_bdd(i + 1) & node_set).is_zero()):
                 continue
             yield i + 1
+
 
 def dict_invert(dictionary):
     return {dictionary[key]: key for key in dictionary}

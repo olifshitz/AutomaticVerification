@@ -1,6 +1,7 @@
 import scc_finder
 import bdd_utils
 
+
 class FairPathFinder():
     def __init__(self, init_states, fairness_constraints, relation, norm_to_other_compose):
         self._nto_compose = norm_to_other_compose
@@ -19,9 +20,11 @@ class FairPathFinder():
 
     def find_fair_path(self):
         sccFinder = scc_finder.SccFinder(self._relation, self._nto_compose)
+        number_of_scc_found = 0
         print('Starting SCC decomposition')
         for scc in sccFinder.scc_decomp():
-            print('Found an SCC')
+            number_of_scc_found += 1
+            print('Found an SCC %d' % (number_of_scc_found,))
             bdd_utils.print_debug_bdd('scc', scc)
             if (not self._check_scc_with_fairness(scc)):
                 continue

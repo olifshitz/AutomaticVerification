@@ -1,10 +1,11 @@
-from pyeda.inter import *
+from pyeda.inter import bddvar
 from collections import deque
 import ltl.formula_parser
 from symbolic_model import SymbolicModel, Graph
 import bdd_utils
 import consts
 from ltl.formula_parser import FormConst
+
 
 class Tableau():
     def __init__(self, formula, atomic_str):
