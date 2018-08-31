@@ -7,19 +7,19 @@ from ctl.model_checker import CtlModelChecker
 from ltl.model_checker import LtlModelChecker
 
 class ProcModel():
-    def __init__(self, suffix):
-        self.atomic_str = [at + suufix for at in ('s', 'o', 'i', 'w', 'sp')]
+    def __init__(self, suffix=''):
+        self.atomic_str = [at + suffix for at in ('s', 'o', 'i', 'w', 'sp')]
         s, o, i, w, sp = map(bddvar, self.atomic_str)
         memory_status = [s & ~o & ~i, ~s & o & ~i, ~s & ~o & i]
         response_status = [~w & ~sp, w & ~sp, ~w & sp]
         commands = ['cs', 'co', 'ci', 'cr']
-        com_s, com_o, com_i, com_res = map(bddvar, commands)
+        self.com_s, self.com_o, self.com_i, self.com_res = map(bddvar, commands)
 
         # commands
-        read_shared = com_s & ~com_o & ~com_res & ~com_i
-        read_owned = ~com_s & com_o & ~com_res & ~com_i
-        response = ~com_s & ~com_o & com_res & ~com_i
-        idle = ~com_s & ~com_o & ~com_res & com_i
+        read_shared = self.com_s & ~self.com_o & ~self.com_res & ~self.com_i
+        read_owned = ~self.com_s & self.com_o & ~self.com_res & ~self.com_i
+        response = ~self.com_s & ~self.com_o & self.com_res & ~self.com_i
+        idle = ~self.com_s & ~self.com_o & ~self.com_res & self.com_i
 
         # states
         shared = 1
@@ -32,10 +32,11 @@ class ProcModel():
         master = 8
         sink = 4
 
-        self.model = symbolic_model.SymbolicModel(16)
+        self.model = symbolic_model.SymbolicModel(16, suffix)
 
         self.model.add_atomic(shared, s & ~o & ~i & ~w & ~sp)
         self.model.add_atomic(shared + master, s & ~o & ~i & ~w & ~sp)
+
         self.model.add_atomic(shared_wait, s & ~o & ~i & w & ~sp)
         self.model.add_atomic(shared_wait + master, s & ~o & ~i & w & ~sp)
         self.model.add_atomic(shared_snoop, s & ~o & ~i & ~w & sp)
@@ -52,6 +53,7 @@ class ProcModel():
         self.model.add_atomic(invalid_snoop + master, ~s & ~o & i & ~w & sp)
 
         self.model.add_atomic(sink, ~s & ~o & ~i & ~w & ~sp)
+        self.model.add_atomic(sink+master, ~s & ~o & ~i & ~w & ~sp)
 
         # Master
 
@@ -182,24 +184,29 @@ class ProcModel():
         self.model.add_relation(invalid_snoop, invalid_snoop + master, idle)
 
         # product for one - do this only after multiplying every thing
-        self.model.relations &= self.model.msb[3] & self.model.msb_other[3]
-        self.model.atomic &= self.model.msb[3]
-        self.model.relations = bdd_utils.ignore_prims(self.model.relations, [com_s, com_o, com_i, com_res])
+        #self.model.relations &= self.model.msb[3] & self.model.msb_other[3]
+        #self.model.atomic &= self.model.msb[3]
 
     def ctl_check(self, formula):
         checker = CtlModelChecker(self.model, self.atomic_str)
-        possible_init = checker.check(formula) & self.model.msb[3]
+        possible_init = checker.check(formula) & self.new_init
 
         return set(checker.from_bdd_to_node_index(possible_init))
 
     def ltl_check(self, formula):
         checker = LtlModelChecker(self.model, self.atomic_str)
-        return checker.check_forall(formula, self.model.get_node_bdd(9) | self.model.get_node_bdd(13))
+        return checker.check_forall(formula, self.new_init)
 
-    def add_proc(self, number):
+    def complex_model(self, number):
+        master_msb = [self.model.msb[3]]
+        self.new_init = self.model.get_node_bdd(1) | self.model.get_node_bdd(9)
         for i in range(number):
             new_model = ProcModel(str(i))
-
+            self.model.multiply(new_model.model)
+            master_msb += [new_model.model.msb[3]]
+            self.new_init &= new_model.model.get_node_bdd(1) | new_model.model.get_node_bdd(9)
+        self.model.restrict(bdd_utils.merge_bdds_only_one_true(master_msb))
+        self.model.relations = bdd_utils.ignore_prims(self.model.relations, [self.com_s, self.com_o, self.com_i, self.com_res])
 
 
 # CTL formulas
@@ -209,13 +216,23 @@ writable = CTLFormConst.f_and(CTLFormConst.f_not('w'), 'o') # ~waiting & owned
 model = ProcModel()
 
 bdd_utils.print_debug_bdd('debug atomic', model.model.atomic)
-bdd_utils.print_debug_bdd('debug relation', model.model.relations)
+
+model.complex_model(1)
+
+print(model.model.msb)
+print(model.model.msb_compose)
+
+#bdd_utils.print_debug_bdd('debug atomic', model.model.atomic, True)
+#bdd_utils.print_debug_bdd('debug relation', model.model.relations, True)
+#bdd_utils.print_debug_bdd('debug init', model.new_init, True)
 
 # AG(EF(readable) & EF(writable))
 liveness_ctl = CTLFormConst.f_forall_globally(CTLFormConst.f_and(CTLFormConst.f_exists_eventually(readable), CTLFormConst.f_exists_eventually(writable)))
 print(liveness_ctl)
 liveness_nodes = model.ctl_check(liveness_ctl)
 print('Test : liveness :', list(liveness_nodes))
+
+exit()
 
 #AG(shared | owned | invalid)
 safety_ctl = CTLFormConst.f_forall_globally(LTLFormConst.f_or(LTLFormConst.f_or('s','o'),'i'))
