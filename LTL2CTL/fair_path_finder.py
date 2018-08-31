@@ -39,7 +39,7 @@ class FairPathFinder():
             yield potential_init
 
     def does_fair_path_exists(self):
-        for valid_init in self.find_fair_path():
+        for _ in self.find_fair_path():
             return True
         return False
 
