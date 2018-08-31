@@ -1,4 +1,5 @@
 from pyeda.inter import bddvar
+from pyeda.boolalg.bdd import _NODES
 from collections import deque
 import ltl.formula_parser
 from symbolic_model import SymbolicModel, Graph
@@ -52,6 +53,8 @@ class Tableau():
         product_relations &= model.atomic & model.atomic.compose(
             global_compose)
         bdd_utils.print_debug_bdd('product_relations', product_relations)
+
+        print("BDD nodes tableau: %d" % (len(_NODES),))
 
         return Graph(global_compose, product_relations)
 

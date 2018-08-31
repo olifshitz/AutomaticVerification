@@ -1,10 +1,12 @@
 from pyeda.inter import bddvar
+from pyeda.boolalg.bdd import _NODES
 import bdd_utils
 import symbolic_model
 from ltl.formula_parser import FormConst as LTLFormConst
 from ctl.formula_parser import FormConst as CTLFormConst
 from ctl.model_checker import CtlModelChecker
 from ltl.model_checker import LtlModelChecker
+import sys
 
 
 class ProcModel():
@@ -200,12 +202,14 @@ class ProcModel():
 
     def ctl_check(self, formula):
         checker = CtlModelChecker(self.model, self.atomic_str)
+        print("BDD nodes before: %d" % (len(_NODES),))
         possible_init = checker.check(formula) & self.new_init
 
         return set(checker.from_bdd_to_node_index(possible_init))
 
     def ltl_check(self, formula):
         checker = LtlModelChecker(self.model, self.atomic_str)
+        print("BDD nodes before: %d" % (len(_NODES),))
         return checker.check_forall(formula, self.new_init)
 
     def complex_model(self, number):
@@ -223,49 +227,41 @@ class ProcModel():
             [self.com_s, self.com_o, self.com_i, self.com_res])
 
 
-def main():
-    # CTL formulas
+def main(number_of_procs, formula, ctl):
+    model = ProcModel()
+    model.complex_model(number_of_procs - 1)
+
+    print("Model generated")
+    print("Testing Formula: %s" % (formula,))
+
+    if ctl:
+        liveness_nodes = model.ctl_check(liveness_ctl)
+        print('Test : CTL :', list(liveness_nodes))
+    else:
+        safety_sat = model.ltl_check(formula)
+        print('Test : LTL :', safety_sat)
+
+
+if __name__ == "__main__":
     readable = CTLFormConst.f_and(
         CTLFormConst.f_not('w'),
         CTLFormConst.f_or('s', 'o'))  # ~waiting & (shared | owned)
     writable = CTLFormConst.f_and(CTLFormConst.f_not('w'),
                                   'o')  # ~waiting & owned
 
-    model = ProcModel()
-
-    model.complex_model(0)
-
-    print(model.model.msb)
-    print(model.model.msb_compose)
-
-    # bdd_utils.print_debug_bdd('debug atomic', model.model.atomic, True)
-    # bdd_utils.print_debug_bdd('debug relation', model.model.relations, True)
-    # bdd_utils.print_debug_bdd('debug init', model.new_init, True)
-
     # AG(EF(readable) & EF(writable))
     liveness_ctl = CTLFormConst.f_forall_globally(
         CTLFormConst.f_and(
             CTLFormConst.f_exists_eventually(readable),
             CTLFormConst.f_exists_eventually(writable)))
-    print(liveness_ctl)
-    liveness_nodes = model.ctl_check(liveness_ctl)
-    print('Test : liveness :', list(liveness_nodes))
 
     # AG(shared | owned | invalid)
     safety_ctl = CTLFormConst.f_forall_globally(
         LTLFormConst.f_or(LTLFormConst.f_or('s', 'o'), 'i'))
-    print(safety_ctl)
-    safety_nodes = model.ctl_check(safety_ctl)
-    print('Test : safety_ctl :', list(safety_nodes))
 
     # G(shared | owned | invalid)
     safety_ltl = LTLFormConst.f_globally(
         LTLFormConst.f_or(LTLFormConst.f_or('s', 'o'), 'i'))
-    print(safety_ltl)
-    safety_sat = model.ltl_check(
-        LTLFormConst.f_globally(
-            LTLFormConst.f_or(LTLFormConst.f_or('s', 'o'), 'i')))
-    print('Test : safety_ltl :', safety_sat)
 
     # AG((owned & waiting) -> AF(owned & ~waiting))
     starvation_ctl = CTLFormConst.f_forall_globally(
@@ -273,9 +269,6 @@ def main():
             CTLFormConst.f_and('o', 'w'),
             CTLFormConst.f_forall_eventually(
                 CTLFormConst.f_and('o', CTLFormConst.f_not('w')))))
-    print(starvation_ctl)
-    startvation_nodes = model.ctl_check(starvation_ctl)
-    print('Test : startvation_ctl :', list(startvation_nodes))
 
     # G((owned & waiting) -> F(owned & ~waiting))
     starvation_ltl = LTLFormConst.f_globally(
@@ -283,9 +276,20 @@ def main():
             LTLFormConst.f_and('o', 'w'),
             LTLFormConst.f_eventually(
                 LTLFormConst.f_and('o', LTLFormConst.f_not('w')))))
-    print(starvation_ltl)
-    starvation_sat = model.ltl_check(starvation_ltl)
-    print('Test : starvation_ltl :', starvation_sat)
 
+    number_of_procs = int(sys.argv[1])
+    test_cases = (
+        ("Liveness", "CTL", liveness_ctl, True),
+        ("Safety", "CTL", safety_ctl, True),
+        ("Safety", "LTL", safety_ltl, False),
+        ("Starvation", "CTL", starvation_ctl, True),
+        ("Starvation", "LTL", starvation_ltl, False)
+    )
+    test_case = test_cases[int(sys.argv[2])]
 
-main()
+    print("Starting Test : %s : %s" % (test_case[0], test_case[1]))
+
+    try:
+        main(number_of_procs, test_case[2], test_case[3])
+    except KeyboardInterrupt:
+        print("Interrupted by user")
