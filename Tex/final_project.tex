@@ -674,33 +674,34 @@ Symbolic Model Checker}}
                 \node[state, initial] (s) {$shared$};
                 \node[state, right of=s] (sw) {$shared-waiting$};
                 \node[state, right of=sw] (ssp) {$shared-snooping$};
+
+                \node[state, below of=ssp] (o) {$owned$};                
     
                 \node[state, below of=s] (i) {$invalid$};
-                \node[state, right of=i] (isp) {$invalid-snooping$};
-    
-                \node[state, right of=isp] (o) {$owned$};
-                \node[state, below of=o] (ow) {$owned-waiting$};   
+                \node[state, below of=o] (isp) {$invalid-snooping$};
+
+                \node[state, left of=isp] (ow) {$owned-waiting$};
                 \draw 
                     (s) edge[bend right, sloped, above] node{$read-owned$} (i)
                     (s) edge[loop above] node{$idle$} (s)
 
-                    (sw) edge[bend right, sloped, below] node{$read-owned$} (i)
+                    (sw) edge[bend right, sloped, above] node{$read-owned$} (i)
                     (sw) edge[above] node{$response$} (s)
                     (sw) edge[loop above] node{$idle$} (sw)
 
-                    (ssp) edge[sloped, below] node{$read-owned$} (isp)
+                    (ssp) edge[bend left, sloped, above] node{$read-owned$} (isp)
                     (ssp) edge[loop above] node{$idle$} (ssp)
 
                     (o) edge[sloped, above] node{$read-owned$} (isp)
-                    (o) edge[sloped, above] node{$read-shared$} (ssp)
-                    (o) edge[loop right] node{$idle$} (o)
+                    (o) edge[sloped, below] node{$read-shared$} (ssp)
+                    (o) edge[loop right, sloped] node{$idle$} (o)
 
-                    (ow) edge[sloped, above] node{$read-owned$} (i)
+                    (ow) edge[bend right, sloped, above] node{$read-owned$} (i)
                     (ow) edge[sloped, above] node{$read-shared$} (sw)
                     (ow) edge[sloped, above] node{$response$} (o)
                     (ow) edge[loop below] node{$idle$} (ow)
 
-                    (i) edge[bend right, sloped, above] node{$read-shared$} (sw)
+                    (i) edge[bend right, sloped, below] node{$read-shared$} (sw)
                     (i) edge[loop below] node{$idle,read-owned,response$} (i)
                     
                     (isp) edge[loop below] node{$idle,read-owned,read-shared$} (isp)
