@@ -7,6 +7,7 @@ from ctl.formula_parser import FormConst as CTLFormConst
 from ctl.model_checker import CtlModelChecker
 from ltl.model_checker import LtlModelChecker
 import sys
+import time
 
 
 class ProcModel():
@@ -123,7 +124,7 @@ class ProcModel():
         # shared, waiting -> read_owned -> invalid
         self.model.add_relation(shared_wait, invalid, read_owned)
         self.model.add_relation(shared_wait, invalid + master, read_owned)
-        # shared, waiting -> read_shared -> shared, waiting
+        # shared, waiting -> read_shared -> sink
         self.model.add_relation(shared_wait, sink, read_shared)
         # shared, waiting -> response -> shared
         self.model.add_relation(shared_wait, shared, response)
@@ -138,7 +139,7 @@ class ProcModel():
                                 read_owned)
         # shared, snooping -> read_shared -> sink
         self.model.add_relation(shared_snoop, sink, read_shared)
-        # shared, snooping -> response -> shared
+        # shared, snooping -> response -> sink
         self.model.add_relation(shared_snoop, sink, response)
         # shared, snooping -> idle -> shared, snooping
         self.model.add_relation(shared_snoop, shared_snoop, idle)
@@ -196,9 +197,11 @@ class ProcModel():
         self.model.add_relation(invalid_snoop, invalid_snoop, idle)
         self.model.add_relation(invalid_snoop, invalid_snoop + master, idle)
 
-        # product for one - do this only after multiplying every thing
-        # self.model.relations &= self.model.msb[3] & self.model.msb_other[3]
-        # self.model.atomic &= self.model.msb[3]
+        # invalid, snoopping -> response -> sink
+        self.model.add_relation(sink, sink, idle)
+        self.model.add_relation(sink, sink, read_shared)
+        self.model.add_relation(sink, sink, read_owned)
+        self.model.add_relation(sink, sink, response)
 
     def ctl_check(self, formula):
         checker = CtlModelChecker(self.model, self.atomic_str)
@@ -290,6 +293,8 @@ if __name__ == "__main__":
     print("Starting Test : %s : %s" % (test_case[0], test_case[1]))
 
     try:
+        print("Time: %s" % (time.time()))
         main(number_of_procs, test_case[2], test_case[3])
+        print("Time: %s" % (time.time()))
     except KeyboardInterrupt:
         print("Interrupted by user")
