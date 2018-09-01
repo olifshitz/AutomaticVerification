@@ -548,7 +548,7 @@ Symbolic Model Checker}}
                 
                 \While{$R \neq 0$}
                     \State $v \gets random\_take(IP)$
-                    \State $B(v) \gets backward_set(v, R, N)$
+                    \State $B(v) \gets backward\_set(v, R, N)$
                     \State $SCC\_DECOMP\_RECURE(v, B(v), N)$
                     \State $R \gets R \wedge \overline{v \vee B(v)}$
                     \State $IP \gets IP \wedge \overline {v \vee B(v)}$
@@ -574,7 +574,7 @@ Symbolic Model Checker}}
     \subsection{CTL model checking}
         In order to implement CTL model checking we implemented the CTL model
         checking algorithms shown in class when solving the find the set
-        of nodes satisfying the temporal quantifiers $EX, EG EU$.
+        of nodes satisfying the temporal quantifiers $EX$, $EG$ and $EU$.
 
         When implementing these algorithm we used many of the methods already
         described in the previous section; mostly the modules that are relevant
