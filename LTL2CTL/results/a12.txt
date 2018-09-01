@@ -1,0 +1,21 @@
+
+C:\Users\User\python\AutomaticVerification\LTL2CTL>c:\Users\User\AppData\Local\Programs\Python\Python35-32\python.exe proc_model.py 1 2 
+Starting Test : Safety : LTL
+Time: 1535741945.610132
+Model generated
+Testing Formula: G[[[s]|[o]]|[i]]
+BDD nodes before: 80
+BDD nodes tableau: 210
+Starting SCC decomposition (1535741945.9059627)
+Found an SCC 1 (1535741959.7090707)
+Found an SCC 2 (1535741959.961925)
+Found an SCC 3 (1535741971.49733)
+Found an SCC 4 (1535741971.6992128)
+Found an SCC 5 (1535741972.013034)
+Found an SCC 6 (1535741972.3728285)
+Found an SCC 7 (1535741980.0244534)
+Found an SCC 8 (1535741980.2083473)
+Found an SCC 9 (1535741980.5711405)
+Found an SCC 10 (1535741980.9709125)
+Test : LTL : True
+Time: 1535742045.4940171
