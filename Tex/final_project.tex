@@ -681,10 +681,10 @@ Symbolic Model Checker}}
                 \node[state, right of=isp] (o) {$owned$};
                 \node[state, below of=o] (ow) {$owned-waiting$};   
                 \draw 
-                    (s) edge[sloped, above] node{$read-owned$} (i)
+                    (s) edge[bend right, sloped, above] node{$read-owned$} (i)
                     (s) edge[loop above] node{$idle$} (s)
 
-                    (sw) edge[sloped, below] node{$read-owned$} (i)
+                    (sw) edge[bend right, sloped, below] node{$read-owned$} (i)
                     (sw) edge[above] node{$response$} (s)
                     (sw) edge[loop above] node{$idle$} (sw)
 
@@ -700,13 +700,73 @@ Symbolic Model Checker}}
                     (ow) edge[sloped, above] node{$response$} (o)
                     (ow) edge[loop below] node{$idle$} (ow)
 
-                    (i) edge[sloped, above] node{$read-shared$} (sw)
+                    (i) edge[bend right, sloped, above] node{$read-shared$} (sw)
                     (i) edge[loop below] node{$idle,read-owned,response$} (i)
                     
                     (isp) edge[loop below] node{$idle,read-owned,read-shared$} (isp)
             \end{tikzpicture}
             \caption{State transition for non-master processor (receive a message)} \label{fig:ProcModelNotMaster}
             \end{figure}
+
+        The model for master states (send the message) is described in figure 1. The model 
+        for non-master processot is described in figure 2. In the last one, any command that is
+        shown indicates a transition to the sink state (the master model does not need this specification because
+        any command not shown their is just illegal).
+
+    \subsection{Testing the single processor}
+        Combining those two models using 15
+        states (each state has two versions - master and non-master, and another state to represent the sink state)
+        we get a new Kripke model that represent all transitions a processor can use in its run.
+
+        To make thinks easier we consider every processor to be in the shared state in the beggining, which
+        means, as there must be one and only master, we have one state to consider as the initial state.
+        At that point we started running the CTL and LTL model checkers on the next examples:
+        \begin{itemize}
+            \item
+                liveness - at every state, it is possible for any model to get to a state where it owns the
+                resource, and to a state where the resource is shared with him:
+                
+                $AG(EF(owned) && EF(shared))$
+
+            \item
+                safety - the sink state is unreachable:
+                
+                $AG(\Not sink)$
+            
+            \item
+                startvation - when a processor wants to own $K$, it would own eventually:
+                
+                $AG(owned\_waiting \Rightarrow AF(owned))$
+
+                $AG(owned\_waiting \Rightarrow F(owned))$
+        \end{itemize}
+
+        Those three examples of formulas give us 3 CTL formulas and 2 LTL formulas. !!!Results!!!
+
+    \subsection{Testing multiple processors}
+        At that point, we wanted to test each of those formulas on a model of more then one processor.
+        To generate a model that represent this protocol with more than one processor, we only need
+        to $multiply$ two single processor models - that is the model whose the state set is the cartesian
+        product of the original models, and a relation between two states exists \Leftrightarrow the corresponding
+        relations exist in the original models.
+
+        This is almost true, except we have to make sure the following:
+
+        \begin{itemize}
+            \item At all point there must be a single processor who is the master at that point.
+            Using the BDD for "this state is a master state" we can restrict the new model to have
+            a single master in every state.
+            \item The existence of the relations in the original model is not enough for the relation
+            in the product model to exist - they also need to have the same result for existing, which means
+            they have to refer to the same command (the previous master sent the command, and every other 
+            processor has received it). This is done by actual labeling the transitions with a specific BDD
+            for each command. The BDD method guarantees that when the product model is created the labels would
+            be taken into consideration, as needed.
+        \end{itemize}
+
+        The initial state would be, again any state for which every state is in the shared mode (but 
+        only one is the master). Then, we can test each formula on the prespective of a single node
+        (is it guaranteed that no node is ever starved, etc.)        
 
         \begin
 
