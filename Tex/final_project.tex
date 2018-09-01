@@ -36,6 +36,13 @@
 \setcounter{secnumdepth} {2}
 \sloppy
 
+\tikzset{
+    ->, % makes the edges directed    
+    node distance=5cm, % specifies the minimum distance between two nodes. Change if necessary.
+    every state/.style={thick, fill=gray!10}, 
+    initial text=$ $,
+}
+
 \begin{document}
 
 \setlength{\oddsidemargin}{.25in}
@@ -583,6 +590,125 @@ Symbolic Model Checker}}
         of a given node.
 
 \section{Experiments and Results}
+    \subsection{Read-Write Resource Agreement}
+        We decided to test our implementation on a read-write resource handling model. In
+        this model we have $n$ processors all trying to access a read-write resource $K$. The
+        conflict is that only when a processor is writing to $K$ all other cannot write or read
+        from it (as they would read an illegal value). If no processor needs a write privileges, 
+        every processor can read from $K$.
+
+        The protocol we are testing allows the processor notify each other when they want to escalate
+        their privilege (read to write or no access to read/write). This is necessary so that when such
+        an event happens, the processor with the write privilieges would have the chance to commit its 
+        changes before any other processor accesses the $K$.
+
+        In our model each processor is in one of the following state: shared, invalid or owned 
+        (denoted with $S$, $I$ and $O$). Shared state means it has only read privileges, owned 
+        means it has read and write privileges, and invalid means some other processor has . Orthogonally, 
+        each state can be $waiting$ or $snooping$.
+
+        When a processor is $waiting$ it means it actually have lower privileges then the state it remembers 
+        and it is currently waiting for another processor to forfeit their write privileges. When a
+        processor is $snooping$ it means it actually has owned privileges but some other processor is waiting 
+        to escalate their privileges and the current processor needs to forfeit their owned state.
+
+        The protocol we test assume all processors can send messages to each other processor, only one
+        processor can send a message each time, and all processor get the messages in the order they were sent.
+        Another way to look at this model is that each "turn" there is a single processor marked as $master$ 
+        and it will be the one sends the message on that turn. The master is switched arbitrarily each turn.
+
+        There are four types of commands used in this model, each is actually a state-transition reason:
+        \begin{itemize}
+            \item
+                $read-shared$ - sent when a processor wants to escalate to get to the shared tate
+            \item
+                $read-owned$ - sent when a processor wants to escalate to get to the owned tate
+            \item
+                $response$ - sent when a processor has comitted is changes and is ready to forfeit
+                their owned privileges.
+            \item 
+                $idle$ - send when the master processor want to stall
+        \end{itemize}
+
+        Each processor can be described with two Kripke models, one for the turns it 
+        is the master and the command is sent by itself, and one for the turns where another 
+        processor is the master, and the command was recevied by the processor.
+        Each of those models has 8 states: $shared$, $shared-waiting$, $shared-snooping$,
+        $invalid$, $invalid-snooping$, $owned$, $owned-waiting$, and a $sink$ states, that indicates something 
+        unexpected has hppened. 
+
+        \begin{figure}
+        \begin{tikzpicture}
+            \node[state, initial] (s) {$shared$};
+            \node[state, right of=s] (sw) {$shared-waiting$};
+            \node[state, right of=sw] (ssp) {$shared-snooping$};
+
+            \node[state, below of=s] (i) {$invalid$};
+            \node[state, right of=i] (isp) {$invalid-snooping$};
+
+            \node[state, below of=i] (o) {$owned$};
+            \node[state, right of=o] (ow) {$owned-waiting$};
+            \draw 
+                (s) edge[loop above] node{$idle$} (s)
+                (s) edge[bend right, sloped, below] node{$read-owned$} (o)
+
+                (sw) edge[loop above] node{$idle$} (sw)
+                (sw) edge[bend left, right=0.3] node{$read-owned$} (ow)
+
+                (ssp) edge[bend left, below] node{$response$} (s)
+
+                (o) edge[loop above] node{$idle$} (o)
+                (ow) edge[loop above] node{$idle$} (ow)
+
+                (i) edge[loop above] node{$idle$} (i)
+                (i) edge[above, sloped] node{$read-shared$} (sw)
+                (i) edge[above, sloped] node{$read-owned$} (ow)
+
+                (isp) edge[above] node{$response$} (i)
+        \end{tikzpicture}
+        \caption{State transition for master processor (send a message)} \label{fig:ProcModelMaster}
+        \end{figure}
+
+        \begin{figure}
+            \begin{tikzpicture}
+                \node[state, initial] (s) {$shared$};
+                \node[state, right of=s] (sw) {$shared-waiting$};
+                \node[state, right of=sw] (ssp) {$shared-snooping$};
+    
+                \node[state, below of=s] (i) {$invalid$};
+                \node[state, right of=i] (isp) {$invalid-snooping$};
+    
+                \node[state, right of=isp] (o) {$owned$};
+                \node[state, below of=o] (ow) {$owned-waiting$};   
+                \draw 
+                    (s) edge[sloped, above] node{$read-owned$} (i)
+                    (s) edge[loop above] node{$idle$} (s)
+
+                    (sw) edge[sloped, below] node{$read-owned$} (i)
+                    (sw) edge[above] node{$response$} (s)
+                    (sw) edge[loop above] node{$idle$} (sw)
+
+                    (ssp) edge[sloped, below] node{$read-owned$} (isp)
+                    (ssp) edge[loop above] node{$idle$} (ssp)
+
+                    (o) edge[sloped, above] node{$read-owned$} (isp)
+                    (o) edge[sloped, above] node{$read-shared$} (ssp)
+                    (o) edge[loop right] node{$idle$} (o)
+
+                    (ow) edge[sloped, above] node{$read-owned$} (i)
+                    (ow) edge[sloped, above] node{$read-shared$} (sw)
+                    (ow) edge[sloped, above] node{$response$} (o)
+                    (ow) edge[loop below] node{$idle$} (ow)
+
+                    (i) edge[sloped, above] node{$read-shared$} (sw)
+                    (i) edge[loop below] node{$idle,read-owned,response$} (i)
+                    
+                    (isp) edge[loop below] node{$idle,read-owned,read-shared$} (isp)
+            \end{tikzpicture}
+            \caption{State transition for non-master processor (receive a message)} \label{fig:ProcModelNotMaster}
+            \end{figure}
+
+        \begin
 
 \section{Further Work}
 
