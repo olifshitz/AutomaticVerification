@@ -16,6 +16,14 @@
 \usetikzlibrary{arrows}
 \usetikzlibrary{automata,positioning}
 
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+}
+
 \lstset{
   frame=tb,
   language=python,
@@ -146,6 +154,8 @@ Symbolic Model Checker}}
    understand the implemenation of our model checker. We also describe the 
    main modules of the model checker and the results it achieved on the 
    cache coherence model.
+
+   The entire implementation of this project can be found at \url{https://github.com/olifshitz/AutomaticVerification.git}
 
 \section{CTL and LTL Model Checking}
 
