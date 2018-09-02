@@ -12,6 +12,7 @@
 
 \usepackage{bbm}
 \usepackage{tikz}
+\usepackage{pgfplots}
 \usetikzlibrary{arrows}
 \usetikzlibrary{automata,positioning}
 
@@ -732,7 +733,7 @@ Symbolic Model Checker}}
             \item
                 safety - the sink state is unreachable:
                 
-                $AG(\Not sink)$
+                $AG(\lnot sink)$
             
             \item
                 startvation - when a processor wants to own $K$, it would own eventually:
@@ -740,9 +741,33 @@ Symbolic Model Checker}}
                 $AG(owned\_waiting \Rightarrow AF(owned))$
 
                 $AG(owned\_waiting \Rightarrow F(owned))$
+
         \end{itemize}
 
-        Those three examples of formulas give us 3 CTL formulas and 2 LTL formulas. !!!Results!!!
+        Those three examples of formulas give us 3 CTL formulas and 2 LTL formulas. Table \ref{table:1} presents the basic results
+        obtained from running both model checkers on those 5 examples. Both checkers simplified the formulas so the LTL checker only
+        use the $U$ and $X$ quantifier, and the CTL checker only uses $EX$, $EU$ and $EG$.
+
+        The main point to notice is that the formula complexity has almost no impact on the CTL model checker. On the other hand, as the
+        formula gets complicated, its tableau grows and the size of the model the LTL model checker has to verify grows as well. That takes much
+        more time, as expected.
+
+        \begin{table}[h!]
+        \centering
+        \begin{tabular}{||c c c c||} 
+            \hline
+            Property & Class solver & seconds & size of BDD \\ [0.5ex] 
+            \hline\hline
+            Liveness & CTL & 0.3 & 80 \\ 
+            Safety & CTL & 0.32 & 80 \\
+            Starvation & CTL & 0.33 & 80 \\
+            Safety & LTL & 175 & 210 \\            
+            Starvation & LTL & 435 & 272 \\ [1ex] 
+            \hline
+        \end{tabular}
+        \caption{Basic results of formula checking on single processor model}
+        \label{table:1}
+        \end{table}
 
     \subsection{Testing multiple processors}
         At that point, we wanted to test each of those formulas on a model of more then one processor.
@@ -767,7 +792,116 @@ Symbolic Model Checker}}
 
         The initial state would be, again any state for which every state is in the shared mode (but 
         only one is the master). Then, we can test each formula on the prespective of a single node
-        (is it guaranteed that no node is ever starved, etc.)        
+        (is it guaranteed that no node is ever starved, etc.)
+
+        Figure 3 demonstartes how the size of the model (number of processors running) impacts on the the size of the
+        problem (obviously) and thus takes much longer to solver using the simple CTL model cheker. The graph is drawn
+        with log axis, as we expect the size of the model to increas exponentially with the number of processes in the model.
+        Notice that the complexity of the formula does not impact the 
+
+        \begin{figure}
+            \begin{tikzpicture}
+                \begin{semilogyaxis}[
+                    title={Time of CTL model checking},
+                    xlabel={\# of processors},
+                    ylabel={seconds},
+                    xmin=1, xmax=4,
+                    ymin=0, ymax=100000,
+                    xtick={1,2,3,4,100},
+                    ytick={0,1,10,100,1000,10000,100000},
+                    legend pos=north west,
+                    ymajorgrids=true,
+                    grid style=dashed,
+                ]
+                 
+                \addplot[
+                    color=blue,
+                    mark=square,
+                    ]
+                    coordinates {
+                    (1,0.3)(2,22.9)(3,644)(4,10961)
+                    };
+                    \addlegendentry{Liveness}                
+                \addplot[
+                    color=green,
+                    mark=square,
+                    ]
+                    coordinates {
+                    (1,0.32)(2,22.5)(3,665)(4,8301)
+                    };
+                    \addlegendentry{Safety}
+                \addplot[
+                    color=red,
+                    mark=square,
+                    ]
+                    coordinates {
+                    (1,0.33)(2,21.8)(3,686)(4,8163)
+                    };
+                    \addlegendentry{Starvation}
+                \end{semilogyaxis}
+            \end{tikzpicture}
+            \begin{tikzpicture}
+                \begin{semilogyaxis}[
+                    title={Size of CTL model checking},
+                    xlabel={\# of processors},
+                    ylabel={Size of BDD},
+                    xmin=1, xmax=4,
+                    ymin=0, ymax=10000,
+                    xtick={1,2,3,4,100},
+                    ytick={0,1,10,100,1000,10000},
+                    legend pos=north west,
+                    ymajorgrids=true,
+                    grid style=dashed,
+                ]
+                 
+                \addplot[
+                    color=blue,
+                    mark=square,
+                    ]
+                    coordinates {
+                    (1,80)(2,382)(3,944)(4,1506)
+                    };                    
+                \end{semilogyaxis}
+            \end{tikzpicture}
+        \caption{State transition for non-master processor (receive a message)} \label{fig:3}
+        \end{figure}
+
+    \subsection{Testing the LTL model checker}
+        As described in Table \ref{table:1}, the TCL checking computation time is significally longer then the CTL checker. Unfortunately, it
+        was so long we could not get any result for models with 3 processors or more. The root of the computation, the SCC finder algorithm,
+        took many hours to iterate over the result product model. In this section we will show and briefly discuss the results
+        for checking the models with single and two processors.
+
+        The results shown here also compare between the LTL checker with and without simplying the LTL formulas so they only use the $X$ and $U$
+        quantifiers. Specifically, the formulas we tested on were:
+
+        \begin{itemize}
+            \item Safety
+            
+            $AG(\lnot sink)$ 
+            
+            as oppose to
+            
+            $A(\lnot (true\ U\ \lnot(\lnot sink)))$
+
+            \item Starvation 
+            
+            $AG(owned\_waiting \Rightarrow F(owned))$ 
+            
+            as oppose to 
+            
+            $A(\lnot (true\ U\ \lnot(owned\_waiting \Rightarrow true\ U\ (owned))))$
+        \end{itemize}
+
+        On section 4.7 we described the actual change in the algorithm needed to compute the tableau for formulas containing the $G$ and $F$
+        quantifiers. Considering the quivalences $Fa \equiv true\ U\ a$ and $Ga \equiv \lnot F \lnot a$, theoretically, one can change the appearance
+        of each $XF$ and $XG$ elementary formulas with a $XU$ elemntary function, and every fairness constraint with the new kind of fairness constraint
+        corresponding to the temporal quantifierts.
+
+        The conversion could help though, mostly because it demends much less computation steps - for example, each computation of sat is completed a bit faster,
+        and even the actual formula parsing could be faster (it is much easier to analyze a unary operator string). On figure 4 we show the size of BDD needed to
+        present the product of the formula tableau and the model with $n$ processors. Table 2 shows the computation time needed to check the formulas with
+        the model of 1 and 2 processors.
 
         \begin
 
