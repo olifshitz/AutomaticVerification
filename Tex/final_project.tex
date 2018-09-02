@@ -595,6 +595,47 @@ Symbolic Model Checker}}
         successor method described earlier in order to find all the successor
         of a given node.
 
+\section{Extending the Tableau defintion}
+    The definition of the Tableau construction is based on the assumption the only temporal quantifiers
+    used in the formula where $X$ and $U$. That makes the definition simpler, but actual implementing this
+    construction with those restrictions could actually effect the computation process.
+
+    In our project we extended the definition and construction of the Tableau to handle formulas with the
+    $F$ and $G$ quantifiers. Using the equivalences $Fa \equiv true\ U\ a$ and $Ga \equiv \lnot F \lnot a$
+    we can obtain the new construction steps needed to extend the tableau without hurting the correctness
+    of the model.
+
+    At the first step, we add the new elementrary formulas of the form $XFa$ and $XGa$ and define:
+
+    \begin{itemize}
+        \item $el(Fa) = \left\{XFa\right\} \cup el(a)$
+        \item $el(Ga) = \left\{XGa\right\} \cup el(a)$
+    \end{itemize}
+
+    Using the equivalences above we extend the $sat$ definition and the fairness constriant set. the tableau realtion table definition
+    stays without change (but now we need to consider the new elementrary formulas):
+
+    \begin{itemize}
+        \item $sat(F a) = sat(true U a) = sat(a) \cup (sat(true) \cap sat(X(true U a))) = sat(a) \cup sat(XFa)$
+        \item $sat(G a) = sat(\lnot F \lnot a) = \overline{sat(F \lnot a)} = \overline{sat(\lnot a) \cup sat(XF\lnot a)} =
+        \overline{sat(\lnot a)} \cap \overline{sat(XF\lnot a)} = sat(a) \cap sat(\lnot XF\lnot a) = sat(a) \cap sat(X\lnotF\lnot a) = sat(a) \cap sat(XGa)$
+    \end{itemize}
+
+    Two more classes of fairness contrainsts now add to the fairness constraint set:
+    For every subformula $Fg$, we add the fairness constraint
+    \[
+        \left\{sat(\neg(gUh)\vee h) \;|\; gUh\ in\ f \right\}
+    \]
+
+    \[
+        \left\{sat((Ga)\vee a) \;|\; Ga\ in\ f \right\}
+    \]
+
+    \[        
+        \left\{sat(\neg(Fa)\vee a) \;|\; Fa\ in\ f \right\}
+    \]
+
+
 \section{Experiments and Results}
     \subsection{Read-Write Resource Agreement}
         We decided to test our implementation on a read-write resource handling model. In
@@ -807,12 +848,12 @@ Symbolic Model Checker}}
         \begin{figure}
             \begin{tikzpicture}
                 \begin{semilogyaxis}[
-                    title={Time of CTL model checking},
+                    title={Run duration of CTL model checking},
                     xlabel={\# of processors},
-                    ylabel={seconds},
+                    ylabel={Running time [seconds]},
                     xmin=1, xmax=4,
                     ymin=0, ymax=100000,
-                    xtick={1,2,3,4,100},
+                    xtick={1,2,3,4},
                     ytick={0,1,10,100,1000,10000,100000},
                     legend pos=north west,
                     ymajorgrids=true,
@@ -847,7 +888,7 @@ Symbolic Model Checker}}
             \end{tikzpicture}
             \begin{tikzpicture}
                 \begin{semilogyaxis}[
-                    title={Size of CTL model checking},
+                    title={Size of CTL model checking helper BDD},
                     xlabel={\# of processors},
                     ylabel={Size of BDD},
                     xmin=1, xmax=4,
@@ -868,11 +909,11 @@ Symbolic Model Checker}}
                     };                    
                 \end{semilogyaxis}
             \end{tikzpicture}
-        \caption{State transition for non-master processor (receive a message)} \label{fig:3}
+        \caption{CTL model checking run stats on models of various sizes} \label{fig:3}
         \end{figure}
 
     \subsection{Testing the LTL model checker}
-        As described in Table \ref{table:1}, the LTL checking computation time is significally longer then the CTL checker. Unfortunately, it
+        As described in Table 1, the LTL checking computation time is significally longer then the CTL checker. Unfortunately, it
         was so long we could not get any result for models with 3 processors or more. The root of the computation, the SCC finder algorithm,
         took many hours to iterate over the result product model. In this section we will show and briefly discuss the results
         for checking the models with single and two processors.
@@ -883,15 +924,15 @@ Symbolic Model Checker}}
         \begin{itemize}
             \item Safety
             
-            $AG(\lnot sink)$ as oppose to $A(\lnot (true\ U\ \lnot(\lnot sink)))$
+            $(1)$ $AG(\lnot sink)$ as oppose to $(1*)$ $A(\lnot (true\ U\ \lnot(\lnot sink)))$
 
             \item Starvation 
             
-            $AG(owned\_waiting \Rightarrow F(owned))$ 
+            $(2)$ $AG(owned\_waiting \Rightarrow F(owned))$ 
             
             as oppose to 
             
-            $A(\lnot (true\ U\ \lnot(owned\_waiting \Rightarrow true\ U\ (owned))))$
+            $(2*)$ $A(\lnot (true\ U\ \lnot(owned\_waiting \Rightarrow true\ U\ (owned))))$
         \end{itemize}
 
         On section 4.7 we described the actual change in the algorithm needed to compute the tableau for formulas containing the $G$ and $F$
@@ -907,12 +948,12 @@ Symbolic Model Checker}}
         \begin{figure}
             \begin{tikzpicture}
                 \begin{semilogyaxis}[
-                    title={Size of BDD},
+                    title={Size of product model helper BDD},
                     xlabel={\# of processors},
                     ylabel={seconds},
-                    xmin=1, xmax=6,
+                    xmin=1, xmax=4,
                     ymin=0, ymax=100000,
-                    xtick={1,2,3,4,5,6},
+                    xtick={1,2,3,4},
                     ytick={0,1,10,100,1000,10000, 100000},
                     legend pos=north west,
                     ymajorgrids=true,
@@ -939,7 +980,7 @@ Symbolic Model Checker}}
             \end{tikzpicture}
             \begin{tikzpicture}
                 \begin{semilogyaxis}[
-                    title={Size of model BDD},
+                    title={Size of original model helper BDD},
                     xlabel={\# of processors},
                     ylabel={Size of BDD},
                     xmin=1, xmax=4,
@@ -967,24 +1008,24 @@ Symbolic Model Checker}}
         \centering
         \begin{tabular}{||c c c c c||} 
             \hline
-            Formula & # of processors & seconds & size of tableau BDD & # of SCC found \\ [0.5ex] 
+            Formula & \# of processors & seconds & size of tableau BDD & \# of SCC found \\ [0.5ex] 
             \hline\hline
             \multicolumn{5}{|c|}{Safety} \\
             \hline
-            $AG(\lnot sink)$ & 1 & 92 & 215 & 10 \\ 
-            $A(\lnot (true\ U\ \lnot(\lnot sink)))$ & 1 & 175 & 207 & 10 \\
-            $AG(\lnot sink)$ & 2 & 7925 & 1768 & 105 \\
-            $A(\lnot (true\ U\ \lnot(\lnot sink)))$ & 2 & 15459 & 1773 & 105 \\
+            $(1)$ & 1 & 92 & 215 & 10 \\ 
+            $(1*)$ & 1 & 175 & 207 & 10 \\
+            $(1)$ & 2 & 7925 & 1768 & 105 \\
+            $(1*)$ & 2 & 15459 & 1773 & 105 \\
             \hline
             \multicolumn{5}{|c|}{Starvation} \\
             \hline
-            $AG(\lnot sink)$ & 1 & 222 & 261 & 17 \\ 
-            $A(\lnot (true\ U\ \lnot(\lnot sink)))$ & 1 & 435 & 251 & 17 \\
-            $AG(\lnot sink)$ & 2 & 16327 & 1844 & 196 \\
-            $A(\lnot (true\ U\ \lnot(\lnot sink)))$ & 2 & 34098 & 1830 & 196 \\
+            $(2)$ & 1 & 222 & 261 & 17 \\ 
+            $(2*)$ & 1 & 435 & 251 & 17 \\
+            $(2)$ & 2 & 16327 & 1844 & 196 \\
+            $(2*)$ & 2 & 34098 & 1830 & 196 \\
             \hline
         \end{tabular}
-        \caption{Basic results of formula checking on single processor model}
+        \caption{Results of LTL formula checking on single and two-processor models}
         \label{table:1}
         \end{table}
 
