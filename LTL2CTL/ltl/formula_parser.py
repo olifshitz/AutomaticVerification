@@ -1,5 +1,12 @@
 import consts
 
+SimplifyOperators = False
+
+
+def use_simplified_operators(value):
+    global SimplifyOperators
+    SimplifyOperators = value
+
 
 class FormConst():
     @staticmethod
@@ -38,13 +45,17 @@ class FormConst():
 
     @staticmethod
     def f_eventually(g):
-        return FormConst._unary_op(consts.EVENTUALLY_IDENTIFIER, g)
-        # return Simplify.f_eventually(g)
+        if (SimplifyOperators):
+            return Simplify.f_eventually(g)
+        else:
+            return FormConst._unary_op(consts.EVENTUALLY_IDENTIFIER, g)
 
     @staticmethod
     def f_globally(g):
-        return FormConst._unary_op(consts.GLOBALY_IDENTIFIER, g)
-        # return Simplify.f_globally(g)
+        if (SimplifyOperators):
+            return Simplify.f_globally(g)
+        else:
+            return FormConst._unary_op(consts.GLOBALY_IDENTIFIER, g)
 
     @staticmethod
     def f_until(g, h):

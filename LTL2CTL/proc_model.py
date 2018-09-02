@@ -2,6 +2,7 @@ from pyeda.inter import bddvar
 from pyeda.boolalg.bdd import _NODES
 import bdd_utils
 import symbolic_model
+from ltl.formula_parser import use_simplified_operators
 from ltl.formula_parser import FormConst as LTLFormConst
 from ctl.formula_parser import FormConst as CTLFormConst
 from ctl.model_checker import CtlModelChecker
@@ -246,6 +247,8 @@ def main(number_of_procs, formula, ctl):
 
 
 if __name__ == "__main__":
+    use_simplified_operators(len(sys.argv) > 3 and sys.argv[3] == '*')
+
     readable = CTLFormConst.f_and(
         CTLFormConst.f_not('w'),
         CTLFormConst.f_or('s', 'o'))  # ~waiting & (shared | owned)
