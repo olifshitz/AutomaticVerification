@@ -116,6 +116,11 @@ Symbolic Model Checker}}
 
 \section{Abstract}
 
+   In this project, we implement a symbolic LTL model checker, using the reduction to the fair-CTL verification
+   problem. We compare between the CTL model checker and the LTL model checker and show that the LTL behaves
+   exponentialy in the size of the model. We also extend the original tableau definition to test the impact
+   on simple formulas that use the Global and Eventually quatifiers.
+
 \section{Introduction}
    Throughout the course we studied LTL and CTL model checking and algorithms
    used to solve this problem. Though we thoroughly learned the theoretical 
@@ -867,7 +872,7 @@ Symbolic Model Checker}}
         \end{figure}
 
     \subsection{Testing the LTL model checker}
-        As described in Table \ref{table:1}, the TCL checking computation time is significally longer then the CTL checker. Unfortunately, it
+        As described in Table \ref{table:1}, the LTL checking computation time is significally longer then the CTL checker. Unfortunately, it
         was so long we could not get any result for models with 3 processors or more. The root of the computation, the SCC finder algorithm,
         took many hours to iterate over the result product model. In this section we will show and briefly discuss the results
         for checking the models with single and two processors.
@@ -878,11 +883,7 @@ Symbolic Model Checker}}
         \begin{itemize}
             \item Safety
             
-            $AG(\lnot sink)$ 
-            
-            as oppose to
-            
-            $A(\lnot (true\ U\ \lnot(\lnot sink)))$
+            $AG(\lnot sink)$ as oppose to $A(\lnot (true\ U\ \lnot(\lnot sink)))$
 
             \item Starvation 
             
@@ -898,14 +899,108 @@ Symbolic Model Checker}}
         of each $XF$ and $XG$ elementary formulas with a $XU$ elemntary function, and every fairness constraint with the new kind of fairness constraint
         corresponding to the temporal quantifierts.
 
-        The conversion could help though, mostly because it demends much less computation steps - for example, each computation of sat is completed a bit faster,
+        The conversion could help though, mostly because it demands much less computation steps - for example, each computation of sat is completed a bit faster,
         and even the actual formula parsing could be faster (it is much easier to analyze a unary operator string). On figure 4 we show the size of BDD needed to
         present the product of the formula tableau and the model with $n$ processors. Table 2 shows the computation time needed to check the formulas with
         the model of 1 and 2 processors.
 
+        \begin{figure}
+            \begin{tikzpicture}
+                \begin{semilogyaxis}[
+                    title={Size of BDD},
+                    xlabel={\# of processors},
+                    ylabel={seconds},
+                    xmin=1, xmax=6,
+                    ymin=0, ymax=100000,
+                    xtick={1,2,3,4,5,6},
+                    ytick={0,1,10,100,1000,10000, 100000},
+                    legend pos=north west,
+                    ymajorgrids=true,
+                    grid style=dashed,
+                ]
+                 
+                \addplot[
+                    color=green,
+                    mark=square,
+                    ]
+                    coordinates {
+                    (1,201)(2,1777)(3,4631)(4,7554)
+                    };
+                    \addlegendentry{Safety}
+                \addplot[
+                    color=red,
+                    mark=square,
+                    ]
+                    coordinates {
+                    (1,268)(2,1847)(3,4687)(4,7601)
+                    };
+                    \addlegendentry{Starvation}
+                \end{semilogyaxis}
+            \end{tikzpicture}
+            \begin{tikzpicture}
+                \begin{semilogyaxis}[
+                    title={Size of model BDD},
+                    xlabel={\# of processors},
+                    ylabel={Size of BDD},
+                    xmin=1, xmax=4,
+                    ymin=0, ymax=10000,
+                    xtick={1,2,3,4,100},
+                    ytick={0,1,10,100,1000,10000},
+                    legend pos=north west,
+                    ymajorgrids=true,
+                    grid style=dashed,
+                ]
+                 
+                \addplot[
+                    color=blue,
+                    mark=square,
+                    ]
+                    coordinates {
+                    (1,80)(2,390)(3,1031)(4,1672)
+                    };                    
+                \end{semilogyaxis}
+            \end{tikzpicture}         
+        \caption{State transition for non-master processor (receive a message)} \label{fig:4}
+        \end{figure}
+
+        \begin{table}[h!]
+        \centering
+        \begin{tabular}{||c c c c c||} 
+            \hline
+            Formula & # of processors & seconds & size of tableau BDD & # of SCC found \\ [0.5ex] 
+            \hline\hline
+            \multicolumn{5}{|c|}{Safety} \\
+            \hline
+            $AG(\lnot sink)$ & 1 & 92 & 215 & 10 \\ 
+            $A(\lnot (true\ U\ \lnot(\lnot sink)))$ & 1 & 175 & 207 & 10 \\
+            $AG(\lnot sink)$ & 2 & 7925 & 1768 & 105 \\
+            $A(\lnot (true\ U\ \lnot(\lnot sink)))$ & 2 & 15459 & 1773 & 105 \\
+            \hline
+            \multicolumn{5}{|c|}{Starvation} \\
+            \hline
+            $AG(\lnot sink)$ & 1 & 222 & 261 & 17 \\ 
+            $A(\lnot (true\ U\ \lnot(\lnot sink)))$ & 1 & 435 & 251 & 17 \\
+            $AG(\lnot sink)$ & 2 & 16327 & 1844 & 196 \\
+            $A(\lnot (true\ U\ \lnot(\lnot sink)))$ & 2 & 34098 & 1830 & 196 \\
+            \hline
+        \end{tabular}
+        \caption{Basic results of formula checking on single processor model}
+        \label{table:1}
+        \end{table}
+
+        As mentioned above, it is clear the computation of the short versions is much faster, even though the size of the tableau stayed about the same (as expected).
+        This mostly shows that the overhead of checking the model with the formula takes significant time of the actual computation. Additionally, The number of SCC
+        in the product model stays exactly the same between the two versions of formulas. This is because, as established before, the tableau structure stays the same,
+        even after using the extended form.
+
         \begin
 
 \section{Further Work}
+
+    We were surprised by that result - we expected the computation time to be about the same on the simplified. By our analysis this is caused mostly becuase the 
+    model building procedure has a significant amount of overhead that is reduced when the formula is less complicated. We tried to reduce that overhead using profiling
+    and improving the points of failure in our implementation, without any significant improvements. This is also iteresting because it raises the question how else can we 
+    improve the computation so that the LTL model checking is faster. On the other hand, we have established (again) that the LTL model checking is exponential with the size of the model, and that would stay the same, no matter what we find.
 
 \pagebreak
 \bibliographystyle{plain}
