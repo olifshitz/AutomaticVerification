@@ -1,0 +1,9 @@
+
+C:\Users\User\python\AutomaticVerification\LTL2CTL>c:\Users\User\AppData\Local\Programs\Python\Python35-32\python.exe proc_model.py 4 0 
+Starting Test : Liveness : CTL
+Time: 1535802037.9102128
+Model generated
+Testing Formula: ~[[[_]|[~[_]]]U[~[[[[_]|[~[_]]]U[[~[w]]&[[s]|[o]]]]&[[[_]|[~[_]]]U[[~[w]]&[o]]]]]]
+BDD nodes before: 1506
+Test : CTL : [9, 129, 2049, 32769]
+Time: 1535812999.3678656

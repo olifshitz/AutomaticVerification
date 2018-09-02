@@ -1,0 +1,28 @@
+
+C:\Users\User\python\AutomaticVerification\LTL2CTL>c:\Users\User\AppData\Local\Programs\Python\Python35-32\python.exe proc_model.py 1 4 * 
+Starting Test : Starvation : LTL
+Time: 1535858180.0452855
+Model generated
+Testing Formula: ~[[[_]|[~[_]]]U[~[[~[[o]&[w]]]|[[[_]|[~[_]]]U[[o]&[~[w]]]]]]]
+BDD nodes before: 80
+BDD nodes tableau: 251
+Starting SCC decomposition (1535858180.311151)
+Found an SCC 1 (1535858240.5826862)
+Found an SCC 2 (1535858240.8475351)
+Found an SCC 3 (1535858241.1033678)
+Found an SCC 4 (1535858241.446193)
+Found an SCC 5 (1535858288.785102)
+Found an SCC 6 (1535858289.1679032)
+Found an SCC 7 (1535858292.2051666)
+Found an SCC 8 (1535858292.4280393)
+Found an SCC 9 (1535858325.7679756)
+Found an SCC 10 (1535858325.9848504)
+Found an SCC 11 (1535858326.4375916)
+Found an SCC 12 (1535858326.8733423)
+Found an SCC 13 (1535858327.2051525)
+Found an SCC 14 (1535858327.426026)
+Found an SCC 15 (1535858399.8545916)
+Found an SCC 16 (1535858400.1374316)
+Found an SCC 17 (1535858432.5938885)
+Test : LTL : True
+Time: 1535858615.1335077
