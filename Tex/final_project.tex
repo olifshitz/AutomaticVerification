@@ -955,15 +955,19 @@ Symbolic Model Checker}}
         present the product of the formula tableau and the model with $n$ processors. Table 2 shows the computation time needed to check the formulas with
         the model of 1 and 2 processors.
 
+        Another point to notice is that the size of the model (and the size of the final product as a result) does not grow exonentially perfect. This is because
+        the size of the model is exactly $|Single\ processor\ model|^n$, as after the product processing we lose most of the nodes, as there should be one and
+        only master at each state consider in the multiple processors model.
+
         \begin{figure}
             \begin{tikzpicture}
                 \begin{semilogyaxis}[
                     title={Size of product model helper BDD},
                     xlabel={\# of processors},
                     ylabel={seconds},
-                    xmin=1, xmax=4,
+                    xmin=1, xmax=5,
                     ymin=0, ymax=100000,
-                    xtick={1,2,3,4},
+                    xtick={1,2,3,5},
                     ytick={0,1,10,100,1000,10000, 100000},
                     legend pos=north west,
                     ymajorgrids=true,
@@ -975,7 +979,7 @@ Symbolic Model Checker}}
                     mark=square,
                     ]
                     coordinates {
-                    (1,201)(2,1777)(3,4631)(4,7554)
+                    (1,201)(2,1777)(3,4631)(4,7554)(5,10457)
                     };
                     \addlegendentry{Safety}
                 \addplot[
@@ -983,7 +987,7 @@ Symbolic Model Checker}}
                     mark=square,
                     ]
                     coordinates {
-                    (1,268)(2,1847)(3,4687)(4,7601)
+                    (1,268)(2,1847)(3,4687)(4,7601)(5,10512)
                     };
                     \addlegendentry{Starvation}
                 \end{semilogyaxis}
@@ -993,9 +997,9 @@ Symbolic Model Checker}}
                     title={Size of original model helper BDD},
                     xlabel={\# of processors},
                     ylabel={Size of BDD},
-                    xmin=1, xmax=4,
+                    xmin=1, xmax=5,
                     ymin=0, ymax=10000,
-                    xtick={1,2,3,4,100},
+                    xtick={1,2,3,4,5},
                     ytick={0,1,10,100,1000,10000},
                     legend pos=north west,
                     ymajorgrids=true,
@@ -1007,7 +1011,7 @@ Symbolic Model Checker}}
                     mark=square,
                     ]
                     coordinates {
-                    (1,80)(2,390)(3,1031)(4,1672)
+                    (1,80)(2,390)(3,1031)(4,1672)(5,2313)
                     };                    
                 \end{semilogyaxis}
             \end{tikzpicture}         
@@ -1053,7 +1057,6 @@ Symbolic Model Checker}}
     and improving the points of failure in our implementation, without any significant improvements. This is also iteresting because it raises the question how else can we 
     improve the computation so that the LTL model checking is faster. On the other hand, we have established (again) that the LTL model checking is exponential with the size of the model, and that would stay the same, no matter what we find.
 
-\pagebreak
 \bibliographystyle{plain}
 \bibliography{final_project}
 
