@@ -1,20 +1,19 @@
 \BOOKMARK [1][-]{section.1}{Abstract}{}% 1
 \BOOKMARK [1][-]{section.2}{Introduction}{}% 2
 \BOOKMARK [1][-]{section.3}{CTL and LTL Model Checking}{}% 3
-\BOOKMARK [2][-]{subsection.3.1}{CTL*, LTL and CTL}{section.3}% 4
-\BOOKMARK [2][-]{subsection.3.2}{Symbolic CTL Model Checking}{section.3}% 5
-\BOOKMARK [2][-]{subsection.3.3}{LTL Model Checking Using Tableaus}{section.3}% 6
-\BOOKMARK [1][-]{section.4}{Implementation}{}% 7
-\BOOKMARK [2][-]{subsection.4.1}{Logical model parsing}{section.4}% 8
-\BOOKMARK [2][-]{subsection.4.2}{Tableau construction}{section.4}% 9
-\BOOKMARK [2][-]{subsection.4.3}{Product structure construction}{section.4}% 10
-\BOOKMARK [2][-]{subsection.4.4}{Finding maximal SCCs}{section.4}% 11
-\BOOKMARK [2][-]{subsection.4.5}{Finding fair paths}{section.4}% 12
-\BOOKMARK [2][-]{subsection.4.6}{CTL model checking}{section.4}% 13
-\BOOKMARK [1][-]{section.5}{Extending the Tableau defintion}{}% 14
-\BOOKMARK [1][-]{section.6}{Experiments and Results}{}% 15
-\BOOKMARK [2][-]{subsection.6.1}{Read-Write Resource Agreement}{section.6}% 16
-\BOOKMARK [2][-]{subsection.6.2}{Testing the single processor}{section.6}% 17
-\BOOKMARK [2][-]{subsection.6.3}{Testing multiple processors}{section.6}% 18
-\BOOKMARK [2][-]{subsection.6.4}{Testing the LTL model checker}{section.6}% 19
-\BOOKMARK [1][-]{section.7}{Further Work}{}% 20
+\BOOKMARK [2][-]{subsection.3.1}{Symbolic CTL Model Checking}{section.3}% 4
+\BOOKMARK [2][-]{subsection.3.2}{LTL Model Checking Using Tableaus}{section.3}% 5
+\BOOKMARK [1][-]{section.4}{Implementation}{}% 6
+\BOOKMARK [2][-]{subsection.4.1}{Logical model parsing}{section.4}% 7
+\BOOKMARK [2][-]{subsection.4.2}{Tableau construction}{section.4}% 8
+\BOOKMARK [2][-]{subsection.4.3}{Product structure construction}{section.4}% 9
+\BOOKMARK [2][-]{subsection.4.4}{Finding maximal SCCs}{section.4}% 10
+\BOOKMARK [2][-]{subsection.4.5}{Finding fair paths}{section.4}% 11
+\BOOKMARK [2][-]{subsection.4.6}{CTL model checking}{section.4}% 12
+\BOOKMARK [1][-]{section.5}{Extending the Tableau defintion}{}% 13
+\BOOKMARK [1][-]{section.6}{Experiments and Results}{}% 14
+\BOOKMARK [2][-]{subsection.6.1}{Read-Write Resource Agreement}{section.6}% 15
+\BOOKMARK [2][-]{subsection.6.2}{Testing the single processor}{section.6}% 16
+\BOOKMARK [2][-]{subsection.6.3}{Testing multiple processors}{section.6}% 17
+\BOOKMARK [2][-]{subsection.6.4}{Testing the LTL model checker}{section.6}% 18
+\BOOKMARK [1][-]{section.7}{Further Work}{}% 19

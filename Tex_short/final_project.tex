@@ -159,229 +159,16 @@ Symbolic Model Checker}}
 
 \section{CTL and LTL Model Checking}
 
-   \subsection{CTL*, LTL and CTL}
-        Let us begin by describing the temporal logic CTL*, and from there continue
-        to describe both Computation Tree Logic (CTL) and Linear Temporal Logic(LTL).
-        CTL* contains two types of formulae: state formulae which hold for specific
-        states and path formulae which hold along a specific path. State formulae
-        are given by the following rules \cite{ltl}:
-        \begin{itemize}
-            \item
-                If $p \in AP$ (Atomic propositions) then $p$ is a state formula.
-
-            \item
-                If $f,\; g$ are state formulae then $\neg f, f \vee g$ are state formulae.
-
-            \item
-                If $f$ is a path formula, then $Ef$ ("for some computation path")
-                is a state formula.
-        \end{itemize}
-
-        Path formulae are defined by the following rules:
-        \begin{itemize}
-            \item
-                If $f$ is a state formula, it is also a path formula.
-
-            \item
-                If $f,\; g$ are path formulae then $\neg f,\; f \vee g, \; Xf$ and 
-                $fUg$ are also path formulae.
-
-            \item
-                If $f$ is a path formula, then $Ef$ ("for some computation path")
-                is a state formula.
-        \end{itemize}
-        
-        Let $M = (S,R,L)$ be a Kripke structure where $S$ is the set of states, $R$
-        is the transition relation (we assume there is a total transition relation)
-        and $L$ be the labeling function.
-
-        \begin{definition}
-            A path in Kripke structure $M$ is an infinite sequence of states 
-            $\pi = s_0,s_1,\dots$ such that for every $i\geq 0$, 
-            $(s_i, s_{i+1})\in R$.
-        \end{definition}
-
-        The notation $M, s \models f$ is used to state that $f$ holds for state
-        $s$ in the Kripke structure $M$, and similarly for $M, \pi \models f$ for
-        path $\pi$ in $M$.
-
-        \begin{definition}
-            Let $f_1, f_2$ be state formulae and $g_1, g_2$ path formulae. 
-            The relation $\models$ is defined recursively as follows:
-            \begin{eqnarray}
-                M,s \models p &\iff & p\in L(s) \\
-                M,s \models \neg f_1 &\iff &M,s \not\models f_1 \\
-                M,s \models f_1 \vee f_2 &\iff & M,s \models f_1 \text{or} M,s \models f_2 \\
-                M,s \models Eg_1 &\iff &\text{there is a path $\pi$ starting at $s$ such
-                that $M, \pi \models g_1$}\\
-                M, \pi \models f_1 &\iff & s \text{ is the first state of $\pi$ and }
-                M,s \models f_1 \\
-                M, \pi \models \neg g_1 &\iff &M,\pi \not\models g_1\\
-                M,\pi \models g_1 \vee g_2 &\iff & M,\pi \models g_1 \text{ or } M,\pi \models g_2 \\
-                M, \pi \models Xg_1 &\iff &M,\pi^1 \models g_1\\
-                M,\pi \models g_1Ug_2 &\iff &\exists k\geq 0\; s.t.\; M,\pi^k\models g_2\;
-                \text{ and } \forall 0\leq j\leq k\; M,\pi^j \models g_1
-            \end{eqnarray}
-        \end{definition}
-
-        \begin{definition}
-            CTL is the subset of CTL* obtained by specifying the path formulae using
-            the following rules\cite{ltl}:
-            \begin{itemize}
-                \item
-                    If $f,\;g$ are state formulae, then $Xf$ and $fUg$ are path
-                    formulae.
-                \item
-                    If $f$ is a path formulae, then so is $\neg f$.
-            \end{itemize}
-        \end{definition}
-
-        From the definition we can see that CTL is a subset of CTL* that only permits
-        branching operators. Therefore, in this new logic, all linear-time operators
-        can only appear if they are immediately preceded by path quantifiers.
-
-        \begin{definition}
-            LTL is a subset of CTL restricted to all formulae of the form $Af$ where
-            $f$ is a path formula in which the only state sub-formulae are atomic
-            propositions\cite{ltl}.
-            More precisely, path formulae here are defined in the following recursive
-            manner:
-            \begin{itemize}
-                \item
-                    An atomic proposition.
-                \item
-                    If $f,\; g$ are path formulae, then $\neg f,\; f\vee g,\;
-                    Xf$ and $fUg$ are also path formulae.
-            \end{itemize}
-        \end{definition}
+   Definition of CTL* logic syntax and the subclasses of LTL and CTL can be found in the class notes and \cite{ltl}
 
 
     \subsection{Symbolic CTL Model Checking}
-        Let us first begin by describing the usage of reduced, ordered 
-        binary decision diagrams (ROBDDs). The names BDD
-        (binary decision diagrams) and ROBDDs will be used iterchangealy
-        throughout the paper. BDDs are a canonical form representation of
+        The entire implementation of our project is based on the usage of reduced, ordered 
+        binary decision diagrams (ROBDDs). BDDs are a canonical form representation of
         boolean formulas\cite{bdd}.
 
-        BDDs are very similar to binary decision trees and hold the following
-        properties:
-        \begin{itemize}
-            \item 
-                The BDDs are directed acyclic graphs (DAG) rather than tree
-                trees.
-            \item
-                There is a total order on the occurence of the variables in the
-                BDD when transversing the diagram from the root to the leaf.
-
-            \item
-                Each subgraph represents a unique boolean formula.
-            
-            \item
-                The BDD representation of a boolean formula is unique given
-                a certain variable ordering.
-        \end{itemize}
-
-        BDDs are very efficient in boolean function representation and can be
-        easily manipulated and thus can be very useful in model checking.
-
-        The objective of CTL model checking is to find the set of states in a
-        given model for which a CTL formula holds. Symbolic CTL model checking
-        uses BDDs in order to represent the states int he model and its transitions.
-        That is, the transition relation in the Kripke structure is given by
-        a boolean formula $R(v,v')$ representing if there is a relation from the
-        set of state $v$ to the set of states $v'$. For each subformula, the 
-        algorithm computes the states satisfying it in a bottom up manner and returns
-        a BDD that represents the relevant states.
-
-
     \subsection{LTL Model Checking Using Tableaus}
-        As taught in class, and also shown in \cite{ltl}, we can use tableaus in
-        order to perform LTL model checking. In this section we present the
-        construction of the tableau and how to use in order to create the product
-        model. We also explain how the product model can be used in order to 
-        find every path that satisfies $f$ in formula $Ef$ givne model $M$.
-
-        Let us begin by describing the tableau. Let $AP$ be the set of atomic
-        propositions in formula $f$. We define the set of elementary formulae
-        in the following inductive manner:
-        \begin{itemize}
-            \item 
-                $el(p) = \left\{p\right\}$ if $p\in AP$
-
-            \item
-                $el(\neg g) = el(g)$
-
-            \item 
-                $el(g\vee h) = el(g) \cup el(h)$
-
-            \item 
-                $el(\mathbf{X}g) = \left\{\mathbf{X}g\right\} \cup el(g)$
-
-            \item 
-                $el(gUh) = \left\{X(gUh)\right\} \cup el(g) \cup el(h)$
-        \end{itemize}
-
-        From the elementary formulae defined above, we create the states of the
-        tableau by looking at the states $2^{el(f)}$. The labeling function for
-        the tableau gives each state the atomic propositions found in the 
-        elementary formulae that makes up the state.
-
-        We also define the set $sat(g)$ for each subformula $g$ to be the set of
-        states that satisfy $g$. The set is defined in the following inductive
-        manner:
-        \begin{itemize}
-            \item 
-                $sat(g) = \left\{\sigma \; |\; g\in \sigma\right\}$ where
-                $g \in el(f)$
-
-            \item 
-                $sat(\neg g) = \left\{\sigma \;|\; \sigma \not\in sat(g)\right\}$
-
-            \item
-                $sat(g\vee h) = sat(g) \cup sat(h)$
-
-            \item
-                $sat(g U h) = sat(h) \cup (sat(g) \cap sat(X(gUh)))$
-        \end{itemize}
-
-        The transition relation of the tableau is given by the following formula:
-        \[
-            R_T(\sigma, \sigma') = \underset{Xg\in el(g)}{\bigwedge}
-                \sigma\in sat(Xg) \iff \sigma' \in sat(g)
-        \]
-
-        The transition relation above does not guarantee that the eventually
-        property holds; for example in the case of the subformula $aUb$ - the
-        transition relation leading to a path where $a$ always holds and $b$ is
-        never reached is also valid. 
-        
-        In order to overcome this problem we need to add more conditions on the
-        paths accepted by the tableau. We do this by adding the fairness 
-        constraint matching the eventually property described above. 
-        That is, for every subformula $gUh$, we add the fairness constraint
-        \[
-            \left\{sat(\neg(gUh)\vee h \;|\; gUh in f \right\}
-        \]
-
-        This concludes the construction of the tableau; we now move to describing
-        the product model created from the tableau above, $T$ and the original 
-        model $M$. The product is defined as the following Kripke structure:
-        \begin{itemize}
-            \item
-                $S = \left\{(\sigma, \sigma')\;|\; \sigma \in S_T, \sigma' \in S_M
-                \text{ and } L_M(\sigma')\cap AP = L_T(\sigma) \right\}$ 
-            
-            \item
-                $R((\sigma, \sigma'), (\tau, \tau'))$ iff $R_T(\sigma, \tau)$
-                and $R_M(\sigma', \tau')$
-
-            \item
-                $L((\sigma, \sigma')) = L_T(\sigma)$
-        \end{itemize}
-
-        Finally, all that is left to do is apply CTL model checking to the product
-        to find the set of states that satisfy $EGtrue$ under the fairness
-        constraints described above.
+        The theoretical definition and explanation of LTL model checking using tableaus is found at the class notes and \cite{ltl}
 
 \section{Implementation}
     In our project we implemented a symbolic CTL and LTL model cheker in python 
@@ -473,112 +260,10 @@ Symbolic Model Checker}}
         product structure, we need to find a strongly connected component (SCC)
         that is reachable from the initial state and that intersects with
         each one of the fairness constraints.
+
+        In out project we used a symbolic algorithm for finding SCCs in a graph, taken from
+        \cite{scc}. A detailed explanation of this algorithm can be found at that article.
         
-        In this section we will present the algorithm use to find the SCCs in
-        a given model using BDDs. Our algorithm is based the algorithm explained
-        in \cite{scc}. The algorithm presented in the paper, and implemented in
-        our project uses reachability analysis in order to find the set of SCCs
-        in a graph. This idea will also be useful late when we analyse the number
-        of reachable states in our product structure.
-
-        We first begin by creating two very crucial methods allowing use to find
-        the successor and predecessor states of a set of states in the graph when
-        searching for them int a given bound. These two methods are presented 
-        below.
-
-        \begin{multicols}{2}
-        \begin{algorithm}[H]
-            \caption{Predecessor}\label{predecessor}
-            \Procedure{Predecessor}{base, bound, relation, other\_compose}
-                \State result = ignore\_prims(relation \& base.compose(other\_compose), other\_compose.values())
-                \State \textbf{return} result & bound
-            \EndProcedure
-        \end{algorithm}
-        \begin{algorithm}[H]
-            \caption{Successor}\label{successor}
-            \Procedure{Successor}{base, bound, relation, other\_compose}
-                \State result = ignore\_prims(relation \& base, other\_compose.values()).compose(other\_compose)
-                \State \textbf{return} result & bound
-            \EndProcedure
-        \end{algorithm}
-        \end{multicols}
-
-        Next, use reachability analysis in order to find the backward\_set
-        and forward\_set of each node in the graph. The backward\_set is 
-        the set of all states in the graph from which we have a path that
-        reaches our desired and node. The forward\_set is defined in a similar
-        manner and contains all the nodes to which there exists a path from
-        the specified base node.
-
-        Besides the forward and backward sets described above, the algorithm
-        also introduces finite maximal distance (FMD) predecessors. These
-        predecessors to a given node which can traverse through a finite
-        distance path on the way to the node. These FMDs are used in order
-        to find SCCs, as each FMD predecessor is not part of an SCC
-        connected the node that it is a predecessor to. Below we present
-        the algorithm found in \cite{scc} which we used in order to find
-        all SCCs in the graph.
-
-        \begin{algorithm}[H]
-            \caption{SCC Decomposition}\label{scc}
-            \Procedure{SCC\_Decomp}{N,V}
-                \State $V' \gets V$
-
-                \While {$V' \neq 0$}
-                    \State $v \gets random\_take(V')$
-                    \State $B(v) \gets backward_set(v, V', N)$
-                    \State $SCC\_DECOMP\_RECUR(v, B(v), N)$
-                    \State $V' \gets V' \wedge \overline{v \vee B(v)}$
-                \EndWhile
-            \EndProcedure
-        \end{algorithm}
-
-        \begin{algorithm}[H]
-            \caption{Finite maximum distance predecessors}\label{fmd}
-            \Procedure{FMD\_Pred}{W, U, N}
-                \State $pred \gets 0$
-                \State $front \gets W$
-                \State $bound \gets U$
-                
-                \While{$front \neq 0$}
-                    \State $x \gets \exists_Y front(Y)\wedge N(X, Y) \wedge bound(X)$
-                    \State $y \gets \exists_Y bount(Y)\wedge N(X, Y) \wedge bound(X)$
-                    \State $front \gets x \wedge \overline{y}$
-                    \State $pred \gets pred \vee front$
-                    \State $bount \gets bounts \wedge \overline{front}$
-                \EndWhile
-
-                \State \textbf{return} $pred$
-            \EndProcedure
-        \end{algorithm}
-
-        \begin{algorithm}[H]
-            \caption{Recursive method to find SCCs}\label{recursiveSCC}
-            \Procedure{SCC\_Decomp\_Recur}{v, B(v), N}
-                \State $F(v) \gets forward\_set(v, B(v), N)$
-                \If{$F(v) \neq 0$}
-                    \State \textbf{report} $F(v)$ an SCC
-                \Else
-                    \State \textbf{report} $v$ non- SCC
-                \EndIf
-
-                \State $x \gets F(v) \vee v$
-                \State $R \gets B(v) \wedge \overline{x}$
-                \State $y \gets \text{FMD\_PRED}(x, R, N)$
-                \State \textbf{report} $y$ non-SCC
-                \State $R \gets R \wedge \overline{y}$
-                \State $IP \gets \exists_Y (y\vee x)(Y)\wedge N(X,Y) \wedge R(X)$
-                
-                \While{$R \neq 0$}
-                    \State $v \gets random\_take(IP)$
-                    \State $B(v) \gets backward\_set(v, R, N)$
-                    \State $SCC\_DECOMP\_RECURE(v, B(v), N)$
-                    \State $R \gets R \wedge \overline{v \vee B(v)}$
-                    \State $IP \gets IP \wedge \overline {v \vee B(v)}$
-
-            \EndProcedure
-        \end{algorithm}
-
     \subsection{Finding fair paths}
         As explained in the previous section, in order to check the model, we
         need to assert that there is a fair path in the product. In order to do 
@@ -648,26 +333,10 @@ Symbolic Model Checker}}
 
 \section{Experiments and Results}
     \subsection{Read-Write Resource Agreement}
-        We decided to test our implementation on a read-write resource handling model. In
-        this model we have $n$ processors all trying to access a read-write resource $K$. The
-        conflict is that only when a processor is writing to $K$ all other cannot write or read
-        from it (as they would read an illegal value). If no processor needs a write privileges, 
-        every processor can read from $K$.
-
-        The protocol we are testing allows the processor notify each other when they want to escalate
-        their privilege (read to write or no access to read/write). This is necessary so that when such
-        an event happens, the processor with the write privilieges would have the chance to commit its 
-        changes before any other processor accesses the $K$.
-
-        In our model each processor is in one of the following state: shared, invalid or owned 
-        (denoted with $S$, $I$ and $O$). Shared state means it has only read privileges, owned 
-        means it has read and write privileges, and invalid means some other processor has . Orthogonally, 
-        each state can be $waiting$ or $snooping$.
-
-        When a processor is $waiting$ it means it actually have lower privileges then the state it remembers 
-        and it is currently waiting for another processor to forfeit their write privileges. When a
-        processor is $snooping$ it means it actually has owned privileges but some other processor is waiting 
-        to escalate their privileges and the current processor needs to forfeit their owned state.
+        We tested our model checker on a read-write resource management model with multiple processors.
+        Each processor is in in one of the next states at each time: $Owned$ for when it can write to the
+        resource, $Shared$ for when it can only read from the resource, and $Invalid$ for when the resource
+        is not accessible for it. A processor can also be $waiting$, $snooping$ or none of those.
 
         The protocol we test assume all processors can send messages to each other processor, only one
         processor can send a message each time, and all processor get the messages in the order they were sent.
@@ -853,7 +522,7 @@ Symbolic Model Checker}}
         Figure 3 demonstartes how the size of the model (number of processors running) impacts on the the size of the
         problem (obviously) and thus takes much longer to solver using the simple CTL model cheker. The graph is drawn
         with log axis, as we expect the size of the model to increas exponentially with the number of processes in the model.
-        Notice that the complexity of the formula does not impact the 
+        Notice that the complexity of the formula does not impact the running duration of the CTL model checker.
 
         \begin{figure}
             \begin{tikzpicture}
