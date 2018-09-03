@@ -1,9 +1,0 @@
-
-C:\Users\User\python\AutomaticVerification\LTL2CTL>c:\Users\User\AppData\Local\Programs\Python\Python35-32\python.exe proc_model.py 3 3 
-Starting Test : Starvation : CTL
-Time: 1535780317.502501
-Model generated
-Testing Formula: ~[[[_]|[~[_]]]U[~[[~[[o]&[w]]]|[~[G[~[[o]&[~[w]]]]]]]]]
-BDD nodes before: 944
-Test : CTL : [9, 129, 2049]
-Time: 1535781003.7340941
