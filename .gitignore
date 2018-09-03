@@ -1,5 +1,5 @@
 *.pyc
-/Tex/*.pdf
-/Tex/*.log
-/Tex/*.bbl
-/Tex/*.blg
+/Tex*/*.pdf
+/Tex*/*.log
+/Tex*/*.bbl
+/Tex*/*.blg
