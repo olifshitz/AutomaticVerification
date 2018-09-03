@@ -11,6 +11,7 @@ class LtlModelChecker():
         tableau = Tableau(formula, self._atomic_str)
         prod = tableau.product(self._model)
 
+        # return False
         return prod.has_fair_path(
             tableau.initial_states & init_states,
             tableau.fairness_constraints)
